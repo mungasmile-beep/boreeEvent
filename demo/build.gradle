@@ -23,6 +23,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     // developmentOnly 'org.springFramework.boot:spring-boot-devtools'
 
+    runtimeOnly 'org.postgresql:postgresql'
+
 }
 
 
