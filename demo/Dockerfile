@@ -1,3 +1,3 @@
-FROM eclipse-temurin:17-jdk-slim
+FROM docker.io/eclipse-temurin:17-jdk-slim
 COPY build/libs/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
