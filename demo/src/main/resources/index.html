@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bor e-event</title>
+<script src="/qrcode.min.js"></script>
+
+<style>
+    
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+  body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+  .header { background: rgba(150, 0, 62, 0.8); font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
+  .headerTout img { width: 50px; }
+  button:hover { background-color: #06ad00; color: rgb(255, 255, 255); box-shadow: 0 0 20px rgb(209, 209, 209); }
+  #login-view img { width: 80px; background-color: rgb(73, 0, 43); border-radius: 50%; padding: 10px; }
+  .headerTout { display: flex; justify-content: space-between; align-items: center; text-align: center; }
+  .nav { display: flex; justify-content: end; gap: 20px; list-style: none; font-size: 12px; color: white; margin: 0; padding: 0; }
+  .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
+  .nav li:hover { background-color: white; color: rgb(73, 0, 43); }
+  .top-page { background-color: rgb(240, 240, 240); height: 100%; margin: 0; text-align: center; padding: 20px; }
+  .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
+  .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
+  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; }
+  #manage-couple, #Organiser { padding: 50px; text-align: center; justify-content: center; align-items: center; margin: 40px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
+  input { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; }
+  select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; }
+  button { cursor: pointer; border: none; background-color: rgba(150, 0, 62, 0.8); color: white; padding: 10px; border-radius: 10px; margin: 5px; }
+  .hidden { display: none !important; }
+  .del-btn { background: #d32f2f; font-size: 0.8em; }
+  #guest-view img { margin: 0; width: 100%; }
+  select:focus { width: 100px; background-color: white; color: rgb(0, 115, 223); }
+  option { background: rgb(0, 115, 223); color: white; }
+  #welcome-title { font-size: 50px; font-family: "Brush Script MT", "Segoe Script", cursive; animation: nom 2s infinite; transition: 2s; color: #d32f2f; text-align: center; }
+  @keyframes nom { from { transform: translateY(10px); } to { transform: translateY(-10px); } }
+  .drink-info { font-size: 11px; color: #555; margin-top: 5px; font-style: italic; }
+  .paragTout { color: rgb(56, 0, 33); text-align: center; margin: 60px; }
+  .boisson { margin: 60px; border-radius: 23px; padding: 60px; text-align: center; background-color: white; box-shadow: 0 0 10px rgb(199, 199, 199); }
+  #effet-ecriture, #parag { font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; }
+  .paragTout i { text-align: center; animation: icone 1s infinite; transition: 2s; }
+  @keyframes icone { from { transform: translateY(0px); } to { transform: translateY(-50px); } }
+  #AjoutInvit { background-color: #06ad00; padding: 10px; border-radius: 20px; color: white; }
+  #invit, #table, .backContainer, .photo2, .monte { opacity: 0; width: 100%; overflow: hidden; animation: fond 0.53s ease-in forwards; }
+  .backContainer, .photo2, .monte { animation-duration: 2s; }
+  @keyframes fond { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  #AjoutInvit:hover { background-color: #850037; }
+  #confirm-step { text-align: center; font-style: italic; font-family: 'Times New Roman', Times, serif; }
+  .typewriter { overflow: hidden; border-right: .15em solid orange; white-space: nowrap; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
+  @keyframes typing { from { width: 0; opacity: 0; } to { width: 100%; opacity: 1; } }
+  @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: orange } }
+  .affiche { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
+  .visible { opacity: 1; transform: translateY(0); }
+  .container-images { position: relative; display: inline-block; overflow: hidden; width: 100%; }
+  .container-images .fond { display: block; width: 100%; }
+  .container-images .fleur, .container-images #fleur2 { position: absolute; top: 20px; width: 80px !important; z-index: 10; animation: chuteFleur 5s linear infinite; }
+  .container-images .fleur { left: 20px; }
+  .container-images #fleur2 { right: 20px; }
+  #download-section{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #75e1ff;
+    padding: 30px;
+    margin: 40px;
+    border-radius: 23px;
+  }
+  #blocInvitation { 
+            text-align: center; 
+            padding: 20px; 
+            border: 2px solid #96003e; 
+            margin: 20px auto; 
+            max-width: 300px;
+            font-family: Arial, sans-serif;
+        }
+        #qrcode { margin: 15px 0; }
+  @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- VUE LOGIN ADMIN -->
+  <div id="login-view">
+    <img src="img/logo.png" alt="Logo">
+    <h1>Bienvenue chers admin</h1>
+    <input type="password" id="pass" placeholder="Code Administrateur">
+    <button onclick="checkAdmin()">Se Connecter</button>
+    <p id="erreurCode" style="color: rgb(110, 0, 46); display: none;">Invalide, veuillez réessayer</p>
+  </div>
+
+  <!-- VUE INVITÉ -->
+  <div id="guest-view" class="hidden">
+    <audio id="maMusique" loop>
+      <source src="img/wedding.mp3" type="audio/mp3">
+      Votre navigateur ne supporte pas l'élément audio.
+    </audio>
+    <div class="container-images">
+      <img src="img/backgroudcopie.jpg" alt="image fond" class="fond">
+      <img src="img/fleur.png" alt="image fleur" class="fleur">
+      <img src="img/fleur.png" alt="image fleur" id="fleur2">
+    </div>
+    <h2 class="welcome-title" id="welcome-title"></h2>
+    <div class="paragTout">
+      <i class="fas fa-arrow-up"></i>
+      <p id="invit" style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-weight: 700; font-size: 24px;"></p>
+      <p id="table" style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-weight: 700; font-size: 24px;"></p>
+      <p id="effet-ecriture"></p>
+      <img class="photo2" src="img/REGARD.png" alt="" style="animation-delay: 3.5s;">
+      <p id="effet-texte" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; animation-delay: 16s;"></p>
+      <p class="backContainer" id="parag" style="animation-delay: 11s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce dimanche 12 juillet 2026 </b></p>
+    </div>
+    <p class="monte" id="parag" style="animation-delay: 16s;">En témoins du grand amour <br> devenu vie commune.</p>
+    
+    <div class="adresse" style="gap: 70px;">
+      <div class="eglise" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
+        <img src="img/eglise.png" alt="" style="width: 60px;">
+        <p class="affiche"><b>10h00</b> <br> bénédiction nuptiale <br> Église Adventiste de Lubumbashi 3, <br> référence Square Forest </p>
+      </div>
+      <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
+      <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
+        <img src="img/salle.png" alt="" style="width: 60px;">
+        <p class="affiche"><b>18h00</b><br> Soirée dansante <br> à la salle IRMA <br> 11, route du Golf,<br> en diagonale de l'hôtel Pullman<br> ex Karavia <br> <b>19H30: </b></p>
+      </div>
+    </div>
+
+    <div id="confirm-step">
+      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
+      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
+      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
+    </div>
+
+    <div id="drink-step" class="hidden">
+      <div class="boisson">
+        <h3>Choisissez vos boissons</h3>
+        <label>Whisky :</label>
+        <select id="whisky">
+          <option>Aucun</option>
+          <option>Jack Daniel's</option>
+          <option>Chivas</option>
+          <option>Harrier</option>
+          <option>Reserve 7</option>
+        </select><br>
+        <label>Bière : </label>
+        <select id="biere">
+          <option>Aucun</option>
+          <option>Heineken</option>
+          <option>Simba</option>
+          <option>Chui</option>
+          <option>33 Export</option>
+        </select><br>
+        <label>Sans alcool :</label>
+        <select id="SansAlcool">
+          <option>De l'eau</option>
+          <option>coca</option>
+          <option>Fanta</option>
+        </select><br>
+        <button style="background-color: rgb(0, 115, 223);" onclick="saveDrinks()">Confirmer Choix</button>
+      </div>
+    </div>
+
+ <!-- Section affichée après la confirmation des boissons -->
+<div id="blocInvitation" class="hidden">
+    <h2>Invitation de Mariage</h2>
+    
+    <h3 id="nomMaries"></h3>
+    
+    <div id="qrcode"></div>
+    
+    <p id="nomInvite"></p>
+    <p id="nomTable"></p>
+    
+    <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
+</div>
+<div id="download-section" class="hidden">
+      <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
+
+    <button onclick="telechargerQR()">Télécharger mon invitation</button>
+</div>
+
+    <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
+      <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
+      <p>Contactez-nous au : <b>+243 990 556 956</b></p>
+    </section>
+  </div>
+
+  <!-- VUE ESPACE PANNEAU ADMIN -->
+  <div id="admin-view" class="hidden">
+    <header class="header">
+      <div class="headerTout">
+        <img src="img/logo.png" alt="Logo">
+        <nav class="nav">
+          <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
+          <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> New Wedding</li>
+        </nav>
+      </div>
+    </header>
+
+    <section id="section-home" class="top-page">
+      <h1>Liste des Mariages</h1>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="cursor:pointer">
+      <div id="couples-list" class="grid"></div>
+    </section>
+
+    <section class="hidden" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: #ffffff; box-shadow: 0 0 10px rgb(206, 206, 206); margin-top: 50px; border-radius: 23px;" id="VoirPhoto">
+      <button onclick="showSection('section-home')" style="color: #ffffff; font-size: 20px; margin-top: 10px;"><i class="fas fa-arrow-left"></i></button>
+      <div id="ApercPhoto" class="grid"></div>
+      <div style="padding: 23px 50px;" id="Aperc" class="grid"></div>
+    </section>
+
+    <section class="hidden" id="Organiser">
+      <h1 style="color: rgb(97, 0, 40);">Enregistrer un couple</h1>
+      <h3 style="font-style: italic; font-size: 10px; color: red;">Veuillez écrire en minuscule !!!</h3>
+      <label style="color: gray;">Nom du couple</label> 
+      <input type="text" id="coupleName" placeholder="Ex: Smile et Ornella"> <br>
+      <label style="color: gray;">Entrez la date de l'événement</label> <br>
+      <input type="date" id="datemariage"> <br>
+      <label style="color: gray;">Entrez une photo</label> <br>
+      <input type="file" id="photo"><br>
+      <button onclick="addCouple()">+ Créer Mariage</button>
+    </section>
+
+    <section id="manage-couple" class="hidden" style="margin-top: 70px;">
+      <button onclick="showSection('section-home')" style="color: #ffffff; font-size: 20px;"><i class="fas fa-arrow-left"></i></button>
+      <h2 id="couple-title"></h2>
+      <div class="aj" style="background-color: #fda2bd; padding: 10px; border-radius: 23px;">
+        <h3 style="color: rgb(112, 112, 112);">Enregistrer un invité</h3>
+        <label style="color: rgb(112, 112, 112);">Nom :</label>
+        <input type="text" id="newGuestName" placeholder="Nom de l'invité">
+        <label style="color: rgb(112, 112, 112);">Table :</label>
+        <input type="email" id="newGuestEmail" placeholder="Nom de la table">
+        <label style="color: rgb(112, 112, 112);">Confirmer la table :</label>
+        <input type="text" id="TableGuestName" placeholder="Nom de la table confirmation"> 
+        <button type="button" onclick="addGuest(); return false;">Ajouter invité</button> 
+      </div>
+      <br><br>
+      <input type="text" id="searchGuest" placeholder="Rechercher invité ..." onkeyup="renderGuests()"> <br><br>
+      <div id="guests-list" class="grid"></div>
+    </section>
+  </div>
+
+  <!-- SCRIPT COMPLET CORRIGÉ -->
+  <script>
+  // --- Initialisation ---
+  let db = []; 
+  let activeCoupleId = null;
+  let currentGuests = [];
+
+  // --- Logique Invité (Lien Unique Corrigée via API Directe) ---
+  const params = new URLSearchParams(window.location.search);
+  const gId = params.get('guestId');
+
+  function verifierInvite() {
+    if (!gId) return;
+    
+    // On requête directement le backend pour avoir les données fraîches de l'invité et de son couple
+    fetch('/api/guests/' + gId)
+      .then(response => {
+        if(!response.ok) throw new Error("Invité introuvable");
+        return response.json();
+      })
+      .then(g => {
+        const welcomeEl = document.getElementById('welcome-title');
+        const tableEl = document.getElementById('table');
+        const invitEl = document.getElementById('invit');
+        
+        // Extraction du nom du couple depuis l'objet imbriqué renvoyé par la jointure Hibernate
+        if(g.couple && welcomeEl) welcomeEl.innerText = " " + g.name;
+        if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non définie');
+        if(invitEl) invitEl.innerText = "" + g.name;
+        
+        window.currentGuest = g;
+        window.guestId = g.id;
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des détails de l'invité :", error);
+      });
+  }
+
+  // --- Chargement Initial de l'application ---
+  if (gId) {
+    // Si c'un invité, on masque le login directement et on charge son profil
+    document.getElementById('login-view').classList.add('hidden');
+    document.getElementById('guest-view').classList.remove('hidden');
+    
+    const audio = document.getElementById('maMusique');
+    const playMusic = () => {
+      audio.play().then(() => {
+        document.removeEventListener('click', playMusic);
+      }).catch(e => console.log("En attente d'interaction..."));
+    };
+    document.addEventListener('click', playMusic);
+    verifierInvite();
+  } else {
+    // Si pas de gId, on charge normalement pour l'admin
+    fetch('/api/couples')
+      .then(response => response.json())
+      .then(data => { db = Array.isArray(data) ? data : []; })
+      .catch(err => console.error(err));
+  }
+
+  // --- Gestion Administration ---
+  function checkAdmin() {
+    const CodeErreur = document.getElementById('erreurCode');
+    if (document.getElementById('pass').value === "02026") {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('admin-view').classList.remove('hidden');
+      loadCouples();
+    } else {
+      CodeErreur.style.display = "block";
+      setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
+    }
+  }
+
+  document.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' && !document.getElementById('login-view').classList.contains('hidden')) {
+      checkAdmin();
+    }
+  });
+
+  // --- Navigation ---
+  function showSection(id) {
+    document.getElementById('section-home').classList.add('hidden');
+    document.getElementById('Organiser').classList.add('hidden');
+    document.getElementById('manage-couple').classList.add('hidden');
+    document.getElementById('VoirPhoto').classList.add('hidden');
+    
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.remove('hidden');
+      target.style.display = 'block';
+      if (id === 'message') {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+  }
+
+  // --- Gestion Couples ---
+  function loadCouples() {
+    fetch('/api/couples')
+      .then(response => {
+        if(!response.ok) throw new Error("Page introuvable (404)");
+        return response.json();
+      })
+      .then(data => {
+        db = Array.isArray(data) ? data : [];
+        renderCouples();
+      })
+      .catch(error => {
+        console.error('Erreur chargement couples:', error);
+        db = []; 
+        renderCouples();
+      });
+  }
+
+  function addCouple() {
+    const name = document.getElementById('coupleName').value;
+    const datemariage = document.getElementById('datemariage').value;
+    const fileInput = document.getElementById('photo');
+    if (name === "" || datemariage === "" || fileInput.files.length === 0) {
+      alert("Veuillez remplir tous les champs");
+      return;
+    }
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const coupleData = { name: name, datemariage: datemariage, photo: e.target.result };
+      fetch('/api/couples', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(coupleData)
+      })
+      .then(response => {
+        if(!response.ok) throw new Error("Erreur lors de l'enregistrement");
+        alert("Couple enregistré !");
+        loadCouples();
+        showSection('section-home');
+      })
+      .catch(error => console.error('Erreur ajout couple:', error));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function delCouple(id) {
+    if(confirm("Supprimer ce mariage ?")) {
+      fetch(`/api/couples/${id}`, { method: 'DELETE' })
+        .then(() => loadCouples())
+        .catch(error => console.error('Erreur suppression:', error));
+    }
+  }
+
+  function renderCouples() {
+    const listContainer = document.getElementById('couples-list');
+    if (!listContainer) return;
+    if (!Array.isArray(db) || db.length === 0) {
+      listContainer.innerHTML = "<p>Aucun mariage trouvé ou erreur serveur.</p>";
+      return;
+    }
+    listContainer.innerHTML = db.map(c => `
+      <div class="card">
+        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
+          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
+        </div>
+        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
+        <h4 style="color:#666;">${c.datemariage || ''}</h4>
+        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
+      </div>
+    `).join('');
+  }
+
+  function rechercheCouple() {
+    const search = document.getElementById('RechCouple').value.toLowerCase();
+    const listContainer = document.getElementById('couples-list');
+    if (!listContainer) return;
+    const filtered = db.filter(c => c.name && c.name.toLowerCase().includes(search));
+    listContainer.innerHTML = filtered.map(c => `
+      <div class="card">
+        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
+          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
+        </div>
+        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
+        <h4 style="color:#666;">${c.datemariage || ''}</h4>
+        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
+      </div>
+    `).join('');
+  }
+
+  function ApercuePhoto(id) {
+    activeCoupleId = id;
+    const c = db.find(x => x.id === id);
+    const container = document.getElementById('ApercPhoto');
+    const titleEl = document.getElementById('Aperc');
+    if (c) {
+      if(titleEl) titleEl.innerText = "Couple " + c.name;
+      if(container) {
+        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; height: 100%; margin-left: auto;">`;
+        showSection('VoirPhoto');
+      }
+    }
+  }
+
+  function openCouple(id) {
+    activeCoupleId = parseInt(id); 
+    const c = db.find(x => parseInt(x.id) === activeCoupleId);
+    if(c) {
+      document.getElementById('couple-title').innerText = "Invités de " + c.name;
+      showSection('manage-couple');
+      loadGuests(activeCoupleId);
+    }
+  }
+
+  // --- Gestion Invités ---
+  function loadGuests(coupleId) {
+    fetch(`/api/guests?coupleId=${coupleId}`)
+      .then(response => {
+        if (!response.ok) throw new Error("Erreur lors de la récupération des invités");
+        return response.json();
+      })
+      .then(data => {
+        currentGuests = Array.isArray(data) ? data : []; 
+        renderGuests(); 
+      })
+      .catch(error => {
+        console.error('Erreur invités:', error);
+        currentGuests = [];
+        renderGuests();
+      });
+  }
+
+ function addGuest() {
+    if (!activeCoupleId) {
+        alert("Erreur : Aucun couple sélectionné.");
+        return;
+    }
+
+    const nameInput = document.getElementById('newGuestName');
+    const emailInput = document.getElementById('newGuestEmail');
+    const tableInput = document.getElementById('TableGuestName');
+
+    const nameValue = nameInput ? nameInput.value.trim() : "";
+    const emailValue = emailInput ? emailInput.value.trim() : "";
+    const tableValue = tableInput ? tableInput.value.trim() : "";
+
+    if (!nameValue) {
+        alert("Veuillez entrer un nom.");
+        return;
+    }
+
+    // On prépare l'objet avec les deux clés possibles pour être sûr de couvrir 
+    // les deux conventions (Java camelCase et SQL snake_case)
+    const guestData = { 
+        name: nameValue, 
+        email: emailValue, 
+        guestTable: tableValue, 
+        guest_table: tableValue, // Ajout de la clé alternative pour le backend
+        status: "En attente", 
+        drinkChoice: "Aucun", 
+        confirmed: false, 
+        couple: { id: parseInt(activeCoupleId) }
+    };
+
+    fetch('/api/guests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(guestData)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Erreur serveur lors de l'ajout");
+        return response.json();
+    })
+    .then(data => {
+        console.log("Invité ajouté avec succès :", data); // Debug pour vérifier ce qui est retourné
+        if(nameInput) nameInput.value = '';
+        if(emailInput) emailInput.value = '';
+        if(tableInput) tableInput.value = '';
+        loadGuests(activeCoupleId);
+    })
+    .catch(err => {
+        console.error("Erreur lors du fetch :", err);
+        loadGuests(activeCoupleId);
+    });
+}
+window.addGuest = addGuest;
+
+  function delGuest(id) {
+    if(confirm("Supprimer cet invité ?")) {
+      fetch(`/api/guests/${id}`, { method: 'DELETE' })
+        .then(() => loadGuests(activeCoupleId))
+        .catch(error => console.error('Erreur suppression invité :', error));
+    }
+  }
+
+function renderGuests() {
+    // 1. On récupère d'abord les données filtrées avant toute chose
+    const searchInput = document.getElementById('searchGuest');
+    const search = searchInput ? searchInput.value.toLowerCase() : "";
+    const filteredGuests = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
+    
+    // 2. Maintenant que filteredGuests existe, on peut loguer en toute sécurité
+    console.log("Données filtrées :", filteredGuests);
+    
+    const container = document.getElementById('guests-list');
+    if (!container) return;
+
+    if (currentGuests.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
+        return;
+    }
+    
+    container.innerHTML = filteredGuests.map(g => `
+      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: white;">
+        <strong>${g.name}</strong><br>
+        <small style="color: #666;">${g.email || 'Email non défini'}</small><br>
+        <small>Status: ${g.status || 'En attente'}</small><br><br>
+        <small style="background-color: #fda2bd; padding: 5px 10px; border-radius: 20px;">
+        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
+        <div class="drink-info"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
+        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
+        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
+      </div>
+    `).join('');
+}
+
+  function Arriveguest(btn) {
+    if (btn.style.backgroundColor === 'green') {
+      btn.style.backgroundColor = 'gray';
+    } else {
+      btn.style.backgroundColor = 'green';
+    }
+  }
+
+  function copyLink(id) {
+    const url = window.location.origin + window.location.pathname + "?guestId=" + id;
+    navigator.clipboard.writeText(url).then(() => {
+      alert("Lien copié !");
+    });
+  }
+
+  // --- Logique Confirmation Invité ---
+  // --- Logique Confirmation Invit (CORRIGÉE) ---  
+// Dans ton bloc <script> HTML
+function setPresence(present) {  
+    if(!window.currentGuest) return;  
+    const guestId = window.currentGuest.id;  
+    const status = present ? "Présent" : "Absent";  
+    
+    fetch(`http://localhost:8080/api/guests/${guestId}/status`, {  
+        method: 'PUT', // Changé en PUT pour correspondre au Controller
+        headers: { 'Content-Type': 'application/json' },  
+        body: JSON.stringify({ status: status })  
+    })  
+    .then(response => {  
+        if (response.ok) {
+            if (present) {  
+                document.getElementById('confirm-step').classList.add('hidden');  
+                document.getElementById('drink-step').classList.remove('hidden');  
+            } else {  
+                showSection('message');  
+            }  
+        } else {
+            alert("Erreur lors de l'enregistrement de votre choix.");
+        }
+    });  
+}
+  function saveDrinks() {
+    const idToUse = window.guestId || gId;
+    if (!idToUse) return;
+
+    const drinks = [
+      document.getElementById('whisky').value,
+      document.getElementById('biere').value,
+      document.getElementById('SansAlcool').value
+    ].join(', ');
+
+    fetch(`/api/guests/${idToUse}/drinks`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ drinkChoice: drinks })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("Erreur enregistrement boissons");
+      alert("Choix enregistrés !");
+      document.getElementById('drink-step').classList.add('hidden');
+      document.getElementById('download-section').classList.remove('hidden');
+    })
+    .catch(error => {
+      console.error("Erreur boissons:", error);
+      alert("Erreur lors de la sauvegarde du choix des boissons.");
+    });
+  }
+try {
+            new QRCode(document.getElementById("qrcode"), "Test de fonctionnement");
+            console.log("Bibliothèque chargée avec succès !");
+        } catch (e) {
+            console.error("Erreur : ", e);
+        }
+function genererInvitation(guest) {
+            const container = document.getElementById("qrcode");
+            container.innerHTML = ""; 
+            
+            // Vérification de la bibliothèque
+            if (typeof QRCode === "undefined") {
+                alert("Erreur : Bibliothèque QR Code non chargée.");
+                return;
+            }
+
+            // Génération du QR Code
+            new QRCode(container, {
+                text: window.location.origin + "/?guestId=" + guest.id,
+                width: 180,
+                height: 180,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Remplissage des textes
+            document.getElementById("nomInvite").innerText = "Invité : " + (guest.name || "N/A");
+            document.getElementById("nomMaries").innerText = guest.couple ? guest.couple.name : "Les Mariés";
+            document.getElementById("nomTable").innerText = "Table : " + (guest.guest_table || guest.table || "Non assignée");
+
+            // Affichage
+            document.getElementById("blocInvitation").classList.remove("hidden");
+            document.getElementById("download-section").classList.remove("hidden");
+            showSection('message')
+        }
+
+        function telechargerQR() {
+            const container = document.getElementById("qrcode");
+            const element = container.querySelector("canvas") || container.querySelector("img");
+
+            if (!element) return;
+
+            const dataURL = (element.tagName === "CANVAS") 
+                ? element.toDataURL("image/png") 
+                : (() => {
+                    const tmp = document.createElement("canvas");
+                    tmp.width = element.width; tmp.height = element.height;
+                    tmp.getContext("2d").drawImage(element, 0, 0);
+                    return tmp.toDataURL("image/png");
+                })();
+
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'Invitation_BorEvent.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+// --- Effets d'écriture & Animations ---
+  let index1 = 0;
+  const text1 = "Dans leurs regards éblouis, deux cœurs se sont dits oui.";
+  function ecrireTexte() {
+    const element1 = document.getElementById("effet-ecriture");
+    if (element1 && index1 < text1.length) {
+      element1.innerHTML += text1.charAt(index1);
+      index1++;
+      setTimeout(ecrireTexte, 50);
+    }
+  }
+
+  let index2 = 0;
+  const textebas = "pour lesquels, Les familles KABONGO et KATONGOLA sont heureuses de vous convier à écrire ensemble avec leurs enfants cette belle et unique histoire de leur vie";
+  function ecrireTexteAnnime() {
+    const textanimation = document.getElementById("effet-texte");
+    if (textanimation && index2 < textebas.length) {
+      textanimation.innerHTML += textebas.charAt(index2);
+      index2++;
+      setTimeout(ecrireTexteAnnime, 50);
+    }
+  }
+
+  window.onload = function () {
+    ecrireTexte();
+    ecrireTexteAnnime();
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+
+  const hiddenElements = document.querySelectorAll('.affiche');
+  hiddenElements.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
+https://github.com/mungasmile-beep/boreeEvent.git
