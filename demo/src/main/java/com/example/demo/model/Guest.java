@@ -16,16 +16,15 @@ public class Guest {
 
     @ManyToOne
     @JoinColumn(name = "couple_id")
-    @JsonIgnore // Empêche la boucle infinie lors de la conversion en JSON
+    @JsonIgnore
     private Couple couple;
 
-    // Évite le bug du mot-clé réservé 'table' dans MySQL/PostgreSQL
     @Column(name = "guest_table")
     private String table;
 
     private String status;
 
-    // Mappage correct avec la colonne drink_choice de la base de données
+    // Suppression de @Transient et ajout du nom exact de la colonne en base
     @Column(name = "drink_choice")
     private String drinkChoice;
 }
