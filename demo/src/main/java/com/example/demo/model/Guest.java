@@ -16,15 +16,13 @@ public class Guest {
 
     @ManyToOne
     @JoinColumn(name = "couple_id")
-    @JsonIgnore
+    @JsonIgnore 
     private Couple couple;
 
     @Column(name = "guest_table")
     private String table;
 
     private String status;
-
-    // Suppression de @Transient et ajout du nom exact de la colonne en base
-    @Column(name = "drink_choice")
-    private String drinkChoice;
+    
+    // Le champ drinkChoice a été supprimé ici pour éviter l'erreur 500
 }
