@@ -485,15 +485,14 @@
     }
 
     // On inclut les valeurs par défaut pour que l'Admin puisse les voir dès l'ajout
-// Remplacez 'guestTable: tableValue' par 'table: tableValue'
 const guestData = {
-    name: nameValue,
-    email: emailValue,
-    table: tableValue,      // <--- Corrigé pour correspondre à private String table;
-    status: "En attente",
-    drinkChoice: "Aucun",
-    couple: { id: parseInt(activeCoupleId) }
-};
+        name: nameValue,
+        email: emailValue,
+        guestTable: tableValue, // Doit correspondre à 'private String guestTable' dans Guest.java
+        status: "En attente",
+        drinkChoice: "Aucun",
+        couple: { id: parseInt(activeCoupleId) }
+    };
 
     fetch('/api/guests', {
         method: 'POST',
