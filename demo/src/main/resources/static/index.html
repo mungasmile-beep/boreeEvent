@@ -83,6 +83,9 @@
             max-width: 300px;
             font-family: Arial, sans-serif;
         }
+        option{
+          width: 130px;
+        }
         #qrcode { margin: 15px 0; }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
@@ -124,39 +127,37 @@
     <div class="adresse" style="gap: 70px;">
       <div class="eglise" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
         <img src="img/commune.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>08h00</b> <br> mariage civil  <br> commune Kampemba<br> </p>
+        <p class="affiche"><b>08h00</b> <br> mariage civil  <br> commune Kampemba<br>  <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b></p>
       </div>
       <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
       <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
         <img src="img/salle.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>13h30</b><br> Autour d'une table(buffet)  <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits golf méteo<br> </b></p>
+        <p class="affiche"><b>16h30</b><br> Autour d'une table(buffet) </p>
       </div>
     </div>
        <div id="drink-step" class="hidden">
       <div class="boisson">
         <h3>Choisissez vos boissons</h3>
-        <label>Whisky :</label>
-        <select id="whisky">
-          <option>Aucun</option>
-          <option>Jack Daniel's</option>
-          <option>Chivas</option>
-          <option>Harrier</option>
-          <option>Reserve 7</option>
-        </select><br>
-        <label>Bière : </label>
-        <select id="biere">
-          <option>Aucun</option>
-          <option>Heineken</option>
-          <option>Simba</option>
-          <option>Chui</option>
-          <option>33 Export</option>
         </select><br>
         <label>Sans alcool :</label>
         <select id="SansAlcool">
-          <option>De l'eau</option>
-          <option>coca</option>
+          <option>L'eau</option>
+          <option>coca cola</option>
           <option>Fanta</option>
+          <option>Sprite</option>
+          <option>Xxl</option>
         </select><br>
+
+        <label>_____ :</label>
+        <select id="whisky">
+          <option>Aucun</option>
+          
+        </select><br>
+        <label>Jus : </label>
+        <select id="biere">
+          <option>cérès</option>
+          
+        
         <button style="background-color: rgb(0, 115, 223);" onclick="saveDrinks()">Confirmer Choix</button>
       </div>
     </div>
@@ -165,7 +166,9 @@
       <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
       <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
     </div>
-
+    <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank">
+    Cliquez ici pour nous contacter sur WhatsApp
+</a>
  
 
  <!-- Section affichée après la confirmation des boissons -->
