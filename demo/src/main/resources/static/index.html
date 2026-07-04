@@ -484,20 +484,18 @@
         return;
     }
 
-    // On inclut les valeurs par défaut pour que l'Admin puisse les voir dès l'ajout
 const guestData = {
         name: nameValue,
         email: emailValue,
-        guestTable: tableValue, // Doit correspondre à 'private String guestTable' dans Guest.java
+        guestTable: tableValue, // <--- C'est ici l'élément critique
         status: "En attente",
         drinkChoice: "Aucun",
         couple: { id: parseInt(activeCoupleId) }
     };
-
     fetch('/api/guests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(guestData)
+        body: JSON.stringify(guestData) // Transformation en JSON
     })
     .then(response => {
         if (!response.ok) throw new Error("Erreur serveur lors de l'ajout");
