@@ -2,6 +2,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity
+@Table(name = "couple") // Ajoutez cette ligne pour forcer le nom de la table
 @Data
 public class Couple {
     @Id
