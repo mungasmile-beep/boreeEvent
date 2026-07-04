@@ -19,12 +19,14 @@ public class Guest {
     @JsonIgnore // Empêche la boucle infinie lors de la conversion en JSON
     private Couple couple;
 
-    // Évite le bug du mot-clé réservé 'table' dans MySQL
+    // Évite le bug du mot-clé réservé 'table' dans MySQL/PostgreSQL
     @Column(name = "guest_table")
     private String table;
 
-    // --- Ajout des champs manquants ---
-   // Dans Guest.java, remplace tes variables par :
-private String status;       // Générera automatiquement getStatus() et setStatus()
-private String drinkChoice;  // Générera automatiquement getDrinkChoice() et setDrinkChoice()
+    private String status;
+
+    // Utilisation de @Transient pour éviter l'erreur de colonne inexistante 
+    // si vous n'avez pas cette colonne dans votre table guest actuelle
+    @Transient
+    private String drinkChoice; 
 }
