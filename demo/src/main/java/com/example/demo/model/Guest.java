@@ -1,12 +1,16 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "guest")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +25,12 @@ public class Guest {
 
     @ManyToOne
     @JoinColumn(name = "couple_id")
-    @JsonIgnore
+    // Permet de recevoir l'ID du couple en entrée sans causer de boucle infinie
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Couple couple;
 
     @Column(name = "guest_table")
-    private String guestTable; // Et vous devrez mettre à jour les getters/setters (Lombok le fera automatiquement)
+    private String guestTable;
 
     @Column(name = "status")
     private String status;

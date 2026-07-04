@@ -497,7 +497,7 @@
             id: parseInt(activeCoupleId) 
         }
     };
-
+    console.log("JSON envoyé au serveur :", JSON.stringify(guestData));
     fetch('/api/guests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

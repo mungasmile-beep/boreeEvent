@@ -35,16 +35,15 @@ public class GuestController {
 
     @PostMapping("/guests")
     public ResponseEntity<?> createGuest(@RequestBody Guest guest) {
-        // Validation stricte : vérifie que l'objet couple et son ID sont présents
+        // Validation : vérifie que l'objet couple et son ID sont bien reçus
         if (guest.getCouple() == null || guest.getCouple().getId() == null) {
             return ResponseEntity.badRequest().body("L'ID du couple est requis.");
         }
         
-        // Recherche du couple dans la base de données
+        // Recherche du couple en base
         Couple couple = coupleRepository.findById(guest.getCouple().getId())
                 .orElseThrow(() -> new RuntimeException("Couple introuvable avec l'ID : " + guest.getCouple().getId()));
         
-        // Assignation du couple trouvé, initialisation du statut et sauvegarde
         guest.setCouple(couple);
         guest.setStatus("En attente");
         
