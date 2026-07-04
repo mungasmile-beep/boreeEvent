@@ -11,6 +11,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
   body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+  #drink-step{display: block; margin: 0 auto; text-align: center; justify-content: center; align-items: center; background-color: rgb(255, 254, 238); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
   .header { background: rgba(150, 0, 62, 0.8); font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
   .headerTout img { width: 50px; }
   button:hover { background-color: #06ad00; color: rgb(255, 255, 255); box-shadow: 0 0 20px rgb(209, 209, 209); }
@@ -23,9 +24,18 @@
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
   .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
   #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; }
-  #manage-couple, #Organiser { padding: 50px; text-align: center; justify-content: center; align-items: center; margin: 40px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
-  input { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; }
-  select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; }
+  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
+  /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
+  /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
+  input, select { 
+    width: 80%; 
+    max-width: 300px; 
+    padding: 12px; 
+    margin: 10px auto; 
+    border: 2px solid #eee; 
+    border-radius: 10px; 
+    display: block; 
+  }
   button { cursor: pointer; border: none; background-color: rgba(150, 0, 62, 0.8); color: white; padding: 10px; border-radius: 10px; margin: 5px; }
   .hidden { display: none !important; }
   .del-btn { background: #d32f2f; font-size: 0.8em; }
@@ -107,29 +117,22 @@
       <p id="effet-ecriture"></p>
       <img class="photo2" src="img/REGARD.png" alt="" style="animation-delay: 3.5s;">
       <p id="effet-texte" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; animation-delay: 16s;"></p>
-      <p class="backContainer" id="parag" style="animation-delay: 11s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce dimanche 12 juillet 2026 </b></p>
+      <p class="backContainer" id="parag" style="animation-delay: 11s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce Vendredi 10 juillet 2026 </b></p>
     </div>
     <p class="monte" id="parag" style="animation-delay: 16s;">En témoins du grand amour <br> devenu vie commune.</p>
     
     <div class="adresse" style="gap: 70px;">
       <div class="eglise" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
-        <img src="img/eglise.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>10h00</b> <br> bénédiction nuptiale <br> Église Adventiste de Lubumbashi 3, <br> référence Square Forest </p>
+        <img src="img/commune.png" alt="" style="width: 60px;">
+        <p class="affiche"><b>08h00</b> <br> mariage civil  <br> commune Kampemba<br> </p>
       </div>
       <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
       <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
         <img src="img/salle.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>18h00</b><br> Soirée dansante <br> à la salle IRMA <br> 11, route du Golf,<br> en diagonale de l'hôtel Pullman<br> ex Karavia <br> <b>19H30: </b></p>
+        <p class="affiche"><b>13h30</b><br> Autour d'une table(buffet)  <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits golf méteo<br> </b></p>
       </div>
     </div>
-
-    <div id="confirm-step">
-      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
-      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
-      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
-    </div>
-
-    <div id="drink-step" class="hidden">
+       <div id="drink-step" class="hidden">
       <div class="boisson">
         <h3>Choisissez vos boissons</h3>
         <label>Whisky :</label>
@@ -157,6 +160,13 @@
         <button style="background-color: rgb(0, 115, 223);" onclick="saveDrinks()">Confirmer Choix</button>
       </div>
     </div>
+    <div id="confirm-step">
+      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
+      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
+      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
+    </div>
+
+ 
 
  <!-- Section affichée après la confirmation des boissons -->
 <div id="blocInvitation" class="hidden">
@@ -172,8 +182,9 @@
     <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
 </div>
 <div id="download-section" class="hidden">
-      <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
-
+      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
+       <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
+       <a href="tel:+243990556956">Contactez-nous au : <b>+243 990 556 956</b></a>
     <button onclick="telechargerQR()">Télécharger mon invitation</button>
 </div>
 
@@ -264,7 +275,7 @@
         const invitEl = document.getElementById('invit');
         
         // Extraction du nom du couple depuis l'objet imbriqué renvoyé par la jointure Hibernate
-        if(g.couple && welcomeEl) welcomeEl.innerText = " " + g.name;
+        welcomeEl.innerText = "Mariage de " + (g.couple ? g.couple.name : "");
         if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non définie');
         if(invitEl) invitEl.innerText = "" + g.name;
         
