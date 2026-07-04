@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bor e-event</title>
+  <title>boree_Event</title>
 <script src="/qrcode.min.js"></script>
 
 <style>
@@ -471,11 +471,10 @@
         alert("Erreur : Aucun couple sélectionné.");
         return;
     }
-
     const nameInput = document.getElementById('newGuestName');
     const emailInput = document.getElementById('newGuestEmail');
     const tableInput = document.getElementById('TableGuestName');
-
+    
     const nameValue = nameInput ? nameInput.value.trim() : "";
     const emailValue = emailInput ? emailInput.value.trim() : "";
     const tableValue = tableInput ? tableInput.value.trim() : "";
@@ -485,17 +484,14 @@
         return;
     }
 
-    // On prépare l'objet avec les deux clés possibles pour être sûr de couvrir 
-    // les deux conventions (Java camelCase et SQL snake_case)
-    const guestData = { 
-        name: nameValue, 
-        email: emailValue, 
-        guestTable: tableValue, 
-        guest_table: tableValue, // Ajout de la clé alternative pour le backend
-        status: "En attente", 
-        drinkChoice: "Aucun", 
-        confirmed: false, 
-        couple: { id: parseInt(activeCoupleId) }
+    // On inclut les valeurs par défaut pour que l'Admin puisse les voir dès l'ajout
+    const guestData = {
+        name: nameValue,
+        email: emailValue,
+        guestTable: tableValue,
+        status: "En attente",       // Valeur par défaut essentielle pour le suivi Admin
+        drinkChoice: "Aucun",       // Valeur par défaut essentielle pour le suivi Admin
+        couple: { id: parseInt(activeCoupleId) } 
     };
 
     fetch('/api/guests', {
@@ -508,15 +504,14 @@
         return response.json();
     })
     .then(data => {
-        console.log("Invité ajouté avec succès :", data); // Debug pour vérifier ce qui est retourné
+        console.log("Invité ajouté avec succès :", data);
         if(nameInput) nameInput.value = '';
         if(emailInput) emailInput.value = '';
         if(tableInput) tableInput.value = '';
-        loadGuests(activeCoupleId);
+        loadGuests(activeCoupleId); // Recharge la liste pour l'Admin
     })
     .catch(err => {
         console.error("Erreur lors du fetch :", err);
-        loadGuests(activeCoupleId);
     });
 }
 window.addGuest = addGuest;
@@ -584,10 +579,10 @@ function setPresence(present) {
     const guestId = window.currentGuest.id;  
     const status = present ? "Présent" : "Absent";  
     
-    fetch(`http://localhost:8080/api/guests/${guestId}/status`, {  
-        method: 'PUT', // Changé en PUT pour correspondre au Controller
-        headers: { 'Content-Type': 'application/json' },  
-        body: JSON.stringify({ status: status })  
+    fetch(`/api/guests/${guestId}/status`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: status })
     })  
     .then(response => {  
         if (response.ok) {
