@@ -6,6 +6,7 @@ import com.example.demo.repository.GuestRepository;
 import com.example.demo.repository.CoupleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +19,12 @@ public class GuestController {
 
     @Autowired
     private GuestRepository guestRepository;
+    
     @Autowired
     private CoupleRepository coupleRepository;
 
     @GetMapping("/guests/{id}")
+    @Transactional(readOnly = true)
     public ResponseEntity<Guest> getGuestById(@PathVariable Long id) {
         return guestRepository.findById(id)
                 .map(guest -> ResponseEntity.ok().body(guest))
@@ -29,18 +32,18 @@ public class GuestController {
     }
 
     @GetMapping("/guests")
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Guest>> getGuestsByCouple(@RequestParam(name = "coupleId") Long coupleId) {
         return ResponseEntity.ok(guestRepository.findByCoupleId(coupleId));
     }
 
     @PostMapping("/guests")
+    @Transactional
     public ResponseEntity<?> createGuest(@RequestBody Guest guest) {
-        // Validation : vérifie que l'objet couple et son ID sont bien reçus
         if (guest.getCouple() == null || guest.getCouple().getId() == null) {
             return ResponseEntity.badRequest().body("L'ID du couple est requis.");
         }
         
-        // Recherche du couple en base
         Couple couple = coupleRepository.findById(guest.getCouple().getId())
                 .orElseThrow(() -> new RuntimeException("Couple introuvable avec l'ID : " + guest.getCouple().getId()));
         
@@ -51,6 +54,7 @@ public class GuestController {
     }
 
     @PutMapping("/guests/{id}/status")
+    @Transactional
     public ResponseEntity<?> updateGuestStatus(@PathVariable Long id, @RequestBody Map<String, String> payload) {
         return guestRepository.findById(id).map(guest -> {
             guest.setStatus(payload.get("status"));
@@ -59,6 +63,7 @@ public class GuestController {
     }
 
     @PatchMapping("/guests/{id}/drinks")
+    @Transactional
     public ResponseEntity<Guest> updateDrinks(@PathVariable Long id, @RequestBody Map<String, Object> body) {
         return guestRepository.findById(id).map(guest -> {
             guest.setDrinkChoice((String) body.get("drinkChoice"));
@@ -67,6 +72,7 @@ public class GuestController {
     }
 
     @DeleteMapping("/guests/{id}")
+    @Transactional
     public ResponseEntity<Void> deleteGuest(@PathVariable Long id) {
         guestRepository.deleteById(id);
         return ResponseEntity.noContent().build();

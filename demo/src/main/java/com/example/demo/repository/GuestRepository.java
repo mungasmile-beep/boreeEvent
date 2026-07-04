@@ -2,9 +2,11 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
+@Repository
 public interface GuestRepository extends JpaRepository<Guest, Long> {
-    // Cette ligne va générer automatiquement la requête SQL : SELECT * FROM guest WHERE couple_id = ?
-    List<Guest> findByCoupleId(Long coupleId); 
+    // Cette méthode permet de lister tous les invités d'un couple spécifique
+    List<Guest> findByCoupleId(Long coupleId);
 }
