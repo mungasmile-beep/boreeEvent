@@ -471,6 +471,8 @@
         alert("Erreur : Aucun couple sélectionné.");
         return;
     }
+    
+    // Récupération des valeurs
     const nameInput = document.getElementById('newGuestName');
     const emailInput = document.getElementById('newGuestEmail');
     const tableInput = document.getElementById('TableGuestName');
@@ -484,32 +486,40 @@
         return;
     }
 
-const guestData = {
+    // Structure exacte attendue par votre contrôleur Java
+    const guestData = {
         name: nameValue,
         email: emailValue,
-        guestTable: tableValue, // <--- C'est ici l'élément critique
+        guestTable: tableValue, // Ce nom correspond au champ 'private String guestTable' dans Guest.java
         status: "En attente",
         drinkChoice: "Aucun",
-        couple: { id: parseInt(activeCoupleId) }
+        couple: { 
+            id: parseInt(activeCoupleId) 
+        }
     };
+
     fetch('/api/guests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(guestData) // Transformation en JSON
+        body: JSON.stringify(guestData)
     })
     .then(response => {
-        if (!response.ok) throw new Error("Erreur serveur lors de l'ajout");
+        if (!response.ok) {
+            // Affiche l'erreur serveur dans la console pour debug
+            return response.text().then(text => { throw new Error(text); });
+        }
         return response.json();
     })
     .then(data => {
-        console.log("Invité ajouté avec succès :", data);
+        console.log("Succès :", data);
         if(nameInput) nameInput.value = '';
         if(emailInput) emailInput.value = '';
         if(tableInput) tableInput.value = '';
-        loadGuests(activeCoupleId); // Recharge la liste pour l'Admin
+        loadGuests(activeCoupleId);
     })
     .catch(err => {
-        console.error("Erreur lors du fetch :", err);
+        console.error("Erreur détectée :", err);
+        alert("Erreur : " + err.message);
     });
 }
 window.addGuest = addGuest;
