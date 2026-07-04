@@ -25,8 +25,7 @@ public class Guest {
 
     private String status;
 
-    // Utilisation de @Transient pour éviter l'erreur de colonne inexistante 
-    // si vous n'avez pas cette colonne dans votre table guest actuelle
-    @Transient
-    private String drinkChoice; 
+    // Mappage correct avec la colonne drink_choice de la base de données
+    @Column(name = "drink_choice")
+    private String drinkChoice;
 }
