@@ -25,7 +25,7 @@ public class Guest {
     private Couple couple;
 
     @Column(name = "guest_table")
-    private String table;
+    private String guestTable; // Et vous devrez mettre à jour les getters/setters (Lombok le fera automatiquement)
 
     @Column(name = "status")
     private String status;

@@ -485,14 +485,15 @@
     }
 
     // On inclut les valeurs par défaut pour que l'Admin puisse les voir dès l'ajout
-    const guestData = {
-        name: nameValue,
-        email: emailValue,
-        guestTable: tableValue,
-        status: "En attente",       // Valeur par défaut essentielle pour le suivi Admin
-        drinkChoice: "Aucun",       // Valeur par défaut essentielle pour le suivi Admin
-        couple: { id: parseInt(activeCoupleId) } 
-    };
+// Remplacez 'guestTable: tableValue' par 'table: tableValue'
+const guestData = {
+    name: nameValue,
+    email: emailValue,
+    table: tableValue,      // <--- Corrigé pour correspondre à private String table;
+    status: "En attente",
+    drinkChoice: "Aucun",
+    couple: { id: parseInt(activeCoupleId) }
+};
 
     fetch('/api/guests', {
         method: 'POST',
