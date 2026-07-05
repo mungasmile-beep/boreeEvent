@@ -104,6 +104,18 @@
         #effet-texte {
     opacity: 0;
                 }
+                .cercle-red{
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: red;
+                }
+                .cercle-black{
+                  margin-right: auto;
+
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: black;
+                }
         #qrcode { margin: 15px 0; }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
@@ -153,6 +165,12 @@
         <img src="img/salle.png" alt="" style="width: 60px;">
         <p class="affiche"><b>16h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
       </div>
+      <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
+      <div class="dressCode">
+        <label><b>Dress code : </b></label><div class="cercle-red"></div><div class="cercle-black"></div>
+        <p></p>
+      </div>
+
     </div>
     <section id="messageNegatif" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
       <h2 style="color: white;"><i class="fas fa-sad"></i> Merci d'avoir signalé</h2>
