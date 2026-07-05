@@ -27,7 +27,16 @@
   #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
   /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
-  input, select { 
+  input { 
+    width: 80%; 
+    max-width: 300px; 
+    padding: 12px; 
+    margin: 10px auto; 
+    border: 2px solid #eee; 
+    border-radius: 10px; 
+    display: block; 
+  }
+   select { 
     width: 80%; 
     max-width: 300px; 
     padding: 12px; 
@@ -84,7 +93,24 @@
             font-family: Arial, sans-serif;
         }
         option{
-          width: 130px;
+          width: 80%;
+          max-width: 300px; 
+          padding: 12px; 
+          margin: 10px auto; 
+          border: 2px solid #eee; 
+          border-radius: 10px;
+        }
+        #drink-step{
+          
+            display: block;
+            margin: 20px ;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 254, 238);
+            padding: 20px;
+            border-radius: 23px;
+            box-shadow: 0 0 20px rgb(226, 226, 226);
         }
         #qrcode { margin: 15px 0; }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
@@ -194,9 +220,14 @@
       <p>Contactez-nous au : <b>+243 990 556 956</b></p>
     </section>
   </div>
-  <a href="https://wa.me/243996942013?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank">
+  <br>
+  <br>
+  <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank" style="font-size: 8px; text-align: center; font-style:italic; text-decoration: none; color: rgb(0, 115, 223);">
     Cliquez ici pour nous contacter sur WhatsApp
 </a>
+<br>
+<br>
+
   <!-- VUE ESPACE PANNEAU ADMIN -->
   <div id="admin-view" class="hidden">
     <header class="header">
