@@ -55,7 +55,7 @@
   @keyframes nom { from { transform: translateY(10px); } to { transform: translateY(-10px); } }
   .drink-info { font-size: 11px; color: #555; margin-top: 5px; font-style: italic; }
   .paragTout { color: rgb(56, 0, 33); text-align: center; margin: 60px; }
-  .boisson { margin: 60px; border-radius: 23px; padding: 60px; text-align: center; background-color: white; box-shadow: 0 0 10px rgb(199, 199, 199); }
+  .boisson { margin: 3px; border-radius: 23px; padding: 60px; text-align: center; background-color: white; box-shadow: 0 0 10px rgb(199, 199, 199); }
   #effet-ecriture, #parag { font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; }
   .paragTout i { text-align: center; animation: icone 1s infinite; transition: 2s; }
   @keyframes icone { from { transform: translateY(0px); } to { transform: translateY(-50px); } }
@@ -139,9 +139,9 @@
       <p id="effet-ecriture"></p>
       <img class="photo2" src="img/REGARD.png" alt="" style="animation-delay: 5s;">
       <p id="effet-texte" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; animation-delay: 16s;"></p>
-      <p class="backContainer" id="parag" style="animation-delay: 11s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce Vendredi 10 juillet 2026 </b></p>
+      <p class="backContainer" id="parag" style="animation-delay: 17s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce Vendredi 10 juillet 2026 </b></p>
     </div>
-    <p class="monte" id="parag" style="animation-delay: 12s;">En témoins du grand amour <br> devenu vie commune.</p>
+    <p class="monte" id="parag" style="animation-delay: 18s;">En témoins du grand amour <br> devenu vie commune.</p>
     
     <div class="adresse" style="gap: 70px;">
       <div class="eglise" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
@@ -767,7 +767,7 @@ function telechargerQR() {
         const textEl = document.getElementById("effet-texte");
         if (textEl) textEl.style.opacity = "1"; // Rend le texte visible
         ecrireTexteAnnime(); // Lance l'écriture
-    }, 7000); 
+    }, 5000); 
   };
 
   
