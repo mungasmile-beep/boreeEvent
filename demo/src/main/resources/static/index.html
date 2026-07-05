@@ -321,6 +321,7 @@
 
   <!-- VUE ESPACE PANNEAU ADMIN -->
   <div id="admin-view" class="hidden">
+    <div id="admin-status" style="display:none; margin:10px; padding:12px; border-radius:10px; background:#fff3cd; color:#856404; text-align:center;"></div>
     <header class="header">
       <div class="headerTout">
         <img src="img/logo.png" alt="Logo">
@@ -434,12 +435,22 @@
       .catch(err => console.error(err));
   }
 
+  function setAdminStatus(message, isError = false) {
+    const statusEl = document.getElementById('admin-status');
+    if (!statusEl) return;
+    statusEl.innerText = message;
+    statusEl.style.display = 'block';
+    statusEl.style.background = isError ? '#f8d7da' : '#d1ecf1';
+    statusEl.style.color = isError ? '#721c24' : '#0c5460';
+  }
+
   // --- Gestion Administration ---
   function checkAdmin() {
     const CodeErreur = document.getElementById('erreurCode');
     if (document.getElementById('pass').value === "02026") {
       document.getElementById('login-view').classList.add('hidden');
-      document.getElementById('admin-view').classList.remove('hidden')
+      document.getElementById('admin-view').classList.remove('hidden');
+      setAdminStatus('Connexion réussie. Chargement des mariages…');
       console.log("Basculement forcé tenté.");
       loadCouples();
     } else {
@@ -473,18 +484,25 @@
 
   // --- Gestion Couples ---
   function loadCouples() {
+    setAdminStatus('Chargement des mariages…');
     fetch('/api/couples')
       .then(response => {
-        if(!response.ok) throw new Error("Page introuvable (404)");
+        if(!response.ok) throw new Error(`Erreur API ${response.status}`);
         return response.json();
       })
       .then(data => {
         db = Array.isArray(data) ? data : [];
+        if (db.length === 0) {
+          setAdminStatus('Aucun mariage trouvé pour l’instant.');
+        } else {
+          setAdminStatus(`Chargement terminé : ${db.length} mariage(s).`);
+        }
         renderCouples();
       })
       .catch(error => {
         console.error('Erreur chargement couples:', error);
-        db = []; 
+        db = [];
+        setAdminStatus('Impossible de charger les mariages. Vérifiez l’API ou la base de données sur Render.', true);
         renderCouples();
       });
   }
