@@ -24,6 +24,8 @@
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
   .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
   #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; }
+  #admin-view { display: none; width: 100%; min-height: 100vh; background-color: #f7f7f7; position: relative; }
+  #admin-view.hidden { display: none !important; }
   #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
   /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
@@ -449,18 +451,42 @@
     const CodeErreur = document.getElementById('erreurCode');
     const adminView = document.getElementById('admin-view');
     const homeSection = document.getElementById('section-home');
+    const guestView = document.getElementById('guest-view');
+    const loginView = document.getElementById('login-view');
     if (document.getElementById('pass').value === "02026") {
-      document.getElementById('login-view').classList.add('hidden');
+      if (loginView) {
+        loginView.classList.add('hidden');
+        loginView.style.display = 'none';
+      }
+      if (guestView) {
+        guestView.classList.add('hidden');
+        guestView.style.display = 'none';
+      }
       if (adminView) {
         adminView.classList.remove('hidden');
         adminView.style.display = 'block';
+        adminView.style.position = 'relative';
+        adminView.style.zIndex = '1000';
+        adminView.style.visibility = 'visible';
+        adminView.style.opacity = '1';
+        adminView.style.background = '#f7f7f7';
+        adminView.style.minHeight = '100vh';
+        adminView.style.paddingBottom = '30px';
       }
       if (homeSection) {
         homeSection.classList.remove('hidden');
         homeSection.style.display = 'block';
+        homeSection.style.position = 'relative';
+        homeSection.style.top = '0';
+        homeSection.style.visibility = 'visible';
+        homeSection.style.opacity = '1';
       }
-      setAdminStatus('Connexion réussie. Chargement des mariages…');
-      console.log("Basculement forcé tenté.");
+      document.documentElement.style.minHeight = '100vh';
+      document.body.style.minHeight = '100vh';
+      document.body.style.background = '#f0f0f0';
+      document.body.style.overflow = 'auto';
+      setAdminStatus('Connexion réussie. Page admin forcée visible. Chargement des mariages…');
+      console.log("Basculement forcé tenté.", {adminView, homeSection});
       showSection('section-home');
       loadCouples();
     } else {
