@@ -120,9 +120,21 @@
     <p id="erreurCode" style="color: rgb(110, 0, 46); display: none;">Invalide, veuillez réessayer</p>
   </div>
 
-  <!-- VUE INVITÉ -->
-  <div id="guest-view" class="hidden">
-     <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
+  <div id="blocInvitation" class="hidden">
+    <h2>Invitation de Mariage</h2>
+    
+    <h3 id="nomMaries"></h3>
+    
+    <div id="qrcode"></div>
+    
+    <p id="nomInvite"></p>
+    <p id="nomTable"></p>
+    
+    
+    <div style="margin-top: 15px; font-weight: bold; color: #c70000;"><i class="fas fa-alert"></i> NB: Presentez vous avec votre invitation télechargé le jour de l'événement </div>
+    <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
+</div>
+   <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
       <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
       <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
    target="_blank" 
@@ -134,6 +146,9 @@
       <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
     <button onclick="telechargerQR()">Télécharger mon invitation</button>
 </div>
+  <!-- VUE INVITÉ -->
+  <div id="guest-view" class="hidden">
+    
     <audio id="maMusique" loop>
       <source src="img/wedding.mp3" type="audio/mp3">
       Votre navigateur ne supporte pas l'élément audio.
@@ -203,21 +218,8 @@
  
     
  <!-- Section affichée après la confirmation des boissons -->
-<div id="blocInvitation" class="hidden">
-    <h2>Invitation de Mariage</h2>
-    
-    <h3 id="nomMaries"></h3>
-    
-    <div id="qrcode"></div>
-    
-    <p id="nomInvite"></p>
-    <p id="nomTable"></p>
-    
-    
-    <div style="margin-top: 15px; font-weight: bold; color: #c70000;"><i class="fas fa-alert"></i> NB: Presentez vous avec votre invitation télechargé le jour de l'événement </div>
-    <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
-</div>
- <br>
+
+    <br>
   <br>
 <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
    target="_blank" 
@@ -225,7 +227,7 @@
   <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
 </a>  
 <br>
-<br>  
+<br>
 
   </div>
  
@@ -284,7 +286,7 @@
       <div id="guests-list" class="grid"></div>
     </section>
   </div>
- 
+
   <!-- SCRIPT COMPLET CORRIGÉ -->
   <script>
   // --- Initialisation ---
