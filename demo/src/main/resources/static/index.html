@@ -939,6 +939,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const hiddenElements = document.querySelectorAll('.affiche');
   hiddenElements.forEach((el) => observer.observe(el));
+
+  // --- DEBUG VISIBILITY OVERLAY ---
+  (function debugVisibility(){
+    setTimeout(function(){
+      try {
+        const ids = ['login-view','guest-view','admin-view','section-home','couples-list'];
+        const info = ids.map(function(id){
+          const el = document.getElementById(id);
+          if(!el) return id + ': MISSING';
+          const rect = el.getBoundingClientRect();
+          const style = window.getComputedStyle(el);
+          return id + ': display=' + style.display + ', visibility=' + style.visibility + ', classes=' + el.className + ', rect=' + Math.round(rect.x) + ',' + Math.round(rect.y) + ' ' + Math.round(rect.width) + 'x' + Math.round(rect.height);
+        }).join('\n');
+        console.log('VISIBILITY DEBUG:\n' + info);
+        var ov = document.createElement('div');
+        ov.id = 'debug-overlay';
+        ov.style.position = 'fixed';
+        ov.style.right = '12px';
+        ov.style.top = '12px';
+        ov.style.zIndex = '99999';
+        ov.style.background = 'rgba(0,0,0,0.65)';
+        ov.style.color = '#fff';
+        ov.style.padding = '8px 10px';
+        ov.style.fontSize = '12px';
+        ov.style.lineHeight = '1.2';
+        ov.style.borderRadius = '8px';
+        ov.style.maxWidth = '320px';
+        ov.style.whiteSpace = 'pre-wrap';
+        ov.innerText = info;
+        document.body.appendChild(ov);
+      } catch(e) { console.error('Debug overlay error', e); }
+    }, 800);
+  })();
+
   </script>
 </body>
 </html>
