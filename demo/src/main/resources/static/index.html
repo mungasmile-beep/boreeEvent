@@ -101,10 +101,9 @@
           border: 2px solid #eee; 
           border-radius: 10px;
         }
-        #drink-step{
-          
-            
-        }
+        #effet-texte {
+    opacity: 0;
+                }
         #qrcode { margin: 15px 0; }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
@@ -746,16 +745,30 @@ function telechargerQR() {
     }
   }
 
+  // --- Fonction pour écrire le texte ---
   let index2 = 0;
   const textebas = "pour lesquels, Les familles KABONGO et KATONGOLA sont heureuses de vous convier à écrire ensemble avec leurs enfants cette belle et unique histoire de leur vie";
+  
   function ecrireTexteAnnime() {
     const textanimation = document.getElementById("effet-texte");
     if (textanimation && index2 < textebas.length) {
       textanimation.innerHTML += textebas.charAt(index2);
       index2++;
-      setTimeout(ecrireTexteAnnime, 7000);
+      setTimeout(ecrireTexteAnnime, 50);
     }
   }
+
+  // --- Lancement au chargement avec le délai de 7 secondes ---
+  window.onload = function () {
+    ecrireTexte(); // Démarre l'autre texte immédiatement
+    
+    // Démarre l'animation après 7 secondes
+    setTimeout(function() {
+        const textEl = document.getElementById("effet-texte");
+        if (textEl) textEl.style.opacity = "1"; // Rend le texte visible
+        ecrireTexteAnnime(); // Lance l'écriture
+    }, 7000); 
+  };
 
   window.onload = function () {
     ecrireTexte();
