@@ -122,6 +122,18 @@
 
   <!-- VUE INVITÉ -->
   <div id="guest-view" class="hidden">
+     <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
+      <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
+      <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
+   target="_blank" 
+   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(255, 255, 255);">
+  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
+</a>  
+    </section>
+    <div id="download-section" class="hidden">
+      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
+    <button onclick="telechargerQR()">Télécharger mon invitation</button>
+</div>
     <audio id="maMusique" loop>
       <source src="img/wedding.mp3" type="audio/mp3">
       Votre navigateur ne supporte pas l'élément audio.
@@ -205,18 +217,15 @@
     <div style="margin-top: 15px; font-weight: bold; color: #c70000;"><i class="fas fa-alert"></i> NB: Presentez vous avec votre invitation télechargé le jour de l'événement </div>
     <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
 </div>
-    <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
-      <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
-      <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
+ <br>
+  <br>
+<a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
    target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(255, 255, 255);">
+   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(0, 115, 223);">
   <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
 </a>  
-    </section>
-    <div id="download-section" class="hidden">
-      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
-    <button onclick="telechargerQR()">Télécharger mon invitation</button>
-</div>
+<br>
+<br>  
 
   </div>
  
@@ -275,15 +284,7 @@
       <div id="guests-list" class="grid"></div>
     </section>
   </div>
- <br>
-  <br>
-<a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
-   target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(0, 115, 223);">
-  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
-</a>  
-<br>
-<br>
+ 
   <!-- SCRIPT COMPLET CORRIGÉ -->
   <script>
   // --- Initialisation ---
