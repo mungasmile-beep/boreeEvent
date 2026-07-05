@@ -145,6 +145,33 @@
     background: #fff;
   }
         #qrcode { margin: 15px 0; }
+        .dressCode{
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          background-color: #e9faff;
+          border: rgb(0, 149, 255) 1px solid;
+          border-radius: 0 0 10px 10px;
+          gap: 10px;
+          margin: 30px;
+        }
+        .cercle-rouge, .cercle-blanc{
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+        .cercle-rouge{
+          background-color: red;
+        }
+        .cercle-blanc{
+          background-color: white;
+          border: 1px solid #000;
+        }
+        .dressCode b{
+          font-size: 14px;
+          color: #96003e;
+        }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -194,6 +221,12 @@
       <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
         <img src="img/salle.png" alt="" style="width: 60px;">
         <p class="affiche"><b>14h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
+      </div>
+            <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
+      <div class="dressCode">
+        <label for="">Dress code: <b>rouge et blanc</b></label>
+        <div class="cercle-rouge"></div>
+        <div class="cercle-blanc"></div>
       </div>
       <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
     
