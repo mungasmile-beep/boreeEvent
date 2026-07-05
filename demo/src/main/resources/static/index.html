@@ -6,7 +6,7 @@
   <title>boree_Event</title>
 <script src="/qrcode.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
@@ -652,6 +652,7 @@ function setPresence(present) {
         }
     });  
 }
+// --- Fonction saveDrinks (Sauvegarde et affichage) ---
 function saveDrinks() {
     const idToUse = window.guestId || gId;
     if (!idToUse) return;
@@ -670,68 +671,58 @@ function saveDrinks() {
     .then(response => {
       if (!response.ok) throw new Error("Erreur enregistrement boissons");
       alert("Choix enregistrés !");
-      
-      // 1. Masquer l'étape de sélection
       document.getElementById('drink-step').classList.add('hidden');
-      
-      // 2. Générer le QR code pour cet invité (affichage seulement)
-      genererInvitation(window.currentGuest);
-      
-      // 3. Afficher la section finale (message et bouton téléchargement)
       document.getElementById('download-section').classList.remove('hidden');
+      
+      // Génération de l'invitation
+      genererInvitation(window.currentGuest);
       showSection('message');
     })
     .catch(error => {
       console.error("Erreur boissons:", error);
-      alert("Erreur lors de la sauvegarde du choix des boissons.");
+      alert("Erreur lors de la sauvegarde.");
     });
 }
+
+// --- Fonction genererInvitation (Affiche tout le bloc) ---
 function genererInvitation(guest) {
-      const container = document.getElementById("qrcode");
-      container.innerHTML = ""; 
-      
-      // Génération du QR Code dans le bloc
-      new QRCode(container, {
-          text: window.location.origin + "/?guestId=" + guest.id,
-          width: 180,
-          height: 180,
-          correctLevel: QRCode.CorrectLevel.H
-      });
+    const container = document.getElementById("qrcode");
+    container.innerHTML = ""; 
+    
+    if (typeof QRCode !== "undefined") {
+        new QRCode(container, {
+            text: window.location.origin + "/?guestId=" + guest.id,
+            width: 150,
+            height: 150,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
 
-      // Remplissage des informations de l'invité
-      document.getElementById("nomInvite").innerText = "Invité : " + (guest.name || "N/A");
-      document.getElementById("nomMaries").innerText = guest.couple ? guest.couple.name : "Les Mariés";
-      document.getElementById("nomTable").innerText = "Table : " + (guest.guest_table || guest.table || "Non assignée");
-
-      // Rendre le bloc visible
-      document.getElementById("blocInvitation").classList.remove("hidden");
+    document.getElementById("nomInvite").innerText = "Invité : " + (guest.name || "N/A");
+    document.getElementById("nomMaries").innerText = guest.couple ? guest.couple.name : "Les Mariés";
+    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Non assignée");
+    document.getElementById("blocInvitation").classList.remove("hidden");
 }
-     function telechargerQR() {
-      const container = document.getElementById("qrcode");
-      const element = container.querySelector("canvas") || container.querySelector("img");
 
-      if (!element) {
-          alert("QR Code non généré.");
-          return;
-      }
+// --- Fonction telechargerQR (Capture tout le bloc en image) ---
+function telechargerQR() {
+    const element = document.getElementById("blocInvitation");
+    if (!element) return;
 
-      // Conversion en format image PNG
-      const dataURL = (element.tagName === "CANVAS") 
-          ? element.toDataURL("image/png") 
-          : (() => {
-              const tmp = document.createElement("canvas");
-              tmp.width = element.width; tmp.height = element.height;
-              tmp.getContext("2d").drawImage(element, 0, 0);
-              return tmp.toDataURL("image/png");
-          })();
-
-      // Création et clic automatique sur un lien temporaire pour forcer le téléchargement
-      const link = document.createElement('a');
-      link.href = dataURL;
-      link.download = 'Invitation_BorEvent.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    // Capture le bloc entier
+    html2canvas(element, {
+        backgroundColor: "#ffffff",
+        scale: 2
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL("image/png");
+        link.download = 'Invitation_BoreeEvent.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }).catch(err => {
+        console.error("Erreur lors de la capture : ", err);
+    });
 }
 // --- Effets d'écriture & Animations ---
   let index1 = 0;
