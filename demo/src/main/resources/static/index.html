@@ -452,6 +452,7 @@
       document.getElementById('admin-view').classList.remove('hidden');
       setAdminStatus('Connexion réussie. Chargement des mariages…');
       console.log("Basculement forcé tenté.");
+      showSection('section-home');
       loadCouples();
     } else {
       CodeErreur.style.display = "block";
