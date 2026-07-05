@@ -456,27 +456,28 @@
     if (document.getElementById('pass').value === "02026") {
       if (loginView) {
         loginView.classList.add('hidden');
+        loginView.hidden = true;
         loginView.style.display = 'none';
         loginView.style.visibility = 'hidden';
       }
       if (guestView) {
         guestView.classList.add('hidden');
+        guestView.hidden = true;
         guestView.style.display = 'none';
         guestView.style.visibility = 'hidden';
       }
       if (adminView) {
         adminView.classList.remove('hidden');
         adminView.hidden = false;
-        adminView.style.display = 'flex';
-        adminView.style.flexDirection = 'column';
+        adminView.style.display = 'block';
         adminView.style.position = 'relative';
         adminView.style.zIndex = '1000';
         adminView.style.visibility = 'visible';
         adminView.style.opacity = '1';
         adminView.style.background = '#f7f7f7';
         adminView.style.minHeight = '100vh';
-        adminView.style.paddingBottom = '30px';
         adminView.style.width = '100%';
+        adminView.style.paddingBottom = '30px';
       }
       if (homeSection) {
         homeSection.classList.remove('hidden');
@@ -488,8 +489,10 @@
         homeSection.style.opacity = '1';
         homeSection.style.width = '100%';
       }
+      document.documentElement.style.height = '100%';
       document.documentElement.style.minHeight = '100vh';
       document.documentElement.style.visibility = 'visible';
+      document.body.style.height = '100%';
       document.body.style.minHeight = '100vh';
       document.body.style.background = '#f0f0f0';
       document.body.style.overflow = 'auto';
@@ -497,7 +500,7 @@
       setAdminStatus('Connexion réussie. Page admin forcée visible. Chargement des mariages…');
       console.log("Basculement forcé tenté.", {adminView, homeSection});
       showSection('section-home');
-      if (adminView) adminView.scrollIntoView({behavior: 'smooth'});
+      if (adminView) adminView.scrollIntoView({behavior: 'smooth', block: 'start'});
       loadCouples();
     } else {
       CodeErreur.style.display = "block";
