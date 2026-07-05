@@ -852,7 +852,17 @@ function telechargerQR() {
   };
 
   
-
+// Au chargement de la page
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("Chargement des couples...");
+    fetch('/api/couples') // Vérifiez bien cette route
+        .then(response => response.json())
+        .then(data => {
+            window.db = data; // Stocke les données dans une variable globale
+            renderCouples();  // Appelle votre fonction d'affichage
+        })
+        .catch(err => console.error("Erreur chargement API :", err));
+});
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
