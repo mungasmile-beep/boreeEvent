@@ -462,6 +462,8 @@
         loginView.classList.add('hidden');
         loginView.style.display = 'none';
         loginView.style.visibility = 'hidden';
+        loginView.style.zIndex = '0';
+        if (loginView.parentNode) loginView.parentNode.removeChild(loginView);
       }
       if (guestView) {
         guestView.classList.add('hidden');
@@ -474,7 +476,7 @@
         adminView.style.display = 'flex';
         adminView.style.flexDirection = 'column';
         adminView.style.position = 'relative';
-        adminView.style.zIndex = '1000';
+        adminView.style.zIndex = '2147483646';
         adminView.style.visibility = 'visible';
         adminView.style.opacity = '1';
         adminView.style.background = '#f7f7f7';
@@ -499,10 +501,11 @@
       document.body.style.overflow = 'auto';
       document.body.style.visibility = 'visible';
       setAdminStatus('Connexion réussie. Page admin forcée visible. Chargement des mariages…');
-      console.log("Basculement forcé tenté.", {adminView, homeSection});
       showSection('section-home');
-      if (adminView) adminView.scrollIntoView({behavior: 'smooth'});
-      console.log('About to call loadCouples()');
+      if (adminView) {
+        adminView.scrollIntoView({behavior: 'smooth'});
+        adminView.style.display = 'flex';
+      }
       loadCouples();
     } else {
       CodeErreur.style.display = "block";
