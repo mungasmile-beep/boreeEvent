@@ -10,7 +10,13 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f0f0f0; }
+  html, body { min-height: 100%; margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f0f0f0; }
+  body { display: block; }
+  #login-view, #guest-view { display: none !important; visibility: hidden !important; }
+  #admin-view { display: block !important; width: 100%; min-height: 100vh; background-color: #f7f7f7; position: static !important; top: auto !important; left: auto !important; z-index: 9999 !important; overflow: visible !important; opacity: 1 !important; visibility: visible !important; }
+  #admin-view.hidden { display: block !important; visibility: visible !important; opacity: 1 !important; position: static !important; top: auto !important; left: auto !important; z-index: 9999 !important; }
+  #section-home.hidden { display: block !important; visibility: visible !important; opacity: 1 !important; position: static !important; }
+  #section-home { max-width: 1200px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; }
   #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(255, 254, 238); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
     .header { background: rgba(98, 0, 41, 0.8); font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
   .headerTout img { width: 50px; }
@@ -433,8 +439,34 @@
     document.addEventListener('click', playMusic);
     verifierInvite();
   } else {
-    // Si pas de gId, on n'appelle pas l'API avant connexion admin.
-    db = [];
+    // Si pas de gId, on affiche directement l'admin sans mot de passe
+    const loginView = document.getElementById('login-view');
+    const guestView = document.getElementById('guest-view');
+    const adminView = document.getElementById('admin-view');
+    if (loginView) {
+      loginView.classList.add('hidden');
+      loginView.style.display = 'none';
+      loginView.style.visibility = 'hidden';
+    }
+    if (guestView) {
+      guestView.classList.add('hidden');
+      guestView.style.display = 'none';
+      guestView.style.visibility = 'hidden';
+    }
+    if (adminView) {
+      adminView.classList.remove('hidden');
+      adminView.removeAttribute('hidden');
+      adminView.style.display = 'block';
+      adminView.style.visibility = 'visible';
+      adminView.style.opacity = '1';
+      adminView.style.position = 'relative';
+      adminView.style.width = '100%';
+      adminView.style.maxWidth = '1200px';
+      adminView.style.margin = '0 auto';
+    }
+    document.body.classList.add('admin-active');
+    showSection('section-home');
+    loadCouples();
   }
 
   function setAdminStatus(message, isError = false) {
@@ -491,6 +523,13 @@
       if (adminView) {
         adminView.scrollIntoView({ behavior: 'smooth' });
       }
+      document.body.classList.add('admin-active');
+      if (adminView) {
+        adminView.style.position = 'relative';
+        adminView.style.width = '100%';
+        adminView.style.maxWidth = '1200px';
+        adminView.style.margin = '0 auto';
+      }
       showSection('section-home');
       loadCouples();
     } else {
@@ -516,6 +555,7 @@
       adminView.style.display = 'block';
       adminView.style.visibility = 'visible';
       adminView.style.opacity = '1';
+      document.body.classList.add('admin-active');
     }
 
     const sections = ['section-home', 'Organiser', 'manage-couple', 'VoirPhoto', 'messageNegatif', 'message', 'download-section'];
@@ -1011,10 +1051,21 @@ function telechargerQR() {
         const textEl = document.getElementById("effet-texte");
         if (textEl) textEl.style.opacity = "1"; // Rend le texte visible
         ecrireTexteAnnime(); // Lance l'écriture
-    }, 4000); 
+    }, 4000);
   };
 
-  
+  window.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('admin-active');
+    const adminView = document.getElementById('admin-view');
+    if (adminView) {
+      adminView.style.display = 'block';
+      adminView.style.visibility = 'visible';
+      adminView.style.opacity = '1';
+    }
+    showSection('section-home');
+    loadCouples();
+  });
+
 // Pas de chargement automatique des couples sur preview statique.
 // Le chargement se fait uniquement après connexion admin ou via guestId.
   const observer = new IntersectionObserver((entries) => {
