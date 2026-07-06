@@ -19,19 +19,21 @@ public class CoupleController {
 
     @GetMapping
     public List<Couple> getAllCouples() {
-        return coupleRepository.findAll();
+        try {
+            return coupleRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 
     @PostMapping
     public ResponseEntity<?> addCouple(@RequestBody Couple couple) {
         try {
-            // Tentative de sauvegarde
             Couple savedCouple = coupleRepository.save(couple);
             return new ResponseEntity<>(savedCouple, HttpStatus.CREATED);
         } catch (Exception e) {
-            // Affiche l'erreur réelle dans les logs du serveur pour comprendre le crash
-            e.printStackTrace(); 
-            // Retourne un message explicite au client pour le débogage
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erreur lors de l'enregistrement : " + e.getMessage());
         }
@@ -40,6 +42,10 @@ public class CoupleController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCouple(@PathVariable Long id) {
-        coupleRepository.deleteById(id);
+        try {
+            coupleRepository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
