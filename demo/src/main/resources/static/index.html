@@ -456,6 +456,7 @@
 
   // --- Gestion Administration ---
   function checkAdmin() {
+    console.log('checkAdmin called', {passValue: document.getElementById('pass') ? document.getElementById('pass').value : null});
     const CodeErreur = document.getElementById('erreurCode');
     const adminView = document.getElementById('admin-view');
     const homeSection = document.getElementById('section-home');
@@ -506,6 +507,7 @@
       console.log("Basculement forcé tenté.", {adminView, homeSection});
       showSection('section-home');
       if (adminView) adminView.scrollIntoView({behavior: 'smooth'});
+      console.log('About to call loadCouples()');
       loadCouples();
     } else {
       CodeErreur.style.display = "block";
@@ -539,12 +541,15 @@
   // --- Gestion Couples ---
   function loadCouples() {
     setAdminStatus('Chargement des mariages…');
+    console.log('loadCouples: fetching /api/couples');
     fetch('/api/couples')
       .then(response => {
-        if(!response.ok) throw new Error(`Erreur API ${response.status}`);
+        console.log('loadCouples: response status', response.status, 'ok=', response.ok);
+        if(!response.ok) return response.text().then(t => { throw new Error(`Erreur API ${response.status}: ${t}`); });
         return response.json();
       })
       .then(data => {
+        console.log('loadCouples: data received', data && data.length ? `count=${data.length}` : data);
         db = Array.isArray(data) ? data : [];
         if (db.length === 0) {
           setAdminStatus('Aucun mariage trouvé pour l’instant.');
