@@ -101,49 +101,45 @@
           border: 2px solid #eee; 
           border-radius: 10px;
         }
+        .dressCode{
+          background-color: rgb(221, 249, 255);
+          border-color: 1px solid rgb(0, 115, 223);
+          padding: 20px;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 30px;
+        }
+        .cercle-blanc{
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: white;
+                }
+                .cercle-red{
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: red;
+                }
+          .cercle-blanc, .cercle-red{
+            display: inline-block;
+            margin: 0 10px;
+          }
+
         #effet-texte {
     opacity: 0;
                 }
-       
-                 .dressCode {
-    display: flex;
-    margin: 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-     background: #edfeff;
-    border: 1px solid #005eff;
-    border-radius: 0 0 10px 10px;
-    /* max-width: 320px; */
-    font-family: Arial, sans-serif;
-    color: #333;
-  }
+                .cercle-red{
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: red;
+                }
+                .cercle-black{
+                  margin-right: auto;
 
-  .dressCode label {
-    margin: 0;
-    font-size: 14px;
-  }
-
-  .dressCode b {
-    color: #b80000;
-  }
-
-  .cercle-red,
-  .cercle-blanc {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-  }
-
-  .cercle-red {
-    background: #d70000;
-  }
-
-  .cercle-blanc {
-    background: #fff;
-  }
+                  padding: 80px;
+                  border-radius: 50%;
+                  background-color: black;
+                }
         #qrcode { margin: 15px 0; }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
@@ -179,9 +175,7 @@
       <p id="effet-ecriture"></p>
       <img class="photo2" src="img/REGARD.png" alt="" style="animation-delay: 5s;">
       <p id="effet-texte" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; animation-delay: 16s;"></p>
-      <p class="backContainer" id="parag" style="animation-delay: 15.5s; margin-top: 30px;  background: #eefeff;
-    border: 1px solid #005eff;
-    border-radius: 10px; padding: 20px; color: rgb(12, 12, 12);"><b>Ce Vendredi 10 juillet 2026 </b></p>
+      <p class="backContainer" id="parag" style="animation-delay: 15.5s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce Vendredi 10 juillet 2026 </b></p>
     </div>
     <p class="monte" id="parag" style="animation-delay: 15s;">En témoins du grand amour <br> devenu vie commune.</p>
     
@@ -196,13 +190,12 @@
         <p class="affiche"><b>14h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
       </div>
       <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
-    
-       <div class="dressCode">
-        <label>Dress code : <b>rouge et blanc</b> </label>
-        <div class="cercle-red"></div>
-        <div class="cercle-blanc"></div>
+      <div class="dressCode">
+        <label><b>Dress code : </b></label><div class="cercle-red"></div><div class="cercle-blanc"></div>
         <p></p>
       </div>
+
+    </div>
     <section id="messageNegatif" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
       <h2 style="color: white;"><i class="fas fa-sad"></i> Merci d'avoir signalé</h2>
       <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
