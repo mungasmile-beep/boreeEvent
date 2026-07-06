@@ -420,7 +420,7 @@
 
   // --- Chargement Initial de l'application ---
   if (gId) {
-    // Si c'un invité, on masque le login directement et on charge son profil
+    // Si c'est un invité, on masque le login et on charge son profil
     document.getElementById('login-view').classList.add('hidden');
     document.getElementById('guest-view').classList.remove('hidden');
     
@@ -433,11 +433,8 @@
     document.addEventListener('click', playMusic);
     verifierInvite();
   } else {
-    // Si pas de gId, on charge normalement pour l'admin
-    fetch('/api/couples')
-      .then(response => response.json())
-      .then(data => { db = Array.isArray(data) ? data : []; })
-      .catch(err => console.error(err));
+    // Si pas de gId, on n'appelle pas l'API avant connexion admin.
+    db = [];
   }
 
   function setAdminStatus(message, isError = false) {
@@ -456,61 +453,50 @@
     const homeSection = document.getElementById('section-home');
     const guestView = document.getElementById('guest-view');
     const loginView = document.getElementById('login-view');
-    const passValue = document.getElementById('pass') ? document.getElementById('pass').value.trim() : '';
-    if (passValue === "02026") {
+    const passInput = document.getElementById('pass');
+    const passValue = passInput ? passInput.value.trim() : '';
+
+    console.log('checkAdmin called, password entered:', passValue);
+
+    if (passValue === '02026') {
       if (loginView) {
         loginView.classList.add('hidden');
-        loginView.style.setProperty('display', 'none', 'important');
-        loginView.style.setProperty('visibility', 'hidden', 'important');
-        loginView.style.setProperty('opacity', '0', 'important');
-        loginView.style.setProperty('z-index', '0', 'important');
+        loginView.style.display = 'none';
+        loginView.style.visibility = 'hidden';
       }
       if (guestView) {
         guestView.classList.add('hidden');
-        guestView.style.setProperty('display', 'none', 'important');
-        guestView.style.setProperty('visibility', 'hidden', 'important');
+        guestView.style.display = 'none';
+        guestView.style.visibility = 'hidden';
       }
       if (adminView) {
         console.log('Admin login successful, displaying admin view');
         adminView.classList.remove('hidden');
-        adminView.hidden = false;
-        adminView.style.setProperty('display', 'block', 'important');
-        adminView.style.setProperty('position', 'relative', 'important');
-        adminView.style.setProperty('z-index', '9999', 'important');
-        adminView.style.setProperty('visibility', 'visible', 'important');
-        adminView.style.setProperty('opacity', '1', 'important');
-        adminView.style.setProperty('background', '#f7f7f7', 'important');
-        adminView.style.setProperty('min-height', '100vh', 'important');
-        adminView.style.setProperty('padding-bottom', '30px', 'important');
-        adminView.style.setProperty('width', '100%', 'important');
+        adminView.removeAttribute('hidden');
+        adminView.style.display = 'block';
+        adminView.style.visibility = 'visible';
+        adminView.style.opacity = '1';
       }
       if (homeSection) {
         homeSection.classList.remove('hidden');
-        homeSection.hidden = false;
-        homeSection.style.setProperty('display', 'block', 'important');
-        homeSection.style.setProperty('position', 'relative', 'important');
-        homeSection.style.setProperty('top', '0', 'important');
-        homeSection.style.setProperty('visibility', 'visible', 'important');
-        homeSection.style.setProperty('opacity', '1', 'important');
-        homeSection.style.setProperty('width', '100%', 'important');
-        homeSection.style.setProperty('min-height', '100vh', 'important');
+        homeSection.removeAttribute('hidden');
+        homeSection.style.display = 'block';
+        homeSection.style.visibility = 'visible';
+        homeSection.style.opacity = '1';
       }
-      document.documentElement.style.setProperty('min-height', '100vh', 'important');
-      document.documentElement.style.setProperty('visibility', 'visible', 'important');
-      document.body.style.setProperty('min-height', '100vh', 'important');
-      document.body.style.setProperty('background', '#f0f0f0', 'important');
-      document.body.style.setProperty('overflow', 'auto', 'important');
-      document.body.style.setProperty('visibility', 'visible', 'important');
+
+      document.body.style.background = '#f0f0f0';
+      document.body.style.overflow = 'auto';
       setAdminStatus('Connexion réussie. Page admin visible. Chargement des mariages…');
       if (adminView) {
-        adminView.scrollIntoView({behavior: 'smooth'});
+        adminView.scrollIntoView({ behavior: 'smooth' });
       }
       showSection('section-home');
       loadCouples();
     } else {
       if (CodeErreur) {
-        CodeErreur.style.display = "block";
-        setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
+        CodeErreur.style.display = 'block';
+        setTimeout(() => { CodeErreur.style.display = 'none'; }, 3000);
       }
     }
   }
@@ -526,9 +512,10 @@
     const adminView = document.getElementById('admin-view');
     if (adminView) {
       adminView.classList.remove('hidden');
-      adminView.style.setProperty('display', 'block', 'important');
-      adminView.style.setProperty('visibility', 'visible', 'important');
-      adminView.style.setProperty('opacity', '1', 'important');
+      adminView.removeAttribute('hidden');
+      adminView.style.display = 'block';
+      adminView.style.visibility = 'visible';
+      adminView.style.opacity = '1';
     }
 
     const sections = ['section-home', 'Organiser', 'manage-couple', 'VoirPhoto', 'messageNegatif', 'message', 'download-section'];
@@ -536,18 +523,19 @@
       const section = document.getElementById(sectionId);
       if (section) {
         section.classList.add('hidden');
-        section.style.setProperty('display', 'none', 'important');
-        section.style.setProperty('visibility', 'hidden', 'important');
+        section.style.display = 'none';
+        section.style.visibility = 'hidden';
       }
     });
 
     const target = document.getElementById(id);
     if (target) {
       target.classList.remove('hidden');
-      target.style.setProperty('display', 'block', 'important');
-      target.style.setProperty('visibility', 'visible', 'important');
-      target.style.setProperty('opacity', '1', 'important');
-      target.style.setProperty('min-height', '100vh', 'important');
+      target.removeAttribute('hidden');
+      target.style.display = 'block';
+      target.style.visibility = 'visible';
+      target.style.opacity = '1';
+      target.style.minHeight = '100vh';
       if (id === 'message') {
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
       }
@@ -625,16 +613,98 @@
       listContainer.innerHTML = "<p>Aucun mariage trouvé ou erreur serveur.</p>";
       return;
     }
-    listContainer.innerHTML = db.map(c => `
-      <div class="card">
-        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
-          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
-        </div>
-        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
-        <h4 style="color:#666;">${c.datemariage || ''}</h4>
-        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
-      </div>
-    `).join('');
+
+    // If dataset is very large (e.g. many base64 images), limit initial render
+    const MAX_DISPLAY = 100; // reduce if necessary
+    const total = db.length;
+    const items = db.slice(0, MAX_DISPLAY);
+
+    // Clear container and build DOM safely (avoid huge innerHTML with base64 blobs)
+    listContainer.innerHTML = '';
+    const frag = document.createDocumentFragment();
+
+    items.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const picWrap = document.createElement('div');
+      picWrap.className = 'picture';
+      picWrap.style.cssText = 'display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; overflow:hidden;';
+
+      const img = document.createElement('img');
+      img.style.cssText = 'width:100%; border-radius:50%; height:100%; cursor:pointer; object-fit:cover;';
+      // Use loading=lazy and set src to the data if present. This defers decoding until needed.
+      img.loading = 'lazy';
+      if (c.photo) {
+        img.src = c.photo;
+      } else {
+        img.src = 'img/REGARD.png';
+      }
+      img.onclick = function() { ApercuePhoto(c.id); };
+      picWrap.appendChild(img);
+
+      const title = document.createElement('h3');
+      title.style.cursor = 'pointer';
+      title.textContent = c.name || '';
+      title.onclick = function() { openCouple(c.id); };
+
+      const date = document.createElement('h4');
+      date.style.color = '#666';
+      date.textContent = c.datemariage || '';
+
+      const del = document.createElement('button');
+      del.className = 'del-btn';
+      del.textContent = 'Supprimer Mariage';
+      del.onclick = function() { delCouple(c.id); };
+
+      card.appendChild(picWrap);
+      card.appendChild(title);
+      card.appendChild(date);
+      card.appendChild(del);
+
+      frag.appendChild(card);
+    });
+
+    // If truncated, show info and a button to load more
+    if (total > MAX_DISPLAY) {
+      const info = document.createElement('div');
+      info.style.margin = '10px';
+      info.style.textAlign = 'center';
+      info.style.color = '#333';
+      info.textContent = `Affichage de ${MAX_DISPLAY} sur ${total} mariages. Cliquez pour charger plus.`;
+
+      const moreBtn = document.createElement('button');
+      moreBtn.textContent = 'Charger plus';
+      moreBtn.onclick = function() {
+        // render remaining items (simple behaviour)
+        const remaining = db.slice(MAX_DISPLAY);
+        remaining.forEach(c => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const picWrap = document.createElement('div');
+          picWrap.className = 'picture';
+          picWrap.style.cssText = 'display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; overflow:hidden;';
+          const img = document.createElement('img');
+          img.style.cssText = 'width:100%; border-radius:50%; height:100%; cursor:pointer; object-fit:cover;';
+          img.loading = 'lazy';
+          img.src = c.photo || 'img/REGARD.png';
+          img.onclick = function() { ApercuePhoto(c.id); };
+          picWrap.appendChild(img);
+          const title = document.createElement('h3'); title.style.cursor='pointer'; title.textContent = c.name || ''; title.onclick = function(){ openCouple(c.id); };
+          const date = document.createElement('h4'); date.style.color='#666'; date.textContent = c.datemariage || '';
+          const del = document.createElement('button'); del.className='del-btn'; del.textContent='Supprimer Mariage'; del.onclick = function(){ delCouple(c.id); };
+          card.appendChild(picWrap); card.appendChild(title); card.appendChild(date); card.appendChild(del);
+          frag.appendChild(card);
+        });
+        moreBtn.remove();
+        info.textContent = `Affichage complet : ${total} mariages.`;
+      };
+      info.appendChild(document.createElement('br'));
+      info.appendChild(moreBtn);
+      listContainer.appendChild(info);
+    }
+
+    listContainer.appendChild(frag);
   }
 
   function rechercheCouple() {
