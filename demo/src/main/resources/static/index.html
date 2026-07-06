@@ -23,7 +23,7 @@
   .top-page { background-color: rgb(240, 240, 240); height: 100%; margin: 0; text-align: center; padding: 20px; }
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
   .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
-  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; z-index: 2000; width: min(320px, 90%); display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; z-index: 2000; width: min(320px, 90%); }
   #admin-view { width: 100%; min-height: 100vh; background-color: #f7f7f7; position: relative; overflow: visible; }
   #admin-view.hidden { display: none !important; }
   #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
@@ -179,12 +179,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- TEMPORARY DEPLOY CHECK BANNER - REMOVE AFTER VERIFY -->
-  <div id="deploy-check-banner" style="position:fixed;left:0;right:0;top:0;z-index:2147483647;background:#ffeb3b;color:#000;text-align:center;padding:8px 10px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.15);">
-    DEPLOY CHECK — commit a2a104e deployed. If you DO NOT see this banner, Render is still serving an old build.
-    <button id="deploy-check-close" style="margin-left:12px;padding:4px 8px;border-radius:6px;border:none;cursor:pointer;background:#222;color:#fff;font-weight:600;">Close</button>
-  </div>
-  <script>document.getElementById('deploy-check-close').addEventListener('click',function(){document.getElementById('deploy-check-banner').style.display='none'});setTimeout(()=>{var b=document.getElementById('deploy-check-banner'); if(b) b.style.display='none'},45000);</script>
+  
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
     <img src="img/logo.png" alt="Logo">
@@ -456,7 +451,7 @@
 
   // --- Gestion Administration ---
   function checkAdmin() {
-    console.log('checkAdmin called', {passValue: document.getElementById('pass') ? document.getElementById('pass').value : null});
+    // debug: removed
     const CodeErreur = document.getElementById('erreurCode');
     const adminView = document.getElementById('admin-view');
     const homeSection = document.getElementById('section-home');
@@ -541,15 +536,15 @@
   // --- Gestion Couples ---
   function loadCouples() {
     setAdminStatus('Chargement des mariages…');
-    console.log('loadCouples: fetching /api/couples');
+    // debug: removed
     fetch('/api/couples')
       .then(response => {
-        console.log('loadCouples: response status', response.status, 'ok=', response.ok);
+        // debug: removed
         if(!response.ok) return response.text().then(t => { throw new Error(`Erreur API ${response.status}: ${t}`); });
         return response.json();
       })
       .then(data => {
-        console.log('loadCouples: data received', data && data.length ? `count=${data.length}` : data);
+        // debug: removed
         db = Array.isArray(data) ? data : [];
         if (db.length === 0) {
           setAdminStatus('Aucun mariage trouvé pour l’instant.');
@@ -951,38 +946,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const hiddenElements = document.querySelectorAll('.affiche');
   hiddenElements.forEach((el) => observer.observe(el));
 
-  // --- DEBUG VISIBILITY OVERLAY ---
-  (function debugVisibility(){
-    setTimeout(function(){
-      try {
-        const ids = ['login-view','guest-view','admin-view','section-home','couples-list'];
-        const info = ids.map(function(id){
-          const el = document.getElementById(id);
-          if(!el) return id + ': MISSING';
-          const rect = el.getBoundingClientRect();
-          const style = window.getComputedStyle(el);
-          return id + ': display=' + style.display + ', visibility=' + style.visibility + ', classes=' + el.className + ', rect=' + Math.round(rect.x) + ',' + Math.round(rect.y) + ' ' + Math.round(rect.width) + 'x' + Math.round(rect.height);
-        }).join('\n');
-        console.log('VISIBILITY DEBUG:\n' + info);
-        var ov = document.createElement('div');
-        ov.id = 'debug-overlay';
-        ov.style.position = 'fixed';
-        ov.style.right = '12px';
-        ov.style.top = '12px';
-        ov.style.zIndex = '99999';
-        ov.style.background = 'rgba(0,0,0,0.65)';
-        ov.style.color = '#fff';
-        ov.style.padding = '8px 10px';
-        ov.style.fontSize = '12px';
-        ov.style.lineHeight = '1.2';
-        ov.style.borderRadius = '8px';
-        ov.style.maxWidth = '320px';
-        ov.style.whiteSpace = 'pre-wrap';
-        ov.innerText = info;
-        document.body.appendChild(ov);
-      } catch(e) { console.error('Debug overlay error', e); }
-    }, 800);
-  })();
+  
 
   </script>
 </body>
