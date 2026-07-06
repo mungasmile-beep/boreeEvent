@@ -21,6 +21,6 @@ public class Couple {
     private LocalDate datemariage;
 
     @Lob
-    @Column(name = "photo", columnDefinition = "LONGTEXT")
-    private String photo;
+  @Column(columnDefinition = "TEXT") // Remplacez LONGTEXT par TEXT
+private String photo;
 }

@@ -26,15 +26,25 @@ public class GuestController {
     @GetMapping("/guests/{id}")
     @Transactional(readOnly = true)
     public ResponseEntity<Guest> getGuestById(@PathVariable Long id) {
-        return guestRepository.findById(id)
-                .map(guest -> ResponseEntity.ok().body(guest))
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            return guestRepository.findById(id)
+                    .map(guest -> ResponseEntity.ok().body(guest))
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(503).build();
+        }
     }
 
     @GetMapping("/guests")
     @Transactional(readOnly = true)
     public ResponseEntity<List<Guest>> getGuestsByCouple(@RequestParam(name = "coupleId") Long coupleId) {
-        return ResponseEntity.ok(guestRepository.findByCoupleId(coupleId));
+        try {
+            return ResponseEntity.ok(guestRepository.findByCoupleId(coupleId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(List.of());
+        }
     }
 
     @PostMapping("/guests")
@@ -43,14 +53,19 @@ public class GuestController {
         if (guest.getCouple() == null || guest.getCouple().getId() == null) {
             return ResponseEntity.badRequest().body("L'ID du couple est requis.");
         }
-        
-        Couple couple = coupleRepository.findById(guest.getCouple().getId())
-                .orElseThrow(() -> new RuntimeException("Couple introuvable avec l'ID : " + guest.getCouple().getId()));
-        
-        guest.setCouple(couple);
-        guest.setStatus("En attente");
-        
-        return ResponseEntity.ok(guestRepository.save(guest));
+
+        try {
+            Couple couple = coupleRepository.findById(guest.getCouple().getId())
+                    .orElseThrow(() -> new RuntimeException("Couple introuvable avec l'ID : " + guest.getCouple().getId()));
+
+            guest.setCouple(couple);
+            guest.setStatus("En attente");
+
+            return ResponseEntity.ok(guestRepository.save(guest));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(503).body("Service temporairement indisponible : " + e.getMessage());
+        }
     }
 
     @PutMapping("/guests/{id}/status")
