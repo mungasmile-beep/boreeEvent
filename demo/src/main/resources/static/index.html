@@ -451,65 +451,66 @@
 
   // --- Gestion Administration ---
   function checkAdmin() {
-    // debug: removed
     const CodeErreur = document.getElementById('erreurCode');
     const adminView = document.getElementById('admin-view');
     const homeSection = document.getElementById('section-home');
     const guestView = document.getElementById('guest-view');
     const loginView = document.getElementById('login-view');
-    if (document.getElementById('pass').value === "02026") {
+    const passValue = document.getElementById('pass') ? document.getElementById('pass').value.trim() : '';
+    if (passValue === "02026") {
       if (loginView) {
         loginView.classList.add('hidden');
-        loginView.style.display = 'none';
-        loginView.style.visibility = 'hidden';
-        loginView.style.zIndex = '0';
+        loginView.style.setProperty('display', 'none', 'important');
+        loginView.style.setProperty('visibility', 'hidden', 'important');
+        loginView.style.setProperty('z-index', '0', 'important');
         if (loginView.parentNode) loginView.parentNode.removeChild(loginView);
       }
       if (guestView) {
         guestView.classList.add('hidden');
-        guestView.style.display = 'none';
-        guestView.style.visibility = 'hidden';
+        guestView.style.setProperty('display', 'none', 'important');
+        guestView.style.setProperty('visibility', 'hidden', 'important');
       }
       if (adminView) {
         adminView.classList.remove('hidden');
         adminView.hidden = false;
-        adminView.style.display = 'flex';
-        adminView.style.flexDirection = 'column';
-        adminView.style.position = 'relative';
-        adminView.style.zIndex = '2147483646';
-        adminView.style.visibility = 'visible';
-        adminView.style.opacity = '1';
-        adminView.style.background = '#f7f7f7';
-        adminView.style.minHeight = '100vh';
-        adminView.style.paddingBottom = '30px';
-        adminView.style.width = '100%';
+        adminView.style.setProperty('display', 'flex', 'important');
+        adminView.style.setProperty('flex-direction', 'column', 'important');
+        adminView.style.setProperty('position', 'relative', 'important');
+        adminView.style.setProperty('z-index', '2147483646', 'important');
+        adminView.style.setProperty('visibility', 'visible', 'important');
+        adminView.style.setProperty('opacity', '1', 'important');
+        adminView.style.setProperty('background', '#f7f7f7', 'important');
+        adminView.style.setProperty('min-height', '100vh', 'important');
+        adminView.style.setProperty('padding-bottom', '30px', 'important');
+        adminView.style.setProperty('width', '100%', 'important');
       }
       if (homeSection) {
         homeSection.classList.remove('hidden');
         homeSection.hidden = false;
-        homeSection.style.display = 'block';
-        homeSection.style.position = 'relative';
-        homeSection.style.top = '0';
-        homeSection.style.visibility = 'visible';
-        homeSection.style.opacity = '1';
-        homeSection.style.width = '100%';
+        homeSection.style.setProperty('display', 'block', 'important');
+        homeSection.style.setProperty('position', 'relative', 'important');
+        homeSection.style.setProperty('top', '0', 'important');
+        homeSection.style.setProperty('visibility', 'visible', 'important');
+        homeSection.style.setProperty('opacity', '1', 'important');
+        homeSection.style.setProperty('width', '100%', 'important');
       }
-      document.documentElement.style.minHeight = '100vh';
-      document.documentElement.style.visibility = 'visible';
-      document.body.style.minHeight = '100vh';
-      document.body.style.background = '#f0f0f0';
-      document.body.style.overflow = 'auto';
-      document.body.style.visibility = 'visible';
-      setAdminStatus('Connexion réussie. Page admin forcée visible. Chargement des mariages…');
-      showSection('section-home');
+      document.documentElement.style.setProperty('min-height', '100vh', 'important');
+      document.documentElement.style.setProperty('visibility', 'visible', 'important');
+      document.body.style.setProperty('min-height', '100vh', 'important');
+      document.body.style.setProperty('background', '#f0f0f0', 'important');
+      document.body.style.setProperty('overflow', 'auto', 'important');
+      document.body.style.setProperty('visibility', 'visible', 'important');
+      setAdminStatus('Connexion réussie. Page admin visible. Chargement des mariages…');
       if (adminView) {
         adminView.scrollIntoView({behavior: 'smooth'});
-        adminView.style.display = 'flex';
       }
+      showSection('section-home');
       loadCouples();
     } else {
-      CodeErreur.style.display = "block";
-      setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
+      if (CodeErreur) {
+        CodeErreur.style.display = "block";
+        setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
+      }
     }
   }
 
