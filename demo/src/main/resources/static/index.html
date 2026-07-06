@@ -4,19 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>boree_Event</title>
-<script src="qrcode.min.js"></script>
+<script src="/qrcode.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-  html, body { min-height: 100%; margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f0f0f0; }
-  body { display: block; }
-  #login-view, #guest-view { display: none !important; visibility: hidden !important; }
-  #admin-view { display: block !important; width: 100%; min-height: 100vh; background-color: #f7f7f7; position: static !important; top: auto !important; left: auto !important; z-index: 9999 !important; overflow: visible !important; opacity: 1 !important; visibility: visible !important; }
-  #admin-view.hidden { display: block !important; visibility: visible !important; opacity: 1 !important; position: static !important; top: auto !important; left: auto !important; z-index: 9999 !important; }
-  #section-home.hidden { display: block !important; visibility: visible !important; opacity: 1 !important; position: static !important; }
-  #section-home { max-width: 1200px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; }
+  body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
   #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(255, 254, 238); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
     .header { background: rgba(121, 0, 50, 0.8); font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
   .headerTout img { width: 50px; }
@@ -29,9 +23,7 @@
   .top-page { background-color: rgb(240, 240, 240); height: 100%; margin: 0; text-align: center; padding: 20px; }
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
   .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
-  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; z-index: 2000; width: min(320px, 90%); display: flex; flex-direction: column; justify-content: center; align-items: center; }
-  #admin-view { width: 100%; min-height: 100vh; background-color: #f7f7f7; position: relative; overflow: visible; }
-  #admin-view.hidden { display: none !important; }
+  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; }
   #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
   /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
@@ -109,79 +101,15 @@
           border: 2px solid #eee; 
           border-radius: 10px;
         }
-        .dressCode{
-          background-color: rgb(221, 249, 255);
-          border-color: 1px solid rgb(0, 115, 223);
-          padding: 20px;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          margin: 30px;
-        }
-        .cercle-blanc{
-                  padding: 80px;
-                  border-radius: 50%;
-                  background-color: white;
-                }
-                .cercle-red{
-                  padding: 80px;
-                  border-radius: 50%;
-                  background-color: red;
-                }
-          .cercle-blanc, .cercle-red{
-            display: inline-block;
-            margin: 0 10px;
-          }
-
         #effet-texte {
     opacity: 0;
                 }
-                .cercle-red{
-                  padding: 80px;
-                  border-radius: 50%;
-                  background-color: red;
-                }
-                .cercle-black{
-                  margin-right: auto;
-
-                  padding: 80px;
-                  border-radius: 50%;
-                  background-color: black;
-                }
         #qrcode { margin: 15px 0; }
-        .dressCode{
-          display: flex;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-          background-color: #e9faff;
-          border: rgb(0, 149, 255) 1px solid;
-          border-radius: 0 0 10px 10px;
-          gap: 10px;
-          margin: 30px;
-        }
-        .cercle-rouge, .cercle-blanc{
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-        }
-        .cercle-rouge{
-          background-color: red;
-        }
-        .cercle-blanc{
-          background-color: white;
-          border: 1px solid #000;
-        }
-        .dressCode b{
-          font-size: 14px;
-          color: #96003e;
-        }
   @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
     <img src="img/logo.png" alt="Logo">
@@ -223,20 +151,8 @@
       <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
       <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
         <img src="img/salle.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>14h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
+        <p class="affiche"><b>16h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
       </div>
-            <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
-      <div class="dressCode">
-        <label for="">Dress code: <b>rouge et blanc</b></label>
-        <div class="cercle-rouge"></div>
-        <div class="cercle-blanc"></div>
-      </div>
-      <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
-      <div class="dressCode">
-        <label><b>Dress code : </b></label><div class="cercle-red"></div><div class="cercle-blanc"></div>
-        <p></p>
-      </div>
-
     </div>
     <section id="messageNegatif" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
       <h2 style="color: white;"><i class="fas fa-sad"></i> Merci d'avoir signalé</h2>
@@ -250,7 +166,7 @@
        <div id="drink-step" class="hidden">
       <div class="boisson">
         <h3>Choisissez vos boissons</h3>
-       <br>
+        </select><br>
         <label>Sans alcool :</label>
         <select id="SansAlcool">
           <option>__________Aucun________</option>
@@ -325,7 +241,6 @@
 
   <!-- VUE ESPACE PANNEAU ADMIN -->
   <div id="admin-view" class="hidden">
-    <div id="admin-status" style="display:none; margin:10px; padding:12px; border-radius:10px; background:#fff3cd; color:#856404; text-align:center;"></div>
     <header class="header">
       <div class="headerTout">
         <img src="img/logo.png" alt="Logo">
@@ -414,14 +329,12 @@
       })
       .catch(error => {
         console.error("Erreur lors de la récupération des détails de l'invité :", error);
-        document.getElementById('guest-view').classList.add('hidden');
-        document.getElementById('login-view').classList.remove('hidden');
       });
   }
 
   // --- Chargement Initial de l'application ---
   if (gId) {
-    // Si c'est un invité, on masque le login et on charge son profil
+    // Si c'un invité, on masque le login directement et on charge son profil
     document.getElementById('login-view').classList.add('hidden');
     document.getElementById('guest-view').classList.remove('hidden');
     
@@ -434,104 +347,23 @@
     document.addEventListener('click', playMusic);
     verifierInvite();
   } else {
-    // Si pas de gId, on affiche directement l'admin sans mot de passe
-    const loginView = document.getElementById('login-view');
-    const guestView = document.getElementById('guest-view');
-    const adminView = document.getElementById('admin-view');
-    if (loginView) {
-      loginView.classList.add('hidden');
-      loginView.style.display = 'none';
-      loginView.style.visibility = 'hidden';
-    }
-    if (guestView) {
-      guestView.classList.add('hidden');
-      guestView.style.display = 'none';
-      guestView.style.visibility = 'hidden';
-    }
-    if (adminView) {
-      adminView.classList.remove('hidden');
-      adminView.removeAttribute('hidden');
-      adminView.style.display = 'block';
-      adminView.style.visibility = 'visible';
-      adminView.style.opacity = '1';
-      adminView.style.position = 'relative';
-      adminView.style.width = '100%';
-      adminView.style.maxWidth = '1200px';
-      adminView.style.margin = '0 auto';
-    }
-    document.body.classList.add('admin-active');
-    showSection('section-home');
-    loadCouples();
-  }
-
-  function setAdminStatus(message, isError = false) {
-    const statusEl = document.getElementById('admin-status');
-    if (!statusEl) return;
-    statusEl.innerText = message;
-    statusEl.style.display = 'block';
-    statusEl.style.background = isError ? '#f8d7da' : '#d1ecf1';
-    statusEl.style.color = isError ? '#721c24' : '#0c5460';
+    // Si pas de gId, on charge normalement pour l'admin
+    fetch('/api/couples')
+      .then(response => response.json())
+      .then(data => { db = Array.isArray(data) ? data : []; })
+      .catch(err => console.error(err));
   }
 
   // --- Gestion Administration ---
   function checkAdmin() {
     const CodeErreur = document.getElementById('erreurCode');
-    const adminView = document.getElementById('admin-view');
-    const homeSection = document.getElementById('section-home');
-    const guestView = document.getElementById('guest-view');
-    const loginView = document.getElementById('login-view');
-    const passInput = document.getElementById('pass');
-    const passValue = passInput ? passInput.value.trim() : '';
-
-    console.log('checkAdmin called, password entered:', passValue);
-
-    if (passValue === '02026') {
-      if (loginView) {
-        loginView.classList.add('hidden');
-        loginView.style.display = 'none';
-        loginView.style.visibility = 'hidden';
-      }
-      if (guestView) {
-        guestView.classList.add('hidden');
-        guestView.style.display = 'none';
-        guestView.style.visibility = 'hidden';
-      }
-      if (adminView) {
-        console.log('Admin login successful, displaying admin view');
-        adminView.classList.remove('hidden');
-        adminView.removeAttribute('hidden');
-        adminView.style.display = 'block';
-        adminView.style.visibility = 'visible';
-        adminView.style.opacity = '1';
-      }
-      if (homeSection) {
-        homeSection.classList.remove('hidden');
-        homeSection.removeAttribute('hidden');
-        homeSection.style.display = 'block';
-        homeSection.style.visibility = 'visible';
-        homeSection.style.opacity = '1';
-      }
-
-      document.body.style.background = '#f0f0f0';
-      document.body.style.overflow = 'auto';
-      setAdminStatus('Connexion réussie. Page admin visible. Chargement des mariages…');
-      if (adminView) {
-        adminView.scrollIntoView({ behavior: 'smooth' });
-      }
-      document.body.classList.add('admin-active');
-      if (adminView) {
-        adminView.style.position = 'relative';
-        adminView.style.width = '100%';
-        adminView.style.maxWidth = '1200px';
-        adminView.style.margin = '0 auto';
-      }
-      showSection('section-home');
+    if (document.getElementById('pass').value === "02026") {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('admin-view').classList.remove('hidden');
       loadCouples();
     } else {
-      if (CodeErreur) {
-        CodeErreur.style.display = 'block';
-        setTimeout(() => { CodeErreur.style.display = 'none'; }, 3000);
-      }
+      CodeErreur.style.display = "block";
+      setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
     }
   }
 
@@ -543,34 +375,15 @@
 
   // --- Navigation ---
   function showSection(id) {
-    const adminView = document.getElementById('admin-view');
-    if (adminView) {
-      adminView.classList.remove('hidden');
-      adminView.removeAttribute('hidden');
-      adminView.style.display = 'block';
-      adminView.style.visibility = 'visible';
-      adminView.style.opacity = '1';
-      document.body.classList.add('admin-active');
-    }
-
-    const sections = ['section-home', 'Organiser', 'manage-couple', 'VoirPhoto', 'messageNegatif', 'message', 'download-section'];
-    sections.forEach(sectionId => {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.classList.add('hidden');
-        section.style.display = 'none';
-        section.style.visibility = 'hidden';
-      }
-    });
-
+    document.getElementById('section-home').classList.add('hidden');
+    document.getElementById('Organiser').classList.add('hidden');
+    document.getElementById('manage-couple').classList.add('hidden');
+    document.getElementById('VoirPhoto').classList.add('hidden');
+    
     const target = document.getElementById(id);
     if (target) {
       target.classList.remove('hidden');
-      target.removeAttribute('hidden');
       target.style.display = 'block';
-      target.style.visibility = 'visible';
-      target.style.opacity = '1';
-      target.style.minHeight = '100vh';
       if (id === 'message') {
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
       }
@@ -579,28 +392,18 @@
 
   // --- Gestion Couples ---
   function loadCouples() {
-    setAdminStatus('Chargement des mariages…');
-    // debug: removed
     fetch('/api/couples')
       .then(response => {
-        // debug: removed
-        if(!response.ok) return response.text().then(t => { throw new Error(`Erreur API ${response.status}: ${t}`); });
+        if(!response.ok) throw new Error("Page introuvable (404)");
         return response.json();
       })
       .then(data => {
-        // debug: removed
         db = Array.isArray(data) ? data : [];
-        if (db.length === 0) {
-          setAdminStatus('Aucun mariage trouvé pour l’instant.');
-        } else {
-          setAdminStatus(`Chargement terminé : ${db.length} mariage(s).`);
-        }
         renderCouples();
       })
       .catch(error => {
         console.error('Erreur chargement couples:', error);
-        db = [];
-        setAdminStatus('Impossible de charger les mariages. Vérifiez l’API ou la base de données sur Render.', true);
+        db = []; 
         renderCouples();
       });
   }
@@ -648,98 +451,16 @@
       listContainer.innerHTML = "<p>Aucun mariage trouvé ou erreur serveur.</p>";
       return;
     }
-
-    // If dataset is very large (e.g. many base64 images), limit initial render
-    const MAX_DISPLAY = 100; // reduce if necessary
-    const total = db.length;
-    const items = db.slice(0, MAX_DISPLAY);
-
-    // Clear container and build DOM safely (avoid huge innerHTML with base64 blobs)
-    listContainer.innerHTML = '';
-    const frag = document.createDocumentFragment();
-
-    items.forEach(c => {
-      const card = document.createElement('div');
-      card.className = 'card';
-
-      const picWrap = document.createElement('div');
-      picWrap.className = 'picture';
-      picWrap.style.cssText = 'display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; overflow:hidden;';
-
-      const img = document.createElement('img');
-      img.style.cssText = 'width:100%; border-radius:50%; height:100%; cursor:pointer; object-fit:cover;';
-      // Use loading=lazy and set src to the data if present. This defers decoding until needed.
-      img.loading = 'lazy';
-      if (c.photo) {
-        img.src = c.photo;
-      } else {
-        img.src = 'img/REGARD.png';
-      }
-      img.onclick = function() { ApercuePhoto(c.id); };
-      picWrap.appendChild(img);
-
-      const title = document.createElement('h3');
-      title.style.cursor = 'pointer';
-      title.textContent = c.name || '';
-      title.onclick = function() { openCouple(c.id); };
-
-      const date = document.createElement('h4');
-      date.style.color = '#666';
-      date.textContent = c.datemariage || '';
-
-      const del = document.createElement('button');
-      del.className = 'del-btn';
-      del.textContent = 'Supprimer Mariage';
-      del.onclick = function() { delCouple(c.id); };
-
-      card.appendChild(picWrap);
-      card.appendChild(title);
-      card.appendChild(date);
-      card.appendChild(del);
-
-      frag.appendChild(card);
-    });
-
-    // If truncated, show info and a button to load more
-    if (total > MAX_DISPLAY) {
-      const info = document.createElement('div');
-      info.style.margin = '10px';
-      info.style.textAlign = 'center';
-      info.style.color = '#333';
-      info.textContent = `Affichage de ${MAX_DISPLAY} sur ${total} mariages. Cliquez pour charger plus.`;
-
-      const moreBtn = document.createElement('button');
-      moreBtn.textContent = 'Charger plus';
-      moreBtn.onclick = function() {
-        // render remaining items (simple behaviour)
-        const remaining = db.slice(MAX_DISPLAY);
-        remaining.forEach(c => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          const picWrap = document.createElement('div');
-          picWrap.className = 'picture';
-          picWrap.style.cssText = 'display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; overflow:hidden;';
-          const img = document.createElement('img');
-          img.style.cssText = 'width:100%; border-radius:50%; height:100%; cursor:pointer; object-fit:cover;';
-          img.loading = 'lazy';
-          img.src = c.photo || 'img/REGARD.png';
-          img.onclick = function() { ApercuePhoto(c.id); };
-          picWrap.appendChild(img);
-          const title = document.createElement('h3'); title.style.cursor='pointer'; title.textContent = c.name || ''; title.onclick = function(){ openCouple(c.id); };
-          const date = document.createElement('h4'); date.style.color='#666'; date.textContent = c.datemariage || '';
-          const del = document.createElement('button'); del.className='del-btn'; del.textContent='Supprimer Mariage'; del.onclick = function(){ delCouple(c.id); };
-          card.appendChild(picWrap); card.appendChild(title); card.appendChild(date); card.appendChild(del);
-          frag.appendChild(card);
-        });
-        moreBtn.remove();
-        info.textContent = `Affichage complet : ${total} mariages.`;
-      };
-      info.appendChild(document.createElement('br'));
-      info.appendChild(moreBtn);
-      listContainer.appendChild(info);
-    }
-
-    listContainer.appendChild(frag);
+    listContainer.innerHTML = db.map(c => `
+      <div class="card">
+        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
+          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
+        </div>
+        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
+        <h4 style="color:#666;">${c.datemariage || ''}</h4>
+        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
+      </div>
+    `).join('');
   }
 
   function rechercheCouple() {
@@ -1046,23 +767,11 @@ function telechargerQR() {
         const textEl = document.getElementById("effet-texte");
         if (textEl) textEl.style.opacity = "1"; // Rend le texte visible
         ecrireTexteAnnime(); // Lance l'écriture
-    }, 4000);
+    }, 4000); 
   };
 
-  window.addEventListener('DOMContentLoaded', function () {
-    document.body.classList.add('admin-active');
-    const adminView = document.getElementById('admin-view');
-    if (adminView) {
-      adminView.style.display = 'block';
-      adminView.style.visibility = 'visible';
-      adminView.style.opacity = '1';
-    }
-    showSection('section-home');
-    loadCouples();
-  });
+  
 
-// Pas de chargement automatique des couples sur preview statique.
-// Le chargement se fait uniquement après connexion admin ou via guestId.
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -1073,9 +782,6 @@ function telechargerQR() {
 
   const hiddenElements = document.querySelectorAll('.affiche');
   hiddenElements.forEach((el) => observer.observe(el));
-
-  
-
   </script>
 </body>
 </html>
