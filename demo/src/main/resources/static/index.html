@@ -179,6 +179,12 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+  <!-- TEMPORARY DEPLOY CHECK BANNER - REMOVE AFTER VERIFY -->
+  <div id="deploy-check-banner" style="position:fixed;left:0;right:0;top:0;z-index:2147483647;background:#ffeb3b;color:#000;text-align:center;padding:8px 10px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,0.15);">
+    DEPLOY CHECK — commit a2a104e deployed. If you DO NOT see this banner, Render is still serving an old build.
+    <button id="deploy-check-close" style="margin-left:12px;padding:4px 8px;border-radius:6px;border:none;cursor:pointer;background:#222;color:#fff;font-weight:600;">Close</button>
+  </div>
+  <script>document.getElementById('deploy-check-close').addEventListener('click',function(){document.getElementById('deploy-check-banner').style.display='none'});setTimeout(()=>{var b=document.getElementById('deploy-check-banner'); if(b) b.style.display='none'},45000);</script>
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
     <img src="img/logo.png" alt="Logo">
