@@ -248,6 +248,40 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 50px 20px;
+    background: #040029; /* Rappel de ton thème sombre */
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    transition: 0.4s;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-10px);
+    border-color: #ff0055; /* Petite touche de couleur au survol */
+}
+
+.stat-card i {
+    font-size: 40px;
+    color: #ff0055;
+    margin-bottom: 15px;
+}
+
+.stat-card h3 { margin: 10px 0; font-size: 1.2rem; }
+.stat-card p { opacity: 0.7; }
+
   #blocInvitation { 
             text-align: center; 
             padding: 20px; 
@@ -437,6 +471,30 @@
     </header>
 
     <section id="section-home" class="top-page">
+       <h1 style="color: orange;"><i class=" fas fa-home"></i> Dashbord</h1>
+      <section id="dashboard-presentation" class="stats-container">
+       
+    <div class="stat-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Évolution</h3>
+        <p>+85% de croissance</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-comments"></i>
+        <h3>Commentaires</h3>
+        <p>1,2k avis positifs</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-hand-holding-heart"></i>
+        <h3>Appuis</h3>
+        <p>Certifié Borée</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Mariages</h3>
+        <p>+200 évènements</p>
+    </div>
+</section>
       <h1 style="border-bottom: 4px solid rgb(0, 182, 0) ;color:white; padding: 20px;">Liste des Mariages</h1>
       <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="background-color: rgb(214, 139, 0); ">
       <div id="couples-list" class="grid"></div>
