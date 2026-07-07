@@ -115,8 +115,58 @@
     border-radius: 10px; 
     display: block; 
   }
+  /* Style du Dashboard de statistiques */
+#dashboard-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 25px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style commun aux deux boîtes (Présents/Absents) */
+.stat-box {
+    flex: 1;
+    max-width: 150px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Couleur pour les présents */
+.stat-present {
+    background: linear-gradient(135deg, #28a745, #00360d);
+    border: 1px solid white;
+}
+
+/* Couleur pour les absents */
+.stat-absent {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+}
+
+/* Style des chiffres */
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Style du texte descriptif */
+.stat-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
   button { cursor: pointer; border: none; background-color: rgba(150, 0, 62, 0.8); color: white; padding: 10px; border-radius: 10px; margin: 5px; }
-  .hidden { display: none !important; }
+  /* .hidden { display: none !important; } */
   .del-btn { background: #d32f2f; font-size: 0.8em; }
   #guest-view img { margin: 0; width: 100%; }
   select:focus { width: 100px; background-color: white; color: rgb(0, 115, 223); }
@@ -425,6 +475,17 @@
       <br><br>
       
       <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 5px solid rgb(0, 146, 32);">Liste des invités</h2>
+      <!-- Boîte de statistiques -->
+<div id="dashboard-stats" style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+    <div style="background: #06ad00; color: white; padding: 15px; border-radius: 15px; text-align: center;">
+        <div id="count-present" style="font-size: 24px; font-weight: bold;">0</div>
+        <div>Présents</div>
+    </div>
+    <div style="background: #d32f2f; color: white; padding: 15px; border-radius: 15px; text-align: center;">
+        <div id="count-absent" style="font-size: 24px; font-weight: bold;">0</div>
+        <div>Absents</div>
+    </div>
+</div>
             <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0); border-radius: 20px;"> <br><br>
 
       <div id="guests-list" class="grid"></div>
@@ -726,13 +787,17 @@ window.addGuest = addGuest;
   }
 
 function renderGuests() {
-    // 1. On récupère d'abord les données filtrées avant toute chose
     const searchInput = document.getElementById('searchGuest');
     const search = searchInput ? searchInput.value.toLowerCase() : "";
     const filteredGuests = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
     
-    // 2. Maintenant que filteredGuests existe, on peut loguer en toute sécurité
-    console.log("Données filtrées :", filteredGuests);
+    // --- NOUVEAU : Calcul des statistiques ---
+    const presents = currentGuests.filter(g => g.status === "Présent").length;
+    const absents = currentGuests.filter(g => g.status === "Absent").length;
+    
+    document.getElementById('count-present').innerText = presents;
+    document.getElementById('count-absent').innerText = absents;
+    // ------------------------------------------
     
     const container = document.getElementById('guests-list');
     if (!container) return;
@@ -744,15 +809,10 @@ function renderGuests() {
     
     container.innerHTML = filteredGuests.map(g => `
       <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
-        <strong style=" color: white;">${g.name}</strong><br>
-        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
-        <small style=" color: white;">Status: ${g.status || 'En attente'}</small><br><br>
-        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0; ">
-        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
-        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
-        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
-        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
-        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
+        <strong style="color: white;">${g.name}</strong><br>
+        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br>
+        <small style="background-color: orange; padding: 2px 5px; border-radius: 5px;">Table: ${g.guestTable || 'Non assignée'}</small><br><br>
+        <button class="del-btn" onclick="delGuest('${g.id}')">Supprimer</button>
       </div>
     `).join('');
 }
