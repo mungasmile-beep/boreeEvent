@@ -115,56 +115,6 @@
     border-radius: 10px; 
     display: block; 
   }
-  /* Style du Dashboard de statistiques */
-#dashboard-stats {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 25px 0;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Style commun aux deux boîtes (Présents/Absents) */
-.stat-box {
-    flex: 1;
-    max-width: 150px;
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.stat-box:hover {
-    transform: translateY(-5px);
-}
-
-/* Couleur pour les présents */
-.stat-present {
-    background: linear-gradient(135deg, #28a745, #00360d);
-    border: 1px solid white;
-}
-
-/* Couleur pour les absents */
-.stat-absent {
-    background: linear-gradient(135deg, #dc3545, #b02a37);
-}
-
-/* Style des chiffres */
-.stat-number {
-    font-size: 28px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* Style du texte descriptif */
-.stat-label {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
   button { cursor: pointer; border: none; background-color: rgba(150, 0, 62, 0.8); color: white; padding: 10px; border-radius: 10px; margin: 5px; }
   .hidden { display: none !important; }
   .del-btn { background: #d32f2f; font-size: 0.8em; }
@@ -246,7 +196,58 @@
     .white { background-color: #ffffff; 
      border: 2px solid #3c3c3c; /* Bordure fine pour définir le blanc */
     }
+    /* Style du Dashboard de statistiques */
+#dashboard-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px; /* Ajout du margin-top pour l'espace */
+    margin-bottom: 25px;
+    font-family: 'Arial', sans-serif;
+}
 
+/* Style commun aux boîtes */
+.stat-box {
+    flex: 1;
+    max-width: 150px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Couleurs spécifiques */
+.stat-total {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.stat-present {
+    background: linear-gradient(135deg, #28a745, #208638);
+}
+
+.stat-absent {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+}
+
+/* Style des chiffres et labels */
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
   #blocInvitation { 
             text-align: center; 
             padding: 20px; 
@@ -476,14 +477,18 @@
       
       <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 5px solid rgb(0, 146, 32);">Liste des invités</h2>
       <!-- Boîte de statistiques -->
-<div id="dashboard-stats" style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
-    <div style="background: #06ad00; color: white; padding: 15px; border-radius: 15px; text-align: center;">
-        <div id="count-present" style="font-size: 24px; font-weight: bold;">0</div>
-        <div>Présents</div>
+<div id="dashboard-stats">
+    <div class="stat-box stat-total" style="background: linear-gradient(135deg, #007bff, #0056b3);">
+        <span id="count-total" class="stat-number">0</span>
+        <span class="stat-label">Total</span>
     </div>
-    <div style="background: #d32f2f; color: white; padding: 15px; border-radius: 15px; text-align: center;">
-        <div id="count-absent" style="font-size: 24px; font-weight: bold;">0</div>
-        <div>Absents</div>
+    <div class="stat-box stat-present">
+        <span id="count-present" class="stat-number">0</span>
+        <span class="stat-label">Présents</span>
+    </div>
+    <div class="stat-box stat-absent">
+        <span id="count-absent" class="stat-number">0</span>
+        <span class="stat-label">Absents</span>
     </div>
 </div>
             <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0); border-radius: 20px;"> <br><br>
@@ -787,18 +792,28 @@ window.addGuest = addGuest;
   }
 
 function renderGuests() {
-    const searchInput = document.getElementById('searchGuest');
-    const search = searchInput ? searchInput.value.toLowerCase() : "";
-    const filteredGuests = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
-    
-    // --- NOUVEAU : Calcul des statistiques ---
+    // 1. Calculs des statistiques basés sur toute la liste currentGuests
+    const total = currentGuests.length;
     const presents = currentGuests.filter(g => g.status === "Présent").length;
     const absents = currentGuests.filter(g => g.status === "Absent").length;
-    
-    document.getElementById('count-present').innerText = presents;
-    document.getElementById('count-absent').innerText = absents;
-    // ------------------------------------------
-    
+
+    // Mise à jour des éléments du dashboard (Statistiques)
+    const totalEl = document.getElementById('count-total');
+    const presentEl = document.getElementById('count-present');
+    const absentEl = document.getElementById('count-absent');
+
+    if (totalEl) totalEl.innerText = total;
+    if (presentEl) presentEl.innerText = presents;
+    if (absentEl) absentEl.innerText = absents;
+
+    // 2. Gestion de la recherche et filtrage
+    const searchInput = document.getElementById('searchGuest');
+    const search = searchInput ? searchInput.value.toLowerCase() : "";
+    const filteredGuests = currentGuests.filter(g => 
+        g.name && g.name.toLowerCase().includes(search)
+    );
+
+    // 3. Rendu de la liste des invités
     const container = document.getElementById('guests-list');
     if (!container) return;
 
@@ -806,13 +821,18 @@ function renderGuests() {
         container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
         return;
     }
-    
+
     container.innerHTML = filteredGuests.map(g => `
       <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
         <strong style="color: white;">${g.name}</strong><br>
-        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br>
-        <small style="background-color: orange; padding: 2px 5px; border-radius: 5px;">Table: ${g.guestTable || 'Non assignée'}</small><br><br>
-        <button class="del-btn" onclick="delGuest('${g.id}')">Supprimer</button>
+        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
+        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br><br>
+        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0;">
+        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
+        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
+        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
+        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
       </div>
     `).join('');
 }
