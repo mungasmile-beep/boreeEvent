@@ -10,21 +10,75 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-  body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
-  #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(255, 254, 238); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
-    .header { background: rgba(121, 0, 50, 0.8); font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
+  body { margin: 0; padding: 0; font-family: Arial, sans-serif; 
+    /* background-color: #040029; */
+   }
+  #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(238, 241, 255); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
+    .header { background: #040029; font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
   .headerTout img { width: 50px; }
   button:hover { background-color: #06ad00; color: rgb(255, 255, 255); box-shadow: 0 0 20px rgb(209, 209, 209); }
-  #login-view img { width: 80px; background-color: rgb(73, 0, 43); border-radius: 50%; padding: 10px; }
+  #login-view img {animation-name: ombreImg; animation-iteration-count: infinite; animation-duration: 3s;  color: white; width: 80px; background-color:#1e1b3b; border: 1px solid gray; border-radius: 50%; padding: 10px; }
   .headerTout { display: flex; justify-content: space-between; align-items: center; text-align: center; }
   .nav { display: flex; justify-content: end; gap: 20px; list-style: none; font-size: 12px; color: white; margin: 0; padding: 0; }
   .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
   .nav li:hover { background-color: white; color: rgb(73, 0, 43); }
   .top-page { background-color: rgb(240, 240, 240); height: 100%; margin: 0; text-align: center; padding: 20px; }
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
-  .card { background-color: rgb(255, 255, 255); padding: 20px; box-shadow: 0 0 10px rgb(218, 218, 218); border-radius: 10px; width: 220px; }
-  #login-view { background-color: white; padding: 50px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif; }
-  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 10px; background-color: rgb(255, 254, 238); border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); }
+  .card { background-color:#040029; padding: 20px; box-shadow: 0 0 10px rgb(68, 68, 68); border-radius: 10px; width: 220px; }
+  #login-view { color: rgb(214, 139, 0); animation-name: ombre; animation-iteration-count: infinite; animation-duration: 5s; background-color: rgb(21, 23, 49); padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif;  }
+   @keyframes ombre {
+    from{
+      
+      box-shadow: 0 0 20px rgb(255, 255, 255);
+      border: 2px solid rgb(0, 161, 224);
+    }
+    to{
+        border: 2px solid rgb(224, 0, 0);
+       box-shadow: 0 0 20px rgb(255, 187, 0);
+
+    }
+   }
+   @keyframes ombreImg {
+    from{
+      transform: translate(O);
+      /* box-shadow: 0 0 5px rgb(255, 255, 255); */
+      border: 2px solid rgb(0, 161, 224);
+    }
+    to{
+        border: 2px solid rgb(224, 0, 0);
+       /* box-shadow: 0 0 5px rgb(255, 187, 0); */
+             transform: translate(18Odeg);
+
+    }
+   }
+  #login-view input{
+    border: none;
+
+    color: #e2f6ff;
+    background-color: transparent;
+    border-bottom: 4px solid gray;
+    border-radius: 0;
+   }
+   #login-view input:hover{
+    border: none;
+    border-bottom: 4px solid white;
+   }
+    #login-view button:hover{
+      box-shadow: none;
+      transform: translateY(5px);
+      padding: 20px;
+      border-radius: 30px;
+      background-color: #3c3c3c;
+      color: white;
+    }
+    #login-view button{
+      transition: 0.25s;
+      border-radius: 0 13px 0 13px;
+      color: #1e1b3b;
+      font-weight: 70px;
+      background-color: rgb(214, 139, 0);
+    }
+  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 40px; background-color: #040029; border-radius: 23px; box-shadow: 0 0 20px rgb(42, 42, 63); }
   /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   input { 
@@ -32,10 +86,21 @@
     max-width: 300px; 
     padding: 12px; 
     margin: 10px auto; 
+    color: rgb(204, 204, 204);
     border: 2px solid #eee; 
-    border-radius: 10px; 
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid rgb(255, 248, 227);
+  
     display: block; 
   }
+  input:hover{
+        border-bottom: 2px solid rgb(0, 204, 61);
+
+  }
+   input::placeholder{
+    color: rgb(156, 156, 156);
+   }
    select { 
     width: 100%; 
     max-width: 300px; 
@@ -79,7 +144,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: #75e1ff;
+    
     padding: 30px;
     margin: 40px;
     border-radius: 23px;
@@ -94,9 +159,9 @@
         align-items: center;
         text-align: center;
         border-radius: 0 0 10px 10px;
-        border-color: 1px solid rgb(0, 166, 255);
+        border: 1px solid rgb(0, 81, 255);
         margin: 20px ;
-        max-width: 400px;
+        /* max-width: 400px; */
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
 
@@ -159,7 +224,7 @@
     <h1>Bienvenue chers admin</h1>
     <input type="password" id="pass" placeholder="Code Administrateur">
     <button onclick="checkAdmin()">Se Connecter</button>
-    <p id="erreurCode" style="color: rgb(110, 0, 46); display: none;">Invalide, veuillez réessayer</p>
+    <p id="erreurCode" style="color: rgb(128, 128, 128); display: none;">Invalide, veuillez réessayer</p>
   </div>
 
   <!-- VUE INVITÉ -->
@@ -213,6 +278,20 @@
 </div>
        
     </div>
+        <div id="confirm-step">
+      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
+      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
+      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
+    </div>
+      <br>
+  <br>
+<a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
+   target="_blank" 
+   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(0, 115, 223);">
+  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
+</a>  
+<br>
+<br>
 </div>
     </div>
     <section id="messageNegatif" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
@@ -252,11 +331,7 @@
         <button style="background-color: rgb(0, 115, 223);" onclick="saveDrinks()">Confirmer Choix</button>
       </div>
     </div>
-    <div id="confirm-step">
-      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
-      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
-      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
-    </div>
+
     
  
     
@@ -275,6 +350,10 @@
     <div style="margin-top: 15px; font-weight: bold; color: #c70000;"><i class="fas fa-alert"></i> NB: Presentez-vous avec votre invitation téléchargé le jour de l'événement </div>
     <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
 </div>
+  <div id="download-section" class="hidden">
+      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
+    <button onclick="telechargerQR()" ><i class="fas fa-download"></i> Télécharger mon invitation</button>
+</div>
  <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
       <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
       <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
@@ -283,19 +362,8 @@
   <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
 </a>  
     </section>
-    <div id="download-section" class="hidden">
-      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
-    <button onclick="telechargerQR()">Télécharger mon invitation</button>
-</div>
-    <br>
-  <br>
-<a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
-   target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(0, 115, 223);">
-  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
-</a>  
-<br>
-<br>
+  
+  
 
   </div>
  
@@ -313,8 +381,8 @@
     </header>
 
     <section id="section-home" class="top-page">
-      <h1>Liste des Mariages</h1>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="cursor:pointer">
+      <h1 style="border-bottom: 4px solid rgb(0, 182, 0); padding: 20px;">Liste des Mariages</h1>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="border-top: 2px solid green; border-bottom: 2px solid green;">
       <div id="couples-list" class="grid"></div>
     </section>
 
@@ -325,36 +393,39 @@
     </section>
 
     <section class="hidden" id="Organiser">
-      <h1 style="color: rgb(97, 0, 40);">Enregistrer un couple</h1>
-      <h3 style="font-style: italic; font-size: 10px; color: red;">Veuillez écrire en minuscule !!!</h3>
+      <h1 style="color: rgb(255, 241, 247);">Enregistrer un couple</h1>
+      <h3 style="font-style: italic; font-size: 10px; color: rgb(214, 139, 0);">Veuillez écrire en minuscule !!!</h3>
       <label style="color: gray;">Nom du couple</label> 
       <input type="text" id="coupleName" placeholder="Ex: Smile et Ornella"> <br>
       <label style="color: gray;">Entrez la date de l'événement</label> <br>
       <input type="date" id="datemariage"> <br>
       <label style="color: gray;">Entrez une photo</label> <br>
       <input type="file" id="photo"><br>
-      <button onclick="addCouple()">+ Créer Mariage</button>
+      <button onclick="addCouple()" style="background-color: rgb(214, 139, 0); color: #1e1b3b;">+ Créer Mariage</button>
     </section>
 
     <section id="manage-couple" class="hidden" style="margin-top: 70px;">
-      <button onclick="showSection('section-home')" style="color: #ffffff; font-size: 20px;"><i class="fas fa-arrow-left"></i></button>
+      <button onclick="showSection('section-home')" style="left: 12px; color: #ffffff; font-size: 20px; background-color: rgb(7, 88, 0);"><i class="fas fa-arrow-left"></i></button>
       <h2 id="couple-title"></h2>
-      <div class="aj" style="background-color: #fda2bd; padding: 10px; border-radius: 23px;">
-        <h3 style="color: rgb(112, 112, 112);">Enregistrer un invité</h3>
-        <label style="color: rgb(112, 112, 112);">Nom :</label>
-        <input type="text" id="newGuestName" placeholder="Nom de l'invité">
-        <label style="color: rgb(112, 112, 112);">Nom ou email de l'agent Borée :</label>
-        <input type="email" id="newGuestEmail" placeholder="Nom ou email de l'agent Borée">
-        <label style="color: rgb(112, 112, 112);">table :</label>
+      <div class="aj" style="background-color:#0f123a; padding: 10px; border-radius: 23px 23px 0 0; gap: 70px;">
+        <h3 style="color: rgb(255, 255, 255);">Enregistrer un invité</h3>
+        <label style="color: rgb(255, 255, 255);">Nom :</label>
+        <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
+        <label style="color: rgb(255, 255, 255);">Nom ou email de l'agent Borée :</label>
+        <input type="email" id="newGuestEmail" placeholder="Nom ou email de l'agent Borée"> <br> <br>
+        <label style="color: rgb(255, 255, 255);">table :</label>
         <input type="text" id="TableGuestName" placeholder="Nom de la table confirmation"> 
-        <button type="button" onclick="addGuest(); return false;">Ajouter invité</button> 
+        <button type="button" onclick="addGuest(); return false;" style="background-color: rgb(214, 139, 0);">Ajouter invité</button> 
       </div>
       <br><br>
-      <input type="text" id="searchGuest" placeholder="Rechercher invité ..." onkeyup="renderGuests()"> <br><br>
+      
+      <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 2px solid rgb(0, 146, 32);">Liste des invités</h2>
+            <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0);"> <br><br>
+
       <div id="guests-list" class="grid"></div>
     </section>
   </div>
-
+    
   <!-- SCRIPT COMPLET CORRIGÉ -->
   <script>
   // --- Initialisation ---
@@ -517,8 +588,8 @@
         <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
           <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
         </div>
-        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
-        <h4 style="color:#666;">${c.datemariage || ''}</h4>
+        <h3 style="color:white;" onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
+        <h4 style="color: white;">${c.datemariage || ''}</h4>
         <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
       </div>
     `).join('');
@@ -668,12 +739,12 @@ function renderGuests() {
     
     container.innerHTML = filteredGuests.map(g => `
       <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: white;">
-        <strong>${g.name}</strong><br>
-        <small style="color: #666;">${g.email || 'Email non défini'}</small><br>
-        <small>Status: ${g.status || 'En attente'}</small><br><br>
-        <small style="background-color: #fda2bd; padding: 5px 10px; border-radius: 20px;">
+        <strong style=" color: white;">${g.name}</strong><br>
+        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
+        <small style=" color: white;">Status: ${g.status || 'En attente'}</small><br><br>
+        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0; ">
         Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
-        <div class="drink-info"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
         <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
         <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
         <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
