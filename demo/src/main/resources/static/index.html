@@ -12,9 +12,11 @@
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
   body { margin: 0; padding: 0; font-family: Arial, sans-serif; 
     /* background-color: #040029; */
+    color: white;
+
    }
   #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(238, 241, 255); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
-    .header { background: #040029; font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; }
+    .header { background: #040029; font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; box-shadow: 0 0 10px rgb(49, 50, 114); }
   .headerTout img { width: 50px; }
   button:hover { background-color: #06ad00; color: rgb(255, 255, 255); box-shadow: 0 0 20px rgb(209, 209, 209); }
   #login-view img {animation-name: ombreImg; animation-iteration-count: infinite; animation-duration: 3s;  color: white; width: 80px; background-color:#1e1b3b; border: 1px solid gray; border-radius: 50%; padding: 10px; }
@@ -22,7 +24,10 @@
   .nav { display: flex; justify-content: end; gap: 20px; list-style: none; font-size: 12px; color: white; margin: 0; padding: 0; }
   .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
   .nav li:hover { background-color: white; color: rgb(73, 0, 43); }
-  .top-page { background-color: rgb(240, 240, 240); height: 100%; margin: 0; text-align: center; padding: 20px; }
+  .top-page input::placeholder{
+    color: rgb(0, 0, 0);
+  }
+  .top-page { background-color: rgb(33, 29, 46); height: 100%; margin: 0; text-align: center; padding: 20px; }
   .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
   .card { background-color:#040029; padding: 20px; box-shadow: 0 0 10px rgb(68, 68, 68); border-radius: 10px; width: 220px; }
   #login-view { color: rgb(214, 139, 0); animation-name: ombre; animation-iteration-count: infinite; animation-duration: 5s; background-color: rgb(21, 23, 49); padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif;  }
@@ -78,7 +83,7 @@
       font-weight: 70px;
       background-color: rgb(214, 139, 0);
     }
-  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 0; background-color: #040029; border-radius: 23px; box-shadow: 0 0 20px rgb(42, 42, 63); }
+  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 0; background-color: #040029; border-radius: 23px; box-shadow: 0 0 20px rgb(42, 42, 63); margin-top: 20px;}
   /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
   input { 
@@ -95,11 +100,12 @@
     display: block; 
   }
   input:hover{
-        border-bottom: 2px solid rgb(0, 204, 61);
+        border-bottom: 4px solid rgb(0, 204, 61);
 
   }
    input::placeholder{
     color: rgb(156, 156, 156);
+    text-align: center;
    }
    select { 
     width: 100%; 
@@ -381,8 +387,8 @@
     </header>
 
     <section id="section-home" class="top-page">
-      <h1 style="border-bottom: 4px solid rgb(0, 182, 0); padding: 20px;">Liste des Mariages</h1>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="border-top: 2px solid green; border-bottom: 2px solid green;">
+      <h1 style="border-bottom: 4px solid rgb(0, 182, 0) ;color:white; padding: 20px;">Liste des Mariages</h1>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="background-color: rgb(214, 139, 0); ">
       <div id="couples-list" class="grid"></div>
     </section>
 
@@ -407,7 +413,7 @@
     <section id="manage-couple" class="hidden" style="margin-top: 70px;">
       <button onclick="showSection('section-home')" style="left: 12px; color: #ffffff; font-size: 20px; background-color: rgb(7, 88, 0);"><i class="fas fa-arrow-left"></i></button>
       <h2 id="couple-title" style="color: white;"></h2>
-      <div class="aj" style="background-color:#0f123a; padding: 10px; border-radius: 23px 23px 0 0; gap: 70px;">
+      <div class="aj" style="background-color:#41454e; padding: 10px; border-radius: 23px 23px 0 0; gap: 70px;">
         <h3 style="color: rgb(255, 255, 255);">Enregistrer un invité</h3>
         <label style="color: rgb(255, 255, 255);">Nom :</label>
         <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
@@ -419,8 +425,8 @@
       </div>
       <br><br>
       
-      <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 2px solid rgb(0, 146, 32);">Liste des invités</h2>
-            <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0);"> <br><br>
+      <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 5px solid rgb(0, 146, 32);">Liste des invités</h2>
+            <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0); border-radius: 20px;"> <br><br>
 
       <div id="guests-list" class="grid"></div>
     </section>
@@ -580,7 +586,7 @@
     const listContainer = document.getElementById('couples-list');
     if (!listContainer) return;
     if (!Array.isArray(db) || db.length === 0) {
-      listContainer.innerHTML = "<p>Aucun mariage trouvé ou erreur serveur.</p>";
+      listContainer.innerHTML = "<p >Aucun mariage trouvé ou erreur serveur.</p>";
       return;
     }
     listContainer.innerHTML = db.map(c => `
