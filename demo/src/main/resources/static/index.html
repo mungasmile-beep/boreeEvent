@@ -393,6 +393,14 @@
   <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
 </a>  
     </section>
+     <div id="alertchoix" style="display: none; background-color: rgb(156, 255, 164); border: 1px solid green; text-align: center; border-radius: 15px; margin: 30px; padding: 15px;">
+      <p style="color: rgb(0, 116, 0);" style="font-size:4rem;  font-family: 'Playfair Display', serif;
+            font-size: 200px;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px; ">✓Choix confirmé avec succès</p>
+
+     </div>
        <div id="drink-step" class="hidden">
       <div class="boisson">
         <h3>Choisissez vos boissons</h3>
@@ -939,6 +947,7 @@ function setPresence(present) {
 // --- Fonction saveDrinks (Sauvegarde et affichage) ---
 function saveDrinks() {
     const idToUse = window.guestId || gId;
+    const AletChoix = document.getElementById('alertchoix')
     if (!idToUse) return;
 
     const drinks = [
@@ -954,7 +963,9 @@ function saveDrinks() {
     })
     .then(response => {
       if (!response.ok) throw new Error("Erreur enregistrement boissons");
-      alert("Choix enregistrés !");
+      AletChoix.style.display = "block";
+            setTimeout(() => { AletChoix.style.display = "none"; }, 2000);
+
       document.getElementById('drink-step').classList.add('hidden');
       document.getElementById('download-section').classList.remove('hidden');
       
