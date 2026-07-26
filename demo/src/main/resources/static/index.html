@@ -3,581 +3,650 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>boree_Event</title>
-<script src="/qrcode.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
-  body { margin: 0; padding: 0; font-family: Arial, sans-serif; 
-   
-
-   }
-  #drink-step{display: block; margin: 10px; text-align: center; justify-content: center; align-items: center; background-color: rgb(238, 241, 255); padding: 20px; border-radius: 23px; box-shadow: 0 0 20px rgb(226, 226, 226); } 
-    .header { background: #040029; font-family: Arial, Helvetica, sans-serif; color: white; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(5px); margin: 0; padding: 10px; box-shadow: 0 0 10px rgb(49, 50, 114); }
-  .headerTout img { width: 50px; }
-  button:hover { background-color: #06ad00; color: rgb(255, 255, 255); box-shadow: 0 0 20px rgb(209, 209, 209); }
-  #login-view img {animation-name: ombreImg; animation-iteration-count: infinite; animation-duration: 3s;  color: white; width: 80px; background-color:#1e1b3b; border: 1px solid gray; border-radius: 50%; padding: 10px; }
-  .headerTout { display: flex; justify-content: space-between; align-items: center; text-align: center; }
-  .nav { display: flex; justify-content: end; gap: 20px; list-style: none; font-size: 12px; color: white; margin: 0; padding: 0; }
-  .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
-  .nav li:hover { background-color: white; color: rgb(73, 0, 43); }
-  .top-page input::placeholder{
-    color: rgb(0, 0, 0);
-  }
-  .top-page { background-color: rgb(33, 29, 46); height: 100%; margin: 0; text-align: center; padding: 20px; }
-  .grid { display: flex; justify-content: center; align-items: center; text-align: center; gap: 20px; flex-wrap: wrap; }
-  .card { background-color:#040029; padding: 20px; box-shadow: 0 0 10px rgb(68, 68, 68); border-radius: 10px; width: 220px; }
-  #login-view { color: rgb(214, 139, 0); animation-name: ombre; animation-iteration-count: infinite; animation-duration: 5s; background-color: rgb(21, 23, 49); padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; font-family: Arial, Helvetica, sans-serif;  }
-   @keyframes ombre {
-    from{
-      
-      box-shadow: 0 0 20px rgb(255, 255, 255);
-      border: 2px solid rgb(0, 161, 224);
-    }
-    to{
-        border: 2px solid rgb(224, 0, 0);
-       box-shadow: 0 0 20px rgb(255, 187, 0);
-
-    }
-   }
-   @keyframes ombreImg {
-    from{
-      transform: translate(O);
-      /* box-shadow: 0 0 5px rgb(255, 255, 255); */
-      border: 2px solid rgb(0, 161, 224);
-    }
-    to{
-        border: 2px solid rgb(224, 0, 0);
-       /* box-shadow: 0 0 5px rgb(255, 187, 0); */
-             transform: translate(18Odeg);
-
-    }
-   }
-  #login-view input{
-    border: none;
-
-    color: #e2f6ff;
-    background-color: transparent;
-    border-bottom: 4px solid gray;
-    border-radius: 0;
-   }
-   #login-view input:hover{
-    border: none;
-    border-bottom: 4px solid white;
-   }
-    #login-view button:hover{
-      box-shadow: none;
-      transform: translateY(5px);
-      padding: 20px;
-      border-radius: 30px;
-      background-color: #3c3c3c;
-      color: white;
-    }
-    #login-view button{
-      transition: 0.25s;
-      border-radius: 0 13px 0 13px;
-      color: #1e1b3b;
-      font-weight: 70px;
-      background-color: rgb(214, 139, 0);
-    }
-  #manage-couple, #Organiser { padding:20px; text-align: center; justify-content: center; align-items: center; margin: 0; background-color: #040029; border-radius: 23px; box-shadow: 0 0 20px rgb(42, 42, 63); margin-top: 20px;}
-  /* input { width: 150px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
-  /* select { width: 200px; padding: 10px; margin: 5px; border: 2px solid #eee; border-radius: 10px; display: block; margin-left: auto; margin-right: auto; } */
-  input { 
-    width: 80%; 
-    max-width: 300px; 
-    padding: 12px; 
-    margin: 10px auto; 
-    color: rgb(204, 204, 204);
-    border: 2px solid #eee; 
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid rgb(255, 248, 227);
-  
-    display: block; 
-  }
-  input:hover{
-        border-bottom: 4px solid rgb(0, 204, 61);
-
-  }
-   input::placeholder{
-    color: rgb(156, 156, 156);
-    text-align: center;
-   }
-   select { 
-    width: 100%; 
-    max-width: 300px; 
-    margin: 10px auto;
-    padding: 12px; 
-    border: 2px solid #eee; 
-    border-radius: 10px; 
-    display: block; 
-  }
-  button { cursor: pointer; border: none; background-color: rgba(150, 0, 62, 0.8); color: white; padding: 10px; border-radius: 10px; margin: 5px; }
-  .hidden { display: none !important; }
-  .del-btn { background: #d32f2f; font-size: 0.8em; }
-  #guest-view img { margin: 0; width: 100%; }
-  select:focus { width: 100px; background-color: white; color: rgb(0, 115, 223); }
-  option { background: rgb(0, 115, 223); color: white; }
-  #welcome-title { font-size: 50px; font-family: "Brush Script MT", "Segoe Script", cursive; animation: nom 2s infinite; transition: 2s; color: #d32f2f; text-align: center; }
-  @keyframes nom { from { transform: translateY(10px); } to { transform: translateY(-10px); } }
-  .drink-info { font-size: 11px; color: #555; margin-top: 5px; font-style: italic; }
-  .paragTout { color: rgb(56, 0, 33); text-align: center; margin: 60px; }
-  .boisson { margin: 3px; border-radius: 23px; padding: 60px; text-align: center; background-color: white; box-shadow: 0 0 10px rgb(199, 199, 199); }
-  #effet-ecriture, #parag { font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; }
-  .paragTout i { text-align: center; animation: icone 1s infinite; transition: 2s; }
-  @keyframes icone { from { transform: translateY(0px); } to { transform: translateY(-50px); } }
-  #AjoutInvit { background-color: #06ad00; padding: 10px; border-radius: 20px; color: white; }
-  #invit, #table, .backContainer, .photo2, .monte { opacity: 0; width: 100%; overflow: hidden; animation: fond 0.53s ease-in forwards; }
-  .backContainer, .photo2, .monte { animation-duration: 2s; }
-  @keyframes fond { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  #AjoutInvit:hover { background-color: #850037; }
-  #confirm-step { text-align: center; font-style: italic; font-family: 'Times New Roman', Times, serif; }
-  .typewriter { overflow: hidden; border-right: .15em solid orange; white-space: nowrap; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
-  @keyframes typing { from { width: 0; opacity: 0; } to { width: 100%; opacity: 1; } }
-  @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: orange } }
-  .affiche { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
-  .visible { opacity: 1; transform: translateY(0); }
-  .container-images { position: relative; display: inline-block; overflow: hidden; width: 100%; }
-  .container-images .fond { display: block; width: 100%; }
-  .container-images .fleur, .container-images #fleur2 { position: absolute; top: 20px; width: 80px !important; z-index: 10; animation: chuteFleur 5s linear infinite; }
-  .container-images .fleur { left: 20px; }
-  .container-images #fleur2 { right: 20px; }
-  #download-section{
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
-    padding: 30px;
-    margin: 40px;
-    border-radius: 23px;
-  }
-  
-.dress-code-background {
-        font-family: 'Times New Roman', Times, serif;
-        font-style: italic;
-        background-color: #e2f6ff; /* Fond très léger pour contraster */
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 0 0 10px 10px;
-        border: 1px solid rgb(0, 81, 255);
-        margin: 20px ;
-        /* max-width: 400px; */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    .dress-code-content h3 {
-        color: #96003e;
-        margin-bottom: 20px;
-        
-    }
-
-    /* Conteneur pour aligner les cercles */
-    .circles-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 15px;
-    }
-
-    /* Base commune des cercles */
-    .circle {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-       
-    }
-
-    .red { background-color: #d32f2f; }
-    .white { background-color: #ffffff; 
-     border: 2px solid #3c3c3c; /* Bordure fine pour définir le blanc */
-    }
-    /* Style du Dashboard de statistiques */
-#dashboard-stats {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px; /* Ajout du margin-top pour l'espace */
-    margin-bottom: 25px;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Style commun aux boîtes */
-.stat-box {
-    flex: 1;
-    max-width: 150px;
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.stat-box:hover {
-    transform: translateY(-5px);
-}
-
-/* Couleurs spécifiques */
-.stat-total {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-}
-
-.stat-present {
-    background: linear-gradient(135deg, #28a745, #208638);
-}
-
-.stat-absent {
-    background: linear-gradient(135deg, #dc3545, #b02a37);
-}
-
-/* Style des chiffres et labels */
-.stat-number {
-    font-size: 28px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 50px 20px;
-    background: #040029; /* Rappel de ton thème sombre */
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    transition: 0.4s;
-}
-
-.stat-card:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-10px);
-    border-color: #ff0055; /* Petite touche de couleur au survol */
-}
-
-.stat-card i {
-    font-size: 40px;
-    color: #ff0055;
-    margin-bottom: 15px;
-}
-
-.stat-card h3 { margin: 10px 0; font-size: 1.2rem; }
-.stat-card p { opacity: 0.7; }
-
-  #blocInvitation { 
-            text-align: center; 
-            padding: 20px; 
-            border: 2px solid #96003e; 
-            margin: 20px auto; 
-            max-width: 300px;
-            font-family: Arial, sans-serif;
-        }
-        option{
-          justify-content: center;
-          align-items: center;
-          width: 50%;
-          max-width: 300px; 
-          padding: 12px; 
-          border: 2px solid #eee; 
-          border-radius: 10px;
-        }
-        #effet-texte {
-    opacity: 0;
-                }
-        #qrcode { margin: 15px 0; }
-  @keyframes chuteFleur { 0% { top: -10%; transform: rotate(0deg); } 25% { margin-left: 100px; } 50% { margin-left: 0; } 75% { margin-left: 100px; } 100% { top: 100%; transform: rotate(360deg); opacity: 0; } }
-  </style>
+  <title>Fête de Collation - Pascaline Munga</title>
+  <script src="/qrcode.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tBm0hk8658MCxWAEA1BIZOC6xxalw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Great+Vibes&display=swap');
+
+    :root {
+      --gold-primary: #D4AF37;
+      --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+      --bg-dark: #0F0913;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(212, 175, 55, 0.25);
+      --text-light: #F8F9FA;
+      --accent-rose: #E8B4B8;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    /* --- STYLES ADMIN DE BASE (CONSERVÉS) --- */
+    .header { background: #040029; color: white; position: sticky; top: 0; z-index: 1000; padding: 10px; box-shadow: 0 0 10px rgba(49, 50, 114, 0.5); }
+    .headerTout { display: flex; justify-content: space-between; align-items: center; }
+    .headerTout img { width: 50px; }
+    .nav { display: flex; gap: 20px; list-style: none; font-size: 12px; margin: 0; padding: 0; }
+    .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
+    .nav li:hover { background-color: white; color: #040029; }
+    .top-page { background-color: #1a162b; text-align: center; padding: 20px; }
+    .grid { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .card { background-color: #040029; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 10px; width: 220px; }
+    #login-view { color: #d4af37; background-color: #151731; padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--gold-primary); }
+    #login-view input { border: none; color: #e2f6ff; background: transparent; border-bottom: 2px solid #888; padding: 8px; margin-bottom: 15px; text-align: center; }
+    #login-view button { cursor: pointer; border: none; background: var(--gold-gradient); color: #000; padding: 10px 20px; font-weight: bold; border-radius: 8px; }
+    #manage-couple, #Organiser { padding: 20px; text-align: center; background-color: #040029; border-radius: 23px; margin-top: 20px; }
+    .hidden { display: none !important; }
+ input{
+ background-color: rgb(0, 7, 66);
+ border:none;
+ border-radius:10px;
+ padding: 20px;
+ }
+    /* =========================================================
+       Nouveau Design : INVITATION COLLATION PASCALINE MUNGA
+    ========================================================= */
+    #guest-view {
+      background: radial-gradient(circle at top, #1F102A 0%, #09040C 100%);
+      min-height: 100vh;
+      padding-bottom: 50px;
+      position: relative;
+    }
+
+    /* Animation Cadre Héro */
+    .hero-banner {
+      position: relative;
+      width: 100%;
+      height: auto;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+      background: linear-gradient(180deg, rgba(15, 9, 19, 0.2) 0%, #0F0913 100%), url('img/PASCALINE.png') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 9, 19, 0.65);
+      backdrop-filter: blur(2px);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeInDown 1.2s ease-out;
+    }
+
+    .grad-cap-icon {
+      font-size: 3rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    .event-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid var(--gold-primary);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #FCF6BA;
+      background: rgba(212, 175, 55, 0.1);
+      margin-bottom: 15px;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: #FFF;
+      margin: 5px 0 20px 0;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Carte Invité Glassmorphism */
+    .guest-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 25px 20px;
+      margin: -40px 20px 30px 20px;
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out 0.3s backwards;
+    }
+
+    .guest-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #FFF;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .guest-table-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
+    /* Animation Texte Dactylographié & Citations */
+    .quote-box {
+      max-width: 650px;
+      margin: 0 auto 30px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #effet-ecriture {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--accent-rose);
+      min-height: 50px;
+      line-height: 1.6;
+    }
+
+    /* Galerie de Photos VIP */
+    .photo-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 10px 20px;
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+    }
+
+    .photo-frame {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      width: 50%;
+      height: 220px;
+    }
+
+    .photo-frame:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Section Programme & Déroulement */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      padding: 0 20px;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .info-card:hover {
+      border-color: var(--gold-primary);
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .info-card i {
+      font-size: 2rem;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+    }
+
+    .info-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      margin: 5px 0 10px 0;
+      color: #FFF;
+    }
+
+    .info-card p {
+      font-size: 0.9rem;
+      color: #CCC;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Dress Code section */
+    .dress-code-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(15,9,19,0.8) 100%);
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto 30px auto;
+    }
+
+    .circles-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .circle-swatch {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      border: 2px solid #FFF;
+    }
+    .swatch-red { background: #C0392B; }
+    .swatch-white { background: #FFFFFF; }
+
+    /* Boutons de confirmation */
+    .action-section {
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s ease;
+      margin: 8px;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 8px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #FFF;
+    }
+
+    /* Choix Boissons & Pass VIP */
+    #drink-step, #blocInvitation {
+      max-width: 500px;
+      margin: 20px auto;
+      background: rgba(20, 12, 28, 0.95);
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+
+    select {
+      width: 85%;
+      max-width: 320px;
+      padding: 12px;
+      margin: 10px auto;
+      background: #1A1125;
+      color: #FFF;
+      border: 1px solid var(--gold-primary);
+      border-radius: 10px;
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* KEYFRAMES & ANIMATIONS */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)); transform: scale(1.05); }
+    }
+
+    /* Fleurs Animées */
+    .container-images .fleur, .container-images #fleur2 {
+      position: absolute;
+      top: 0;
+      width: 50px !important;
+      z-index: 2;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: chuteFleur 8s linear infinite;
+    }
+    .container-images .fleur { left: 10%; animation-delay: 0s; }
+    .container-images #fleur2 { right: 10%; animation-delay: 4s; }
+
+    @keyframes chuteFleur {
+      0% { top: -10%; transform: rotate(0deg) scale(0.8); opacity: 0; }
+      20% { opacity: 0.8; }
+      100% { top: 100%; transform: rotate(360deg) scale(1.2); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
+
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
-    <img src="img/logo.png" alt="Logo">
-    <h1>Bienvenue chers admin</h1>
+    <img src="img/logo.png" alt="Logo" style="width: 70px; margin-bottom: 15px;">
+    <h2>Espace Administration</h2>
     <input type="password" id="pass" placeholder="Code Administrateur">
+    <br>
     <button onclick="checkAdmin()">Se Connecter</button>
-    <p id="erreurCode" style="color: rgb(128, 128, 128); display: none;">Invalide, veuillez réessayer</p>
+    <p id="erreurCode" style="color: #E74C3C; display: none; margin-top: 10px; font-size: 0.85rem;">Code invalide, réessayez.</p>
   </div>
 
-  <!-- VUE INVITÉ -->
+
+  <!-- VUE INVITÉ (NOUVEAU DESIGN COLLATION PASCALINE MUNGA) -->
   <div id="guest-view" class="hidden">
     
     <audio id="maMusique" loop>
       <source src="img/wedding.mp3" type="audio/mp3">
-      Votre navigateur ne supporte pas l'élément audio.
     </audio>
+
+    <!-- Éléments décoratifs en chute -->
     <div class="container-images">
-      <img src="img/backgroudcopie.jpg" alt="image fond" class="fond">
-      <img src="img/fleur.png" alt="image fleur" class="fleur">
-      <img src="img/fleur.png" alt="image fleur" id="fleur2">
+      <img src="img/fleur.png" alt="décor" class="fleur">
+      <img src="img/fleur.png" alt="décor" id="fleur2">
     </div>
-    <h2 class="welcome-title" id="welcome-title"></h2>
-    <div class="paragTout">
-      <i class="fas fa-arrow-up"></i>
-      <p id="invit" style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-weight: 700; font-size: 24px;"></p>
-      <p id="table" style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-weight: 700; font-size: 24px;"></p>
+
+    <!-- Banner Principal / Entête Héro -->
+    <div class="hero-banner">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <i class="fas fa-graduation-cap grad-cap-icon"></i>
+        <br>
+        <span class="event-badge">Invitation Officielle</span>
+        <h1 class="hero-title">Collation des Grades</h1>
+        <div class="hero-subtitle">Pascaline Munga</div>
+      </div>
+    </div>
+
+    <!-- Carte d'Accueil Personnalisée de l'Invité -->
+    <div class="guest-card">
+      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-primary); margin: 0 0 5px 0;">Honoré(e) Invité(e)</p>
+      <div class="guest-name" id="invit">Nom de l'invité</div>
+      <div id="welcome-title" style="display:none;"></div>
+      <div class="guest-table-badge">
+        <i class="fas fa-glass-cheers"></i>
+        <span id="table">Table : En attente</span>
+      </div>
+    </div>
+
+    <!-- Zone de texte poétique dactylographié -->
+    <div class="quote-box">
       <p id="effet-ecriture"></p>
-      <img class="photo2" src="img/REGARD.png" alt="" style="animation-delay: 5s;">
-      <p id="effet-texte" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center; animation-delay: 16s;"></p>
-      <p class="backContainer" id="parag" style="animation-delay: 15.5s; margin-top: 30px; background-color: rgb(0, 115, 223); padding: 20px; color: white;"><b>Ce Vendredi 10 juillet 2026 </b></p>
+      <p id="effet-texte" style="font-size: 0.95rem; color: #BBB; line-height: 1.6; margin-top: 15px; opacity: 0; transition: opacity 1.5s ease;"></p>
     </div>
-    <p class="monte" id="parag" style="animation-delay: 15s;">En témoins du grand amour <br> devenu vie commune.</p>
-    
-    <div class="adresse" style="gap: 70px;">
-      <div class="eglise" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
-        <img src="img/commune.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>08h00</b> <br> mariage civil  <br> commune Kampemba<br> </p>
+
+    <!-- Galerie Photos VIP -->
+    <div class="photo-gallery">
+      <div class="photo-frame">
+        <img src="img/IMG2.jpg" alt="Pascaline Munga">
       </div>
-      <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
-      <div class="salle" style="align-items: center; gap: 30px; justify-content: center; display: flex; font-family: 'Times New Roman', Times, serif; font-style: italic; text-align: center;">
-        <img src="img/salle.png" alt="" style="width: 60px;">
-        <p class="affiche"><b>14h30</b><br> Autour d'une table(buffet) <br> Avenue rubi, N360 <br> ref: arret cabine<br> en diagonale du c.s les erudits <br> golf méteo<br> </b> </p>
+      <div class="photo-frame">
+        <img src="img/img1.jpg" alt="Célébration Pascaline Munga">
       </div>
-            
-      <div class="line" style="background-color: #2b0000; margin: 70px; padding:0.6px;"></div>
-      <!-- Conteneur principal (Background dédié au Dress Code) -->
-<div class="dress-code-background">
-    <div class="dress-code-content">
-        <p>Dress Code :</p>
-        <div class="circles-container">
-            <!-- Cercle Rouge -->
-            <div class="circle red"></div>
-            <!-- Cercle Blanc -->
-            <div class="circle white"></div>
-        </div>
-        <p><b>Rouge et Blanc</b></p>
     </div>
-</div>
-       
+
+    <!-- Date Marquante -->
+    <div style="text-align: center; margin-bottom: 35px;">
+      <div style="display: inline-block; background: rgba(212,175,55,0.15); border: 1px solid var(--gold-primary); padding: 12px 30px; border-radius: 50px;">
+        <i class="far fa-calendar-alt" style="color: var(--gold-primary); margin-right: 8px;"></i>
+        <strong style="color: #FFF; font-size: 1.05rem;" id="parag">Jeudi 06 Aôut 2026</strong>
+      </div>
     </div>
-        <div id="confirm-step">
-      <p class="affiche" id="parag"><b>Veuillez confirmer votre présence</b></p>
-      <button class="affiche" onclick="setPresence(true)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background-color: rgb(0, 115, 223);">Je serai présent</button>
-      <button class="affiche" onclick="setPresence(false)" style="font-style: italic; font-family: 'Times New Roman', Times, serif; background: #666;">Je serai indisponible</button>
+
+    <!-- Programme et Adresses -->
+    <div class="details-grid">
+      <div class="info-card affiche">
+        <i class="fas fa-university"></i>
+        <h4>Cérémonie Officielle</h4>
+        <p><b>08h00</b></p>
+        <p>Building de l'unilu</p>
+      </div>
+
+      <div class="info-card affiche">
+        <i class="fas fa-utensils"></i>
+        <h4>Réception & Festivités</h4>
+        <p><b>16h30</b></p>
+        <p>Avenue De conservateur, N°03<br><small style="color: var(--gold-primary);">Réf: Arrêt Craa usine, église pain de vie</small></p>
+      </div>
     </div>
-      <br>
-  <br>
-<a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
-   target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(0, 115, 223);">
-  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
-</a>  
-<br>
-<br>
-</div>
+
+    <!-- Code Vestimentaire -->
+    <div class="dress-code-card affiche">
+      <h4 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin: 0 0 10px 0;">Code Vestimentaire</h4>
+      <div class="circles-container">
+        <!-- <div class="circle-swatch swatch-red" title="Rouge"></div>
+        <div class="circle-swatch swatch-white" title="Blanc"></div> -->
+      </div>
+      <p style="margin: 0; font-weight: 600; color: #FFF; font-size: 0.95rem;">Habillez vous proprement</p>
     </div>
-    <section id="messageNegatif" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
-      <h2 style="color: white;"><i class="fas fa-sad"></i> Merci d'avoir signalé</h2>
-      <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
-      <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
-   target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(255, 255, 255);">
-  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
-</a>  
+
+    <!-- Actions Confirmation -->
+    <div id="confirm-step" class="action-section">
+      <p class="affiche" style="font-size: 1.1rem; margin-bottom: 20px; color: #FFF;">Serez-vous des nôtres pour célébrer cette réussite ?</p>
+      <button class="btn-gold affiche" onclick="setPresence(true)"><i class="fas fa-check-circle"></i> Je confirme ma présence</button>
+      <button class="btn-outline affiche" onclick="setPresence(false)"><i class="fas fa-times-circle"></i> Indisponible</button>
+    </div>
+
+    <!-- Sélection Boissons -->
+    <div id="drink-step" class="hidden">
+      <h3 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin-top: 0;"><i class="fas fa-cocktail"></i> Vos Préférences</h3>
+      <p style="font-size: 0.85rem; color: #CCC;">Aidez-nous à mieux vous servir lors du buffet :</p>
+      
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Boisson sans alcool :</label>
+      <select id="SansAlcool">
+        <option>Aucun</option>
+        <option>Eau Minérale</option>
+        <option>Coca-Cola</option>
+        <option>Fanta</option>
+        <option>Sprite</option>
+        <option>Energy Drink (XXL)</option>
+      </select>
+
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Sélection Spéciale :</label>
+      <select id="whisky">
+        <option>Aucun</option>
+      </select>
+      
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Jus & Rafraîchissements :</label>
+      <select id="biere">
+        <option>Aucun</option>
+        <option>Jus Cérès</option>
+      </select>
+      
+      <button class="btn-gold" style="margin-top: 15px; width: 85%;" onclick="saveDrinks()">Valider mes choix</button>
+    </div>
+
+    <!-- Alert Choix Enregistré -->
+    <div id="alertchoix" style="display: none; background: rgba(46, 204, 113, 0.2); border: 1px solid #2ECC71; color: #2ECC71; text-align: center; border-radius: 15px; max-width: 400px; margin: 20px auto; padding: 15px;">
+      <i class="fas fa-check-circle" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
+      <p style="margin: 0; font-weight: 600;">Choix confirmé avec succès !</p>
+    </div>
+
+    <!-- Pass Invitation Téléchargeable -->
+    <div id="blocInvitation" class="hidden">
+      <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--gold-primary);"></i>
+      <h2 style="font-family: 'Cinzel', serif; color: #FFF; margin: 10px 0 5px 0;">Pass d'Accès Officiel</h2>
+      <h3 id="nomMaries" style="color: var(--gold-primary); font-family: 'Great Vibes', cursive; font-size: 2rem; margin: 0 0 15px 0;">Collation de Pascaline Munga</h3>
+      
+      <div id="qrcode" style="display: flex; justify-content: center; padding: 10px; background: #FFF; border-radius: 12px; width: 170px; margin: 0 auto 15px auto;"></div>
+      
+      <p id="nomInvite" style="font-weight: bold; font-size: 1.1rem; color: #FFF; margin: 5px 0;"></p>
+      <p id="nomTable" style="color: var(--gold-primary); font-weight: 600; margin: 0;"></p>
+      
+      <p style="margin-top: 15px; font-size: 0.75rem; color: #AAA;"><i class="fas fa-info-circle"></i> Présentez ce QR Code à l'entrée le jour de l'événement.</p>
+    </div>
+
+    <div id="download-section" class="hidden" style="text-align: center; margin-top: 20px;">
+      <button class="btn-gold" onclick="telechargerQR()"><i class="fas fa-download"></i> Télécharger mon Invitation VIP</button>
+    </div>
+
+    <!-- Messages de Fin -->
+    <section id="messageNegatif" class="hidden" style="text-align: center; background: rgba(192, 57, 43, 0.2); border: 1px solid #C0392B; max-width: 500px; margin: 30px auto; border-radius: 20px; padding: 25px;">
+      <h3 style="color: #FFF;"><i class="fas fa-heart-broken"></i> Merci de nous avoir informés</h3>
+      <p style="color: #CCC; font-size: 0.9rem;">Pascaline Munga vous remercie pour votre délicate attention.</p>
     </section>
-     <div id="alertchoix" style="display: none; background-color: rgb(156, 255, 164); border: 1px solid green; text-align: center; border-radius: 15px; margin: 30px; padding: 15px;">
-      <p style="color: rgb(0, 116, 0);" style="font-size:4rem;  font-family: 'Playfair Display', serif;
-            font-size: 200px;
-            color: var(--primary-gold);
-            margin-bottom: 10px;
-            letter-spacing: 2px; ">✓Choix confirmé avec succès</p>
 
-     </div>
-       <div id="drink-step" class="hidden">
-      <div class="boisson">
-        <h3>Choisissez vos boissons</h3>
-        </select><br>
-        <label>Sans alcool :</label>
-        <select id="SansAlcool">
-          <option>__________Aucun________</option>
-          <option>L'eau</option>
-          <option>coca cola</option>
-          <option>Fanta</option>
-          <option>Sprite</option>
-          <option>Xxl</option>
-        </select><br>
-
-        <label>_____ :</label>
-        <select id="whisky">
-          <option>__________Aucun________</option>
-          </select><br>
-        
-        <label>Jus : </label>
-        <select id="biere">
-          <option>_________Aucun_______</option>
-          <option>cérès</option>
-          </select>
-        
-        <button style="background-color: rgb(0, 117, 226);" onclick="saveDrinks()">Confirmer Choix</button>
-      </div>
-    </div>
-
-    
- 
-    
- <!-- Section affichée après la confirmation des boissons -->
-<div id="blocInvitation" class="hidden">
-    <h2>Invitation de Mariage</h2>
-    
-    <h3 id="nomMaries"></h3>
-    
-    <div id="qrcode"></div>
-    
-    <p id="nomInvite"></p>
-    <p id="nomTable"></p>
-    
-    
-    <div style="margin-top: 15px; font-weight: bold; color: #c70000;"><i class="fas fa-alert"></i> NB: Presentez-vous avec votre invitation téléchargé le jour de l'événement </div>
-    <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div>
-</div>
-  <div id="download-section" class="hidden">
-      <!-- <div style="margin-top: 15px; font-weight: bold; color: #555;">Borée Event</div> -->
-    <button onclick="telechargerQR()" ><i class="fas fa-download"></i> Télécharger mon invitation</button>
-</div>
- <section id="message" class="hidden" style="justify-content: center; align-items: center; text-align: center; background-color: rgb(189, 0, 0); margin: 30px; border-radius: 23px; padding: 20px; color: white;">
-      <p><i style="color: white;" class="fas fa-info-circle"></i> Associez Borée à tous vos événements</p>
-      <a href="https://wa.me/243990556956?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." 
-   target="_blank" 
-   style="display: block; text-align: center; font-size: 10px; font-style: italic; text-decoration: none; color: rgb(255, 255, 255);">
-  <i class="fab fa-whatsapp" style="font-size: 12px;"></i> Cliquez ici pour nous contacter sur WhatsApp
-</a>  
+    <section id="message" class="hidden" style="text-align: center; max-width: 500px; margin: 30px auto; padding: 20px;">
+      <p style="color: var(--gold-primary); font-size: 0.9rem;"><i class="fas fa-star"></i> Merci de célébrer ce moment d'excellence avec nous !</p>
+      <a href="https://wa.me/243996942013?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank" style="font-size: 0.85rem; color: #FFF; text-decoration: none; opacity: 0.8;">
+        <i class="fab fa-whatsapp"></i> Contact Assistance WhatsApp
+      </a>
     </section>
-  
-  
 
   </div>
- 
 
-  <!-- VUE ESPACE PANNEAU ADMIN -->
+
+  <!-- VUE ESPACE PANNEAU ADMIN (CONSERVÉE ENTIÈREMENT) -->
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
         <img src="img/logo.png" alt="Logo">
         <nav class="nav">
           <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
-          <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> New Wedding</li>
+          <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> Nouvel Événement</li>
         </nav>
       </div>
     </header>
 
     <section id="section-home" class="top-page">
-       <h1 style="color: orange;"><i class=" fas fa-home"></i> Dashbord</h1>
-      <section id="dashboard-presentation" class="stats-container">
-       
-    <div class="stat-card">
-        <i class="fas fa-chart-line"></i>
-        <h3>Évolution</h3>
-        <p>+85% de croissance</p>
-    </div>
-    <div class="stat-card">
-        <i class="fas fa-comments"></i>
-        <h3>Commentaires</h3>
-        <p>1,2k avis positifs</p>
-    </div>
-    <div class="stat-card">
-        <i class="fas fa-hand-holding-heart"></i>
-        <h3>Appuis</h3>
-        <p>Certifié Borée</p>
-    </div>
-    <div class="stat-card">
-        <i class="fas fa-calendar-check"></i>
-        <h3>Mariages</h3>
-        <p>+200 évènements</p>
-    </div>
-</section>
-      <h1 style="border-bottom: 4px solid rgb(0, 182, 0) ;color:white; padding: 20px;">Liste des Mariages</h1>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher un couple" style="background-color: rgb(214, 139, 0); ">
-      <div id="couples-list" class="grid"></div>
+      <h1 style="color: #d4af37;"><i class="fas fa-chart-pie"></i> Tableau de bord</h1>
+      <h2 style="border-bottom: 2px solid #d4af37; color: white; padding-bottom: 10px;">Gestion des Événements</h2>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: rgba(255,255,255,0.1); border: 1px solid var(--gold-primary); color: white; padding: 10px; border-radius: 8px; width: 80%; max-width: 300px;">
+      <div id="couples-list" class="grid" style="margin-top: 20px;"></div>
     </section>
 
-    <section class="hidden" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: #ffffff; box-shadow: 0 0 10px rgb(206, 206, 206); margin-top: 50px; border-radius: 23px;" id="VoirPhoto">
-      <button onclick="showSection('section-home')" style="color: #ffffff; font-size: 20px; margin-top: 10px;"><i class="fas fa-arrow-left"></i></button>
-      <div id="ApercPhoto" class="grid"></div>
-      <div style="padding: 23px 50px;" id="Aperc" class="grid"></div>
+    <section class="hidden" id="VoirPhoto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: #ffffff; padding: 20px; border-radius: 23px;">
+      <button onclick="showSection('section-home')" style="background: #333; color: #fff;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <div id="ApercPhoto" class="grid" style="margin-top: 15px;"></div>
+      <div id="Aperc" style="color: #000; text-align: center; font-weight: bold; margin-top: 10px;"></div>
     </section>
 
     <section class="hidden" id="Organiser">
-      <h1 style="color: rgb(255, 241, 247);">Enregistrer un couple</h1>
-      <h3 style="font-style: italic; font-size: 10px; color: rgb(214, 139, 0);">Veuillez écrire en minuscule !!!</h3>
-      <label style="color: gray;">Nom du couple</label> 
-      <input type="text" id="coupleName" placeholder="Ex: Smile et Ornella"> <br>
-      <label style="color: gray;">Entrez la date de l'événement</label> <br>
-      <input type="date" id="datemariage"> <br>
-      <label style="color: gray;">Entrez une photo</label> <br>
-      <input type="file" id="photo"><br>
-      <button onclick="addCouple()" style="background-color: rgb(214, 139, 0); color: #1e1b3b;">+ Créer Mariage</button>
+      <h1 style="color: #FFF;">Enregistrer un Événement</h1>
+      <input type="text" id="coupleName" placeholder="Ex: Pascaline Munga"> <br> <br>
+      <input type="date" id="datemariage" style="color: gray;"> <br><br>
+      <input type="file" id="photo"><br> <br>
+      <br>
+      <button onclick="addCouple()" class="btn-gold">+ Créer Événement</button>
     </section>
 
-    <section id="manage-couple" class="hidden" style="margin-top: 70px;">
-      <button onclick="showSection('section-home')" style="left: 12px; color: #ffffff; font-size: 20px; background-color: rgb(7, 88, 0);"><i class="fas fa-arrow-left"></i></button>
-      <h2 id="couple-title" style="color: white;"></h2>
-      <div class="aj" style="background-color:#41454e; padding: 10px; border-radius: 23px 23px 0 0; gap: 70px;">
-        <h3 style="color: rgb(255, 255, 255);">Enregistrer un invité</h3>
-        <label style="color: rgb(255, 255, 255);">Nom :</label>
-        <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
-        <label style="color: rgb(255, 255, 255);">Nom ou email de l'agent Borée :</label>
-        <input type="email" id="newGuestEmail" placeholder="Nom ou email de l'agent Borée"> <br> <br>
-        <label style="color: rgb(255, 255, 255);">table :</label>
-        <input type="text" id="TableGuestName" placeholder="Nom de la table confirmation"> 
-        <button type="button" onclick="addGuest(); return false;" style="background-color: rgb(214, 139, 0);">Ajouter invité</button> 
-      </div>
-      <br><br>
+    <section id="manage-couple" class="hidden">
+      <button onclick="showSection('section-home')" class="btn-outline" style="float: left;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <h2 id="couple-title" style="color: white; clear: both; padding-top: 10px;"></h2>
       
-      <h2 style="text-align: center; padding: 20px; color: #efedff; border-bottom: 5px solid rgb(0, 146, 32);">Liste des invités</h2>
-      <!-- Boîte de statistiques -->
-<div id="dashboard-stats">
-    <div class="stat-box stat-total" style="background: linear-gradient(135deg, #007bff, #0056b3);">
-        <span id="count-total" class="stat-number">0</span>
-        <span class="stat-label">Total</span>
-    </div>
-    <div class="stat-box stat-present">
-        <span id="count-present" class="stat-number">0</span>
-        <span class="stat-label">Présents</span>
-    </div>
-    <div class="stat-box stat-absent">
-        <span id="count-absent" class="stat-number">0</span>
-        <span class="stat-label">Absents</span>
-    </div>
-</div>
-            <input type="text" id="searchGuest" placeholder="Rechercher un invité ..." onkeyup="renderGuests()" style="border-top: 2px solid rgb(235, 219, 0); border-bottom: 2px solid rgb(255, 230, 0); border-radius: 20px;"> <br><br>
+      <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+        <h3>Enregistrer un invité</h3>
+        <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
+        <input type="email" id="newGuestEmail" placeholder="Email / Contact"> <br> <br>
+        <input type="text" id="TableGuestName" placeholder="Table assignée"> <br> <br>
+        <button type="button" onclick="addGuest()" class="btn-gold">Ajouter l'invité</button> 
+      </div>
 
-      <div id="guests-list" class="grid"></div>
+      <div id="dashboard-stats" style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
+        <div style="background: #2980b9; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-total" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Total</small>
+        </div>
+        <div style="background: #27ae60; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-present" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Présents</small>
+        </div>
+        <div style="background: #c0392b; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-absent" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Absents</small>
+        </div>
+      </div>
+
+      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: transparent; border-bottom: 2px solid var(--gold-primary); color: white;">
+      <div id="guests-list" class="grid" style="margin-top: 20px;"></div>
     </section>
   </div>
-    
-  <!-- SCRIPT COMPLET CORRIGÉ -->
+
+
+  <!-- SCRIPTS APPLICATION ET ANIMATIONS -->
   <script>
-  // --- Initialisation ---
   let db = []; 
   let activeCoupleId = null;
   let currentGuests = [];
 
-  // --- Logique Invité (Lien Unique Corrigée via API Directe) ---
   const params = new URLSearchParams(window.location.search);
   const gId = params.get('guestId');
 
   function verifierInvite() {
     if (!gId) return;
-    
-    // On requête directement le backend pour avoir les données fraîches de l'invité et de son couple
     fetch('/api/guests/' + gId)
       .then(response => {
         if(!response.ok) throw new Error("Invité introuvable");
@@ -588,22 +657,19 @@
         const tableEl = document.getElementById('table');
         const invitEl = document.getElementById('invit');
         
-        // Extraction du nom du couple depuis l'objet imbriqué renvoyé par la jointure Hibernate
-        welcomeEl.innerText = "Mariage de " + (g.couple ? g.couple.name : "");
-        if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non définie');
-        if(invitEl) invitEl.innerText = "" + g.name;
+        if(welcomeEl) welcomeEl.innerText = "Fête de " + (g.couple ? g.couple.name : "Pascaline Munga");
+        if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non assignée');
+        if(invitEl) invitEl.innerText = g.name;
         
         window.currentGuest = g;
         window.guestId = g.id;
       })
       .catch(error => {
-        console.error("Erreur lors de la récupération des détails de l'invité :", error);
+        console.error("Erreur récupération invité :", error);
       });
   }
 
-  // --- Chargement Initial de l'application ---
   if (gId) {
-    // Si c'un invité, on masque le login directement et on charge son profil
     document.getElementById('login-view').classList.add('hidden');
     document.getElementById('guest-view').classList.remove('hidden');
     
@@ -616,14 +682,12 @@
     document.addEventListener('click', playMusic);
     verifierInvite();
   } else {
-    // Si pas de gId, on charge normalement pour l'admin
     fetch('/api/couples')
       .then(response => response.json())
       .then(data => { db = Array.isArray(data) ? data : []; })
       .catch(err => console.error(err));
   }
 
-  // --- Gestion Administration ---
   function checkAdmin() {
     const CodeErreur = document.getElementById('erreurCode');
     if (document.getElementById('pass').value === "02026") {
@@ -636,13 +700,6 @@
     }
   }
 
-  document.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter' && !document.getElementById('login-view').classList.contains('hidden')) {
-      checkAdmin();
-    }
-  });
-
-  // --- Navigation ---
   function showSection(id) {
     document.getElementById('section-home').classList.add('hidden');
     document.getElementById('Organiser').classList.add('hidden');
@@ -654,117 +711,60 @@
       target.classList.remove('hidden');
       target.style.display = 'block';
       if (id === 'message') {
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
       }
     }
   }
 
-  // --- Gestion Couples ---
   function loadCouples() {
     fetch('/api/couples')
-      .then(response => {
-        if(!response.ok) throw new Error("Page introuvable (404)");
-        return response.json();
-      })
-      .then(data => {
-        db = Array.isArray(data) ? data : [];
-        renderCouples();
-      })
-      .catch(error => {
-        console.error('Erreur chargement couples:', error);
-        db = []; 
-        renderCouples();
-      });
+      .then(response => response.json())
+      .then(data => { db = Array.isArray(data) ? data : []; renderCouples(); })
+      .catch(error => { db = []; renderCouples(); });
   }
 
   function addCouple() {
     const name = document.getElementById('coupleName').value;
     const datemariage = document.getElementById('datemariage').value;
     const fileInput = document.getElementById('photo');
-    if (name === "" || datemariage === "" || fileInput.files.length === 0) {
+    if (!name || !datemariage || fileInput.files.length === 0) {
       alert("Veuillez remplir tous les champs");
       return;
     }
-    const file = fileInput.files[0];
     const reader = new FileReader();
     reader.onload = function (e) {
-      const coupleData = { name: name, datemariage: datemariage, photo: e.target.result };
       fetch('/api/couples', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(coupleData)
+        body: JSON.stringify({ name: name, datemariage: datemariage, photo: e.target.result })
       })
-      .then(response => {
-        if(!response.ok) throw new Error("Erreur lors de l'enregistrement");
-        alert("Couple enregistré !");
-        loadCouples();
-        showSection('section-home');
-      })
-      .catch(error => console.error('Erreur ajout couple:', error));
+      .then(() => { alert("Événement créé !"); loadCouples(); showSection('section-home'); });
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(fileInput.files[0]);
   }
 
   function delCouple(id) {
-    if(confirm("Supprimer ce mariage ?")) {
-      fetch(`/api/couples/${id}`, { method: 'DELETE' })
-        .then(() => loadCouples())
-        .catch(error => console.error('Erreur suppression:', error));
+    if(confirm("Supprimer cet événement ?")) {
+      fetch(`/api/couples/${id}`, { method: 'DELETE' }).then(() => loadCouples());
     }
   }
 
   function renderCouples() {
     const listContainer = document.getElementById('couples-list');
     if (!listContainer) return;
-    if (!Array.isArray(db) || db.length === 0) {
-      listContainer.innerHTML = "<p >Aucun mariage trouvé ou erreur serveur.</p>";
-      return;
-    }
+    if (!db.length) { listContainer.innerHTML = "<p>Aucun événement enregistré.</p>"; return; }
     listContainer.innerHTML = db.map(c => `
       <div class="card">
-        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
-          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
-        </div>
-        <h3 style="color:white;" onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
-        <h4 style="color: white;">${c.datemariage || ''}</h4>
-        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
+        <img src="${c.photo || ''}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
+        <h3 style="color:white; cursor:pointer" onclick="openCouple(${c.id})">${c.name || ''}</h3>
+        <p style="color:#aaa;">${c.datemariage || ''}</p>
+        <button style="background:#c0392b; color:#fff; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="delCouple(${c.id})">Supprimer</button>
       </div>
     `).join('');
-  }
-
-  function rechercheCouple() {
-    const search = document.getElementById('RechCouple').value.toLowerCase();
-    const listContainer = document.getElementById('couples-list');
-    if (!listContainer) return;
-    const filtered = db.filter(c => c.name && c.name.toLowerCase().includes(search));
-    listContainer.innerHTML = filtered.map(c => `
-      <div class="card">
-        <div class="picture" style="display:flex; justify-content:center; align-items:center; width:50px; height:50px; border-radius:23px; object-fit:cover;">
-          <img src="${c.photo || ''}" style="width:100%; border-radius:50%; height:100%; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
-        </div>
-        <h3 onclick="openCouple(${c.id})" style="cursor:pointer">${c.name || ''}</h3>
-        <h4 style="color:#666;">${c.datemariage || ''}</h4>
-        <button class="del-btn" onclick="delCouple(${c.id})">Supprimer Mariage</button>
-      </div>
-    `).join('');
-  }
-
-  function ApercuePhoto(id) {
-    activeCoupleId = id;
-    const c = db.find(x => x.id === id);
-    const container = document.getElementById('ApercPhoto');
-    const titleEl = document.getElementById('Aperc');
-    if (c) {
-      if(titleEl) titleEl.innerText = "Couple " + c.name;
-      if(container) {
-        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; height: 100%; margin-left: auto;">`;
-        showSection('VoirPhoto');
-      }
-    }
   }
 
   function openCouple(id) {
-    activeCoupleId = parseInt(id); 
+    activeCoupleId = parseInt(id);
     const c = db.find(x => parseInt(x.id) === activeCoupleId);
     if(c) {
       document.getElementById('couple-title').innerText = "Invités de " + c.name;
@@ -773,214 +773,123 @@
     }
   }
 
-  // --- Gestion Invités ---
   function loadGuests(coupleId) {
     fetch(`/api/guests?coupleId=${coupleId}`)
-      .then(response => {
-        if (!response.ok) throw new Error("Erreur lors de la récupération des invités");
-        return response.json();
-      })
-      .then(data => {
-        currentGuests = Array.isArray(data) ? data : []; 
-        renderGuests(); 
-      })
-      .catch(error => {
-        console.error('Erreur invités:', error);
-        currentGuests = [];
-        renderGuests();
-      });
+      .then(response => response.json())
+      .then(data => { currentGuests = Array.isArray(data) ? data : []; renderGuests(); });
   }
 
- function addGuest() {
-    if (!activeCoupleId) {
-        alert("Erreur : Aucun couple sélectionné.");
-        return;
-    }
-    
-    // Récupération des valeurs
-    const nameInput = document.getElementById('newGuestName');
-    const emailInput = document.getElementById('newGuestEmail');
-    const tableInput = document.getElementById('TableGuestName');
-    
-    const nameValue = nameInput ? nameInput.value.trim() : "";
-    const emailValue = emailInput ? emailInput.value.trim() : "";
-    const tableValue = tableInput ? tableInput.value.trim() : "";
+  function addGuest() {
+    if (!activeCoupleId) return;
+    const nameValue = document.getElementById('newGuestName').value.trim();
+    const emailValue = document.getElementById('newGuestEmail').value.trim();
+    const tableValue = document.getElementById('TableGuestName').value.trim();
 
-    if (!nameValue) {
-        alert("Veuillez entrer un nom.");
-        return;
-    }
+    if (!nameValue) { alert("Veuillez entrer un nom."); return; }
 
-    // Structure exacte attendue par votre contrôleur Java
-    const guestData = {
-        name: nameValue,
-        email: emailValue,
-        guestTable: tableValue, // Ce nom correspond au champ 'private String guestTable' dans Guest.java
-        status: "En attente",
-        drinkChoice: "Aucun",
-        couple: { 
-            id: parseInt(activeCoupleId) 
-        }
-    };
-    console.log("JSON envoyé au serveur :", JSON.stringify(guestData));
     fetch('/api/guests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(guestData)
+        body: JSON.stringify({
+            name: nameValue,
+            email: emailValue,
+            guestTable: tableValue,
+            status: "En attente",
+            drinkChoice: "Aucun",
+            couple: { id: parseInt(activeCoupleId) }
+        })
     })
-    .then(response => {
-        if (!response.ok) {
-            // Affiche l'erreur serveur dans la console pour debug
-            return response.text().then(text => { throw new Error(text); });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Succès :", data);
-        if(nameInput) nameInput.value = '';
-        if(emailInput) emailInput.value = '';
-        if(tableInput) tableInput.value = '';
+    .then(() => {
+        document.getElementById('newGuestName').value = '';
+        document.getElementById('newGuestEmail').value = '';
+        document.getElementById('TableGuestName').value = '';
         loadGuests(activeCoupleId);
-    })
-    .catch(err => {
-        console.error("Erreur détectée :", err);
-        alert("Erreur : " + err.message);
     });
-}
-window.addGuest = addGuest;
+  }
 
   function delGuest(id) {
     if(confirm("Supprimer cet invité ?")) {
-      fetch(`/api/guests/${id}`, { method: 'DELETE' })
-        .then(() => loadGuests(activeCoupleId))
-        .catch(error => console.error('Erreur suppression invité :', error));
+      fetch(`/api/guests/${id}`, { method: 'DELETE' }).then(() => loadGuests(activeCoupleId));
     }
   }
 
-function renderGuests() {
-    // 1. Calculs des statistiques basés sur toute la liste currentGuests
-    const total = currentGuests.length;
-    const presents = currentGuests.filter(g => g.status === "Présent").length;
-    const absents = currentGuests.filter(g => g.status === "Absent").length;
+  function renderGuests() {
+    document.getElementById('count-total').innerText = currentGuests.length;
+    document.getElementById('count-present').innerText = currentGuests.filter(g => g.status === "Présent").length;
+    document.getElementById('count-absent').innerText = currentGuests.filter(g => g.status === "Absent").length;
 
-    // Mise à jour des éléments du dashboard (Statistiques)
-    const totalEl = document.getElementById('count-total');
-    const presentEl = document.getElementById('count-present');
-    const absentEl = document.getElementById('count-absent');
+    const search = (document.getElementById('searchGuest')?.value || "").toLowerCase();
+    const filtered = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
 
-    if (totalEl) totalEl.innerText = total;
-    if (presentEl) presentEl.innerText = presents;
-    if (absentEl) absentEl.innerText = absents;
-
-    // 2. Gestion de la recherche et filtrage
-    const searchInput = document.getElementById('searchGuest');
-    const search = searchInput ? searchInput.value.toLowerCase() : "";
-    const filteredGuests = currentGuests.filter(g => 
-        g.name && g.name.toLowerCase().includes(search)
-    );
-
-    // 3. Rendu de la liste des invités
     const container = document.getElementById('guests-list');
     if (!container) return;
 
-    if (currentGuests.length === 0) {
-        container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
-        return;
-    }
-
-    container.innerHTML = filteredGuests.map(g => `
-      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
-        <strong style="color: white;">${g.name}</strong><br>
-        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
-        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br><br>
-        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0;">
-        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
-        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
-        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
-        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
-        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
+    container.innerHTML = filtered.map(g => `
+      <div class="card" style="text-align:left;">
+        <strong style="color: #FFF;">${g.name}</strong><br>
+        <small style="color: var(--gold-primary);">Table: ${g.guestTable || 'Non assignée'}</small><br>
+        <small style="color:#AAA;">Statut: ${g.status || 'En attente'}</small><br>
+        <button style="background:var(--gold-primary); color:#000; border:none; padding:4px 8px; border-radius:4px; margin-top:8px; cursor:pointer;" onclick="copyLink('${g.id}')">Lien VIP</button>
+        <button style="background:#c0392b; color:#fff; border:none; padding:4px 8px; border-radius:4px; margin-top:8px; cursor:pointer;" onclick="delGuest('${g.id}')">Suppr</button>
       </div>
     `).join('');
-}
-
-  function Arriveguest(btn) {
-    if (btn.style.backgroundColor === 'green') {
-      btn.style.backgroundColor = 'gray';
-    } else {
-      btn.style.backgroundColor = 'green';
-    }
   }
 
   function copyLink(id) {
     const url = window.location.origin + window.location.pathname + "?guestId=" + id;
-    navigator.clipboard.writeText(url).then(() => {
-      alert("Lien copié !");
-    });
+    navigator.clipboard.writeText(url).then(() => alert("Lien d'invitation copié !"));
   }
 
-  // --- Logique Confirmation Invité ---
-  // --- Logique Confirmation Invit (CORRIGÉE) ---  
-// Dans ton bloc <script> HTML
-function setPresence(present) {  
+  function setPresence(present) {  
     if(!window.currentGuest) return;  
-    const guestId = window.currentGuest.id;  
     const status = present ? "Présent" : "Absent";  
     
-    fetch(`/api/guests/${guestId}/status`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ status: status })
+    fetch(`/api/guests/${window.currentGuest.id}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: status })
     })  
     .then(response => {  
         if (response.ok) {
             if (present) {  
                 document.getElementById('confirm-step').classList.add('hidden');  
                 document.getElementById('drink-step').classList.remove('hidden');  
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
             } else {  
                 showSection('messageNegatif');  
             }  
-        } else {
-            alert("Erreur lors de l'enregistrement de votre choix.");
         }
     });  
-}
-// --- Fonction saveDrinks (Sauvegarde et affichage) ---
-function saveDrinks() {
+  }
+
+  function saveDrinks() {
     const idToUse = window.guestId || gId;
-    const AletChoix = document.getElementById('alertchoix')
     if (!idToUse) return;
 
     const drinks = [
+      document.getElementById('SansAlcool').value,
       document.getElementById('whisky').value,
-      document.getElementById('biere').value,
-      document.getElementById('SansAlcool').value
-    ].join(', ');
+      document.getElementById('biere').value
+    ].filter(d => d !== "Aucun").join(', ');
 
     fetch(`/api/guests/${idToUse}/drinks`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ drinkChoice: drinks })
+      body: JSON.stringify({ drinkChoice: drinks || "Aucun" })
     })
-    .then(response => {
-      if (!response.ok) throw new Error("Erreur enregistrement boissons");
-      AletChoix.style.display = "block";
-            setTimeout(() => { AletChoix.style.display = "none"; }, 2000);
+    .then(() => {
+      document.getElementById('alertchoix').style.display = "block";
+      setTimeout(() => { document.getElementById('alertchoix').style.display = "none"; }, 3000);
 
       document.getElementById('drink-step').classList.add('hidden');
       document.getElementById('download-section').classList.remove('hidden');
       
-      // Génération de l'invitation
       genererInvitation(window.currentGuest);
       showSection('message');
-    })
-    .catch(error => {
-      console.error("Erreur boissons:", error);
-      alert("Erreur lors de la sauvegarde.");
     });
-}
+  }
 
-// --- Fonction genererInvitation (Affiche tout le bloc) ---
-function genererInvitation(guest) {
+  function genererInvitation(guest) {
     const container = document.getElementById("qrcode");
     container.innerHTML = ""; 
     
@@ -993,70 +902,58 @@ function genererInvitation(guest) {
         });
     }
 
-    document.getElementById("nomInvite").innerText = "Invité : " + (guest.name || "N/A");
-    document.getElementById("nomMaries").innerText = guest.couple ? guest.couple.name : "Les Mariés";
-    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Non assignée");
+    document.getElementById("nomInvite").innerText = guest.name || "Invité VIP";
+    document.getElementById("nomMaries").innerText = "Collation de Pascaline Munga";
+    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Assignation à l'entrée");
     document.getElementById("blocInvitation").classList.remove("hidden");
-}
+  }
 
-// --- Fonction telechargerQR (Capture tout le bloc en image) ---
-function telechargerQR() {
+  function telechargerQR() {
     const element = document.getElementById("blocInvitation");
     if (!element) return;
 
-    // Capture le bloc entier
-    html2canvas(element, {
-        backgroundColor: "#ffffff",
-        scale: 2
-    }).then(canvas => {
+    html2canvas(element, { backgroundColor: "#0F0913", scale: 2 })
+    .then(canvas => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL("image/png");
-        link.download = 'Invitation_BoreeEvent.png';
+        link.download = 'Invitation_Collation_Pascaline_Munga.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    }).catch(err => {
-        console.error("Erreur lors de la capture : ", err);
     });
-}
-// --- Effets d'écriture & Animations ---
+  }
+
+  /* NOUVEAUX TEXTES PERSONNALISÉS POUR LA COLLATION */
   let index1 = 0;
-  const text1 = "Dans leurs regards éblouis, deux cœurs se sont dits oui.";
+  const text1 = "Un parcours d'excellence célébré, un diplôme brillamment décroché.";
   function ecrireTexte() {
     const element1 = document.getElementById("effet-ecriture");
     if (element1 && index1 < text1.length) {
       element1.innerHTML += text1.charAt(index1);
       index1++;
-      setTimeout(ecrireTexte, 50);
+      setTimeout(ecrireTexte, 40);
     }
   }
 
-  // --- Fonction pour écrire le texte ---
   let index2 = 0;
-  const textebas = "pour lesquels, Les familles KABONGO et KATONGOLA sont heureuses de vous convier à écrire ensemble avec leurs enfants cette belle et unique histoire de leur vie";
-  
+  const textebas = "Les familles MUNGA ont l'immense honneur et la joie de vous convier à la célébration de la collation des grades de leur fille Pascaline Munga.";
   function ecrireTexteAnnime() {
     const textanimation = document.getElementById("effet-texte");
     if (textanimation && index2 < textebas.length) {
       textanimation.innerHTML += textebas.charAt(index2);
       index2++;
-      setTimeout(ecrireTexteAnnime, 50);
+      setTimeout(ecrireTexteAnnime, 30);
     }
   }
 
-  // --- Lancement au chargement avec le délai de 7 secondes ---
   window.onload = function () {
-    ecrireTexte(); // Démarre l'autre texte immédiatement
-    
-    // Démarre l'animation après 7 secondes
+    ecrireTexte();
     setTimeout(function() {
         const textEl = document.getElementById("effet-texte");
-        if (textEl) textEl.style.opacity = "1"; // Rend le texte visible
-        ecrireTexteAnnime(); // Lance l'écriture
-    }, 4000); 
+        if (textEl) textEl.style.opacity = "1";
+        ecrireTexteAnnime();
+    }, 2500); 
   };
-
-  
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -1066,8 +963,7 @@ function telechargerQR() {
     });
   });
 
-  const hiddenElements = document.querySelectorAll('.affiche');
-  hiddenElements.forEach((el) => observer.observe(el));
+  document.querySelectorAll('.affiche').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
