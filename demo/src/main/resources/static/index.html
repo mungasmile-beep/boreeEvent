@@ -814,27 +814,50 @@
   }
 
   function renderGuests() {
-    document.getElementById('count-total').innerText = currentGuests.length;
-    document.getElementById('count-present').innerText = currentGuests.filter(g => g.status === "Présent").length;
-    document.getElementById('count-absent').innerText = currentGuests.filter(g => g.status === "Absent").length;
+    // 1. Calculs des statistiques basés sur toute la liste currentGuests
+    const total = currentGuests.length;
+    const presents = currentGuests.filter(g => g.status === "Présent").length;
+    const absents = currentGuests.filter(g => g.status === "Absent").length;
 
-    const search = (document.getElementById('searchGuest')?.value || "").toLowerCase();
-    const filtered = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
+    // Mise à jour des éléments du dashboard (Statistiques)
+    const totalEl = document.getElementById('count-total');
+    const presentEl = document.getElementById('count-present');
+    const absentEl = document.getElementById('count-absent');
 
+    if (totalEl) totalEl.innerText = total;
+    if (presentEl) presentEl.innerText = presents;
+    if (absentEl) absentEl.innerText = absents;
+
+    // 2. Gestion de la recherche et filtrage
+    const searchInput = document.getElementById('searchGuest');
+    const search = searchInput ? searchInput.value.toLowerCase() : "";
+    const filteredGuests = currentGuests.filter(g => 
+        g.name && g.name.toLowerCase().includes(search)
+    );
+
+    // 3. Rendu de la liste des invités
     const container = document.getElementById('guests-list');
     if (!container) return;
 
-    container.innerHTML = filtered.map(g => `
-      <div class="card" style="text-align:left;">
-        <strong style="color: #FFF;">${g.name}</strong><br>
-        <small style="color: var(--gold-primary);">Table: ${g.guestTable || 'Non assignée'}</small><br>
-        <small style="color:#AAA;">Statut: ${g.status || 'En attente'}</small><br>
-        <button style="background:var(--gold-primary); color:#000; border:none; padding:4px 8px; border-radius:4px; margin-top:8px; cursor:pointer;" onclick="copyLink('${g.id}')">Lien VIP</button>
-        <button style="background:#c0392b; color:#fff; border:none; padding:4px 8px; border-radius:4px; margin-top:8px; cursor:pointer;" onclick="delGuest('${g.id}')">Suppr</button>
+    if (currentGuests.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
+        return;
+    }
+
+    container.innerHTML = filteredGuests.map(g => `
+      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
+        <strong style="color: white;">${g.name}</strong><br>
+        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
+        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br><br>
+        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0;">
+        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
+        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
+        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
+        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
       </div>
     `).join('');
-  }
-
+}
   function copyLink(id) {
     const url = window.location.origin + window.location.pathname + "?guestId=" + id;
     navigator.clipboard.writeText(url).then(() => alert("Lien d'invitation copié !"));
@@ -861,7 +884,19 @@
         }
     });  
   }
-
+ function ApercuePhoto(id) {
+    activeCoupleId = id;
+    const c = db.find(x => x.id === id);
+    const container = document.getElementById('ApercPhoto');
+    const titleEl = document.getElementById('Aperc');
+    if (c) {
+      if(titleEl) titleEl.innerText = "Couple " + c.name;
+      if(container) {
+        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; height: 100%; margin-left: auto;">`;
+        showSection('VoirPhoto');
+      }
+    }
+  }
   function saveDrinks() {
     const idToUse = window.guestId || gId;
     if (!idToUse) return;
