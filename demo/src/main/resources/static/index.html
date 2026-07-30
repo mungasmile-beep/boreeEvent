@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitation Électronique</title>
+  <title>Fête de Collation - Pascaline Munga</title>
   <script src="/qrcode.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tBm0hk8658MCxWAEA1BIZOC6xxalw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -12,47 +12,14 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Great+Vibes&display=swap');
 
-    /* ==========================================
-       SYSTÈME DE THÈMES DYNAMIQUES (VARIABLES)
-    ========================================== */
-    
-    /* 1. Thème Or & Sombre (Par défaut) */
-    .theme-gold {
-      --primary-color: #D4AF37;
+    :root {
+      --gold-primary: #D4AF37;
       --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
       --bg-dark: #0F0913;
       --glass-bg: rgba(255, 255, 255, 0.05);
       --glass-border: rgba(212, 175, 55, 0.25);
       --text-light: #F8F9FA;
       --accent-rose: #E8B4B8;
-      --bg-guest: radial-gradient(circle at top, #1F102A 0%, #09040C 100%);
-      --font-title: 'Cinzel', serif;
-    }
-
-    /* 2. Thème Rose & Champetre */
-    .theme-rose {
-      --primary-color: #E0A96D;
-      --gold-gradient: linear-gradient(135deg, #E8B4B8 0%, #FADCD9 50%, #E0A96D 100%);
-      --bg-dark: #1A0F14;
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(232, 180, 184, 0.3);
-      --text-light: #FFF5F5;
-      --accent-rose: #F4C2C2;
-      --bg-guest: radial-gradient(circle at top, #2C1820 0%, #0F070A 100%);
-      --font-title: 'Great Vibes', cursive;
-    }
-
-    /* 3. Thème Bleu & Argent */
-    .theme-silver-blue {
-      --primary-color: #A0C4FF;
-      --gold-gradient: linear-gradient(135deg, #E0E1DD 0%, #B8C0C2 50%, #778DA9 100%);
-      --bg-dark: #0A192F;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(160, 196, 255, 0.3);
-      --text-light: #F0F4F8;
-      --accent-rose: #BEE9E8;
-      --bg-guest: radial-gradient(circle at top, #0D2137 0%, #020C1B 100%);
-      --font-title: 'Montserrat', sans-serif;
     }
 
     body {
@@ -64,7 +31,7 @@
       overflow-x: hidden;
     }
 
-    /* --- STYLES ADMIN DE BASE --- */
+    /* --- STYLES ADMIN DE BASE (CONSERVÉS) --- */
     .header { background: #040029; color: white; position: sticky; top: 0; z-index: 1000; padding: 10px; box-shadow: 0 0 10px rgba(49, 50, 114, 0.5); }
     .headerTout { display: flex; justify-content: space-between; align-items: center; }
     .headerTout img { width: 50px; }
@@ -74,37 +41,36 @@
     .top-page { background-color: #1a162b; text-align: center; padding: 20px; }
     .grid { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
     .card { background-color: #040029; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 10px; width: 220px; }
-    #login-view { color: #d8b236; background-color: #151731; padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid #D4AF37; }
+    #login-view { color: #d8b236; background-color: #151731; padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--gold-primary); }
     #login-view input { border: none; color: #e2f6ff; background: transparent; border-bottom: 2px solid #888; padding: 8px; margin-bottom: 15px; text-align: center; }
-    #login-view button { cursor: pointer; border: none; background: linear-gradient(135deg, #BF953F, #FCF6BA); color: #000; padding: 10px 20px; font-weight: bold; border-radius: 8px; }
+    #login-view button { cursor: pointer; border: none; background: var(--gold-gradient); color: #000; padding: 10px 20px; font-weight: bold; border-radius: 8px; }
     #manage-couple, #Organiser { padding: 20px; text-align: center; background-color: #040029; border-radius: 23px; margin-top: 20px; }
     .hidden { display: none !important; }
-    
-    input, textarea, select {
-      background-color: rgb(0, 7, 66);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      color: white;
-      padding: 12px;
-      width: 80%;
-      max-width: 400px;
-      margin-bottom: 10px;
-    }
-    input::placeholder, textarea::placeholder { color: #aaa; }
-
+ input{
+ background-color: rgb(0, 7, 66);
+ border:none;
+ border-radius:10px;
+ color:white;
+ padding: 20px;
+ }
+ input::placeholder{
+  color: white;
+ }
     /* =========================================================
-       DESIGN VUE INVITÉ UTILISANT LES VARIABLES DE THÈME
+       Nouveau Design : INVITATION COLLATION PASCALINE MUNGA
     ========================================================= */
     #guest-view {
-      background: var(--bg-guest);
+      background: radial-gradient(circle at top, #1F102A 0%, #09040C 100%);
       min-height: 100vh;
       padding-bottom: 50px;
       position: relative;
     }
 
+    /* Animation Cadre Héro */
     .hero-banner {
       position: relative;
       width: 100%;
+      height: auto;
       min-height: 420px;
       display: flex;
       flex-direction: column;
@@ -112,9 +78,7 @@
       align-items: center;
       text-align: center;
       padding: 40px 20px 20px 20px;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background: linear-gradient(180deg, rgba(15, 9, 19, 0.2) 0%, #0F0913 100%), url('img/PASCALINE.png') center/cover no-repeat;
       overflow: hidden;
     }
 
@@ -144,18 +108,18 @@
     .event-badge {
       display: inline-block;
       padding: 6px 18px;
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--gold-primary);
       border-radius: 50px;
       font-size: 0.8rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: #FCF6BA;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(212, 175, 55, 0.1);
       margin-bottom: 15px;
     }
 
     .hero-title {
-      font-family: var(--font-title);
+      font-family: 'Cinzel', serif;
       font-size: 2.2rem;
       font-weight: 700;
       background: var(--gold-gradient);
@@ -174,6 +138,7 @@
       text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
 
+    /* Carte Invité Glassmorphism */
     .guest-card {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
@@ -209,6 +174,7 @@
       margin-top: 10px;
     }
 
+    /* Animation Texte Dactylographié & Citations */
     .quote-box {
       max-width: 650px;
       margin: 0 auto 30px auto;
@@ -225,6 +191,7 @@
       line-height: 1.6;
     }
 
+    /* Galerie de Photos VIP */
     .photo-gallery {
       display: flex;
       justify-content: center;
@@ -238,11 +205,16 @@
       position: relative;
       border-radius: 15px;
       overflow: hidden;
-      border: 2px solid var(--primary-color);
+      border: 2px solid var(--gold-primary);
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       width: 50%;
       height: 220px;
+    }
+
+    .photo-frame:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
     }
 
     .photo-frame img {
@@ -251,6 +223,7 @@
       object-fit: cover;
     }
 
+    /* Section Programme & Déroulement */
     .details-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -266,19 +239,67 @@
       border-radius: 16px;
       padding: 20px;
       text-align: center;
+      transition: 0.3s;
+    }
+
+    .info-card:hover {
+      border-color: var(--gold-primary);
+      background: rgba(212, 175, 55, 0.05);
     }
 
     .info-card i {
       font-size: 2rem;
-      color: var(--primary-color);
+      color: var(--gold-primary);
       margin-bottom: 12px;
     }
 
     .info-card h4 {
-      font-family: var(--font-title);
+      font-family: 'Cinzel', serif;
       font-size: 1.1rem;
       margin: 5px 0 10px 0;
       color: #FFF;
+    }
+
+    .info-card p {
+      font-size: 0.9rem;
+      color: #CCC;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Dress Code section */
+    .dress-code-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(15,9,19,0.8) 100%);
+      border: 1px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto 30px auto;
+    }
+
+    .circles-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .circle-swatch {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      border: 2px solid #FFF;
+    }
+    .swatch-red { background: #C0392B; }
+    .swatch-white { background: #FFFFFF; }
+
+    /* Boutons de confirmation */
+    .action-section {
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 30px;
     }
 
     .btn-gold {
@@ -296,6 +317,11 @@
       margin: 8px;
     }
 
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    }
+
     .btn-outline {
       background: transparent;
       color: #FFF;
@@ -304,23 +330,57 @@
       border-radius: 30px;
       font-size: 0.95rem;
       cursor: pointer;
+      transition: all 0.3s ease;
       margin: 8px;
     }
 
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #FFF;
+    }
+
+    /* Choix Boissons & Pass VIP */
     #drink-step, #blocInvitation {
       max-width: 500px;
       margin: 20px auto;
       background: rgba(20, 12, 28, 0.95);
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--gold-primary);
       border-radius: 20px;
       padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
       text-align: center;
     }
 
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulseGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    select {
+      width: 85%;
+      max-width: 320px;
+      padding: 12px;
+      margin: 10px auto;
+      background: #1A1125;
+      color: #FFF;
+      border: 1px solid var(--gold-primary);
+      border-radius: 10px;
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+    }
 
+    /* KEYFRAMES & ANIMATIONS */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)); transform: scale(1.05); }
+    }
+
+    /* Fleurs Animées */
     .container-images .fleur, .container-images #fleur2 {
       position: absolute;
       top: 0;
@@ -353,33 +413,34 @@
   </div>
 
 
-  <!-- VUE INVITÉ (DYNAMIQUE SELON LE CLIENT ET SON THÈME) -->
-  <div id="guest-view" class="hidden theme-gold">
+  <!-- VUE INVITÉ (NOUVEAU DESIGN COLLATION PASCALINE MUNGA) -->
+  <div id="guest-view" class="hidden">
     
     <audio id="maMusique" loop>
       <source src="img/wedding.mp3" type="audio/mp3">
     </audio>
 
+    <!-- Éléments décoratifs en chute -->
     <div class="container-images">
       <img src="img/fleur.png" alt="décor" class="fleur">
       <img src="img/fleur.png" alt="décor" id="fleur2">
     </div>
 
-    <!-- Banner Principal -->
-    <div class="hero-banner" id="hero-banner-bg">
+    <!-- Banner Principal / Entête Héro -->
+    <div class="hero-banner">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <i class="fas fa-graduation-cap grad-cap-icon" id="event-icon"></i>
+        <i class="fas fa-graduation-cap grad-cap-icon"></i>
         <br>
         <span class="event-badge">Invitation Officielle</span>
-        <h1 class="hero-title" id="display-event-type">Événement</h1>
-        <div class="hero-subtitle" id="display-client-name">Nom du Client</div>
+        <h1 class="hero-title">Collation des Grades</h1>
+        <div class="hero-subtitle">Pascaline Munga</div>
       </div>
     </div>
 
-    <!-- Carte Invité -->
+    <!-- Carte d'Accueil Personnalisée de l'Invité -->
     <div class="guest-card">
-      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary-color); margin: 0 0 5px 0;">Honoré(e) Invité(e)</p>
+      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-primary); margin: 0 0 5px 0;">Honoré(e) Invité(e)</p>
       <div class="guest-name" id="invit">Nom de l'invité</div>
       <div id="welcome-title" style="display:none;"></div>
       <div class="guest-table-badge">
@@ -388,49 +449,59 @@
       </div>
     </div>
 
-    <!-- Citation & Poésie Dynamique -->
+    <!-- Zone de texte poétique dactylographié -->
     <div class="quote-box">
       <p id="effet-ecriture"></p>
       <p id="effet-texte" style="font-size: 0.95rem; color: #BBB; line-height: 1.6; margin-top: 15px; opacity: 0; transition: opacity 1.5s ease;"></p>
     </div>
 
-    <!-- Galerie Photos VIP Dynamique -->
+    <!-- Galerie Photos VIP -->
     <div class="photo-gallery">
       <div class="photo-frame">
-        <img id="photo-vip-1" src="img/IMG2.png" alt="Photo 1">
+        <img src="img/IMG2.png" alt="Pascaline Munga">
       </div>
       <div class="photo-frame">
-        <img id="photo-vip-2" src="img/pasc.png" alt="Photo 2">
+        <img src="img/pasc.png" alt="Célébration Pascaline Munga">
       </div>
     </div>
 
     <!-- Date Marquante -->
     <div style="text-align: center; margin-bottom: 35px;">
-      <div style="display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid var(--primary-color); padding: 12px 30px; border-radius: 50px;">
-        <i class="far fa-calendar-alt" style="color: var(--primary-color); margin-right: 8px;"></i>
-        <strong style="color: #FFF; font-size: 1.05rem;" id="parag">Date à venir</strong>
+      <div style="display: inline-block; background: rgba(212,175,55,0.15); border: 1px solid var(--gold-primary); padding: 12px 30px; border-radius: 50px;">
+        <i class="far fa-calendar-alt" style="color: var(--gold-primary); margin-right: 8px;"></i>
+        <strong style="color: #FFF; font-size: 1.05rem;" id="parag">Jeudi 06 Aôut 2026</strong>
       </div>
     </div>
 
-    <!-- Programme -->
+    <!-- Programme et Adresses -->
     <div class="details-grid">
       <div class="info-card affiche">
         <i class="fas fa-university"></i>
         <h4>Cérémonie Officielle</h4>
         <p><b>08h00</b></p>
-        <p id="ceremony-location">Lieu de la cérémonie</p>
+        <p>Building de l'unilu</p>
       </div>
 
       <div class="info-card affiche">
         <i class="fas fa-utensils"></i>
         <h4>Réception & Festivités</h4>
         <p><b>16h30</b></p>
-        <p id="party-location">Lieu de la réception</p>
+        <p>Avenue De conservateur, N°03<br><small style="color: var(--gold-primary);">Réf: Arrêt Craa usine, église pain de vie</small></p>
       </div>
     </div>
 
+    <!-- Code Vestimentaire -->
+    <div class="dress-code-card affiche">
+      <h4 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin: 0 0 10px 0;">Code Vestimentaire</h4>
+      <div class="circles-container">
+        <!-- <div class="circle-swatch swatch-red" title="Rouge"></div>
+        <div class="circle-swatch swatch-white" title="Blanc"></div> -->
+      </div>
+      <p style="margin: 0; font-weight: 600; color: #FFF; font-size: 0.95rem;">Habillez vous proprement</p>
+    </div>
+
     <!-- Actions Confirmation -->
-    <div id="confirm-step" style="text-align: center; padding: 20px; margin-bottom: 30px;">
+    <div id="confirm-step" class="action-section">
       <p class="affiche" style="font-size: 1.1rem; margin-bottom: 20px; color: #FFF;">Serez-vous des nôtres pour célébrer cette réussite ?</p>
       <button class="btn-gold affiche" onclick="setPresence(true)"><i class="fas fa-check-circle"></i> Je confirme ma présence</button>
       <button class="btn-outline affiche" onclick="setPresence(false)"><i class="fas fa-times-circle"></i> Indisponible</button>
@@ -438,24 +509,25 @@
 
     <!-- Sélection Boissons -->
     <div id="drink-step" class="hidden">
-      <h3 style="font-family: var(--font-title); color: var(--primary-color); margin-top: 0;"><i class="fas fa-cocktail"></i> Vos Préférences</h3>
+      <h3 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin-top: 0;"><i class="fas fa-cocktail"></i> Vos Préférences</h3>
       <p style="font-size: 0.85rem; color: #CCC;">Aidez-nous à mieux vous servir lors du buffet :</p>
       
-      <label style="font-size: 0.85rem; color: var(--primary-color);">Boisson sans alcool :</label>
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Boisson sans alcool :</label>
       <select id="SansAlcool">
         <option>Aucun</option>
         <option>Eau Minérale</option>
         <option>Coca-Cola</option>
         <option>Fanta</option>
         <option>Sprite</option>
+        <option>Energy Drink (XXL)</option>
       </select>
 
-      <label style="font-size: 0.85rem; color: var(--primary-color);">Sélection Spéciale :</label>
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Sélection Spéciale :</label>
       <select id="whisky">
         <option>Aucun</option>
       </select>
       
-      <label style="font-size: 0.85rem; color: var(--primary-color);">Jus & Rafraîchissements :</label>
+      <label style="font-size: 0.85rem; color: var(--gold-primary);">Jus & Rafraîchissements :</label>
       <select id="biere">
         <option>Aucun</option>
         <option>Jus Cérès</option>
@@ -464,21 +536,24 @@
       <button class="btn-gold" style="margin-top: 15px; width: 85%;" onclick="saveDrinks()">Valider mes choix</button>
     </div>
 
+    <!-- Alert Choix Enregistré -->
     <div id="alertchoix" style="display: none; background: rgba(46, 204, 113, 0.2); border: 1px solid #2ECC71; color: #2ECC71; text-align: center; border-radius: 15px; max-width: 400px; margin: 20px auto; padding: 15px;">
       <i class="fas fa-check-circle" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
       <p style="margin: 0; font-weight: 600;">Choix confirmé avec succès !</p>
     </div>
 
-    <!-- Pass Invitation -->
+    <!-- Pass Invitation Téléchargeable -->
     <div id="blocInvitation" class="hidden">
-      <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--primary-color);"></i>
-      <h2 style="font-family: var(--font-title); color: #FFF; margin: 10px 0 5px 0;">Pass d'Accès Officiel</h2>
-      <h3 id="nomMaries" style="color: var(--primary-color); font-family: 'Great Vibes', cursive; font-size: 2rem; margin: 0 0 15px 0;">Événement</h3>
+      <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--gold-primary);"></i>
+      <h2 style="font-family: 'Cinzel', serif; color: #FFF; margin: 10px 0 5px 0;">Pass d'Accès Officiel</h2>
+      <h3 id="nomMaries" style="color: var(--gold-primary); font-family: 'Great Vibes', cursive; font-size: 2rem; margin: 0 0 15px 0;">Collation de Pascaline Munga</h3>
       
       <div id="qrcode" style="display: flex; justify-content: center; padding: 10px; background: #FFF; border-radius: 12px; width: 170px; margin: 0 auto 15px auto;"></div>
       
       <p id="nomInvite" style="font-weight: bold; font-size: 1.1rem; color: #FFF; margin: 5px 0;"></p>
-      <p id="nomTable" style="color: var(--primary-color); font-weight: 600; margin: 0;"></p>
+      <p id="nomTable" style="color: var(--gold-primary); font-weight: 600; margin: 0;"></p>
+      
+      <p style="margin-top: 15px; font-size: 0.75rem; color: #AAA;"><i class="fas fa-info-circle"></i> Présentez ce QR Code à l'entrée le jour de l'événement.</p>
     </div>
 
     <div id="download-section" class="hidden" style="text-align: center; margin-top: 20px;">
@@ -488,17 +563,20 @@
     <!-- Messages de Fin -->
     <section id="messageNegatif" class="hidden" style="text-align: center; background: rgba(192, 57, 43, 0.2); border: 1px solid #C0392B; max-width: 500px; margin: 30px auto; border-radius: 20px; padding: 25px;">
       <h3 style="color: #FFF;"><i class="fas fa-heart-broken"></i> Merci de nous avoir informés</h3>
-      <p style="color: #CCC; font-size: 0.9rem;">Nous vous remercions pour votre délicate attention.</p>
+      <p style="color: #CCC; font-size: 0.9rem;">Pascaline Munga vous remercie pour votre délicate attention.</p>
     </section>
 
     <section id="message" class="hidden" style="text-align: center; max-width: 500px; margin: 30px auto; padding: 20px;">
-      <p style="color: var(--primary-color); font-size: 0.9rem;"><i class="fas fa-star"></i> Merci de célébrer ce moment avec nous !</p>
+      <p style="color: var(--gold-primary); font-size: 0.9rem;"><i class="fas fa-star"></i> Merci de célébrer ce moment d'excellence avec nous !</p>
+      <a href="https://wa.me/243996942013?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank" style="font-size: 0.85rem; color: #FFF; text-decoration: none; opacity: 0.8;">
+        <i class="fab fa-whatsapp"></i> Contact Assistance WhatsApp
+      </a>
     </section>
 
   </div>
 
 
-  <!-- VUE ESPACE ADMIN AMÉLIORÉE POUR CRÉER PLUSIEURS CLIENTS -->
+  <!-- VUE ESPACE PANNEAU ADMIN (CONSERVÉE ENTIÈREMENT) -->
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
@@ -512,34 +590,24 @@
 
     <section id="section-home" class="top-page">
       <h1 style="color: #d4af37;"><i class="fas fa-chart-pie"></i> Tableau de bord</h1>
-      <h2 style="border-bottom: 2px solid #d4af37; color: white; padding-bottom: 10px;">Gestion des Clients & Événements</h2>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: rgba(255,255,255,0.1); border: 1px solid #D4AF37; color: white; padding: 10px; border-radius: 8px;">
+      <h2 style="border-bottom: 2px solid #d4af37; color: white; padding-bottom: 10px;">Gestion des Événements</h2>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: rgba(255,255,255,0.1); border: 1px solid var(--gold-primary); color: white; padding: 10px; border-radius: 8px; width: 80%; max-width: 300px;">
       <div id="couples-list" class="grid" style="margin-top: 20px;"></div>
     </section>
 
-    <!-- Formulaire de création personnalisé multi-client -->
-    <section class="hidden" id="Organiser">
-      <h1 style="color: #FFF;">Créer une Invitation Client</h1>
-      
-      <input type="text" id="coupleName" placeholder="Nom du/des Client(s) (ex: Pascaline Munga)"><br>
-      <input type="text" id="eventType" placeholder="Type d'événement (ex: Collation des Grades, Mariage)"><br>
-      
-      <!-- Sélection du Thème Visuel -->
-      <label style="color:#aaa; font-size: 0.85rem;">Choisir le Design Visuel :</label><br>
-      <select id="themeSelect">
-        <option value="theme-gold">Or & Sombre (Luxueux)</option>
-        <option value="theme-rose">Rose & Champêtre (Doux)</option>
-        <option value="theme-silver-blue">Bleu & Argent (Moderne)</option>
-      </select><br>
+    <section class="hidden" id="VoirPhoto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: #ffffff; padding: 20px; border-radius: 23px;">
+      <button onclick="showSection('section-home')" style="background: #333; color: #fff;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <div id="ApercPhoto" class="grid" style="margin-top: 15px;"></div>
+      <div id="Aperc" style="color: #000; text-align: center; font-weight: bold; margin-top: 10px;"></div>
+    </section>
 
-      <input type="date" id="datemariage"><br>
-      <textarea id="quoteText" placeholder="Texte/Poème d'introduction (ex: Un parcours d'excellence...)"></textarea><br>
-      <textarea id="descText" placeholder="Texte explicatif (ex: La famille X a la joie de vous convier...)"></textarea><br>
-      
-      <label style="color:#aaa; font-size: 0.85rem;">Photo Principale :</label><br>
-      <input type="file" id="photo"><br>
-      
-      <button onclick="addCouple()" class="btn-gold">+ Enregistrer l'Événement</button>
+    <section class="hidden" id="Organiser">
+      <h1 style="color: #FFF;">Enregistrer un Événement</h1>
+      <input type="text" id="coupleName" placeholder="Ex: Pascaline Munga"> <br> <br>
+      <input type="date" id="datemariage" style="color: gray;"> <br><br>
+      <input type="file" id="photo"><br> <br>
+      <br>
+      <button onclick="addCouple()" class="btn-gold">+ Créer Événement</button>
     </section>
 
     <section id="manage-couple" class="hidden">
@@ -548,31 +616,35 @@
       
       <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
         <h3>Enregistrer un invité</h3>
-        <input type="text" id="newGuestName" placeholder="Nom de l'invité"><br>
-        <input type="email" id="newGuestEmail" placeholder="Email / Contact"><br>
-        <input type="text" id="TableGuestName" placeholder="Table assignée"><br>
+        <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
+        <input type="email" id="newGuestEmail" placeholder="Email / Contact"> <br> <br>
+        <input type="text" id="TableGuestName" placeholder="Table assignée"> <br> <br>
         <button type="button" onclick="addGuest()" class="btn-gold">Ajouter l'invité</button> 
       </div>
 
       <div id="dashboard-stats" style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
-        <div style="background: #2980b9; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;"><span id="count-total">0</span><br><small>Total</small></div>
-        <div style="background: #27ae60; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;"><span id="count-present">0</span><br><small>Présents</small></div>
-        <div style="background: #c0392b; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;"><span id="count-absent">0</span><br><small>Absents</small></div>
+        <div style="background: #2980b9; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-total" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Total</small>
+        </div>
+        <div style="background: #27ae60; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-present" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Présents</small>
+        </div>
+        <div style="background: #c0392b; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
+          <span id="count-absent" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Absents</small>
+        </div>
       </div>
 
-      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()">
+      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: transparent; border-bottom: 2px solid var(--gold-primary); color: white;">
       <div id="guests-list" class="grid" style="margin-top: 20px;"></div>
     </section>
   </div>
 
 
-  <!-- SCRIPT APPLICATION & CHARGEMENT DYNAMIQUE -->
+  <!-- SCRIPTS APPLICATION ET ANIMATIONS -->
   <script>
   let db = []; 
   let activeCoupleId = null;
   let currentGuests = [];
-  let currentText1 = "";
-  let currentText2 = "";
 
   const params = new URLSearchParams(window.location.search);
   const gId = params.get('guestId');
@@ -585,46 +657,33 @@
         return response.json();
       })
       .then(g => {
-        const event = g.couple || {}; 
-        const guestView = document.getElementById('guest-view');
-
-        // 1. Appliquer le thème visuel du client
-        guestView.className = "";
-        guestView.classList.add(event.theme || 'theme-gold');
-
-        // 2. Injecter les données dynamiques du client dans la vue
-        document.getElementById('invit').innerText = g.name;
-        document.getElementById('table').innerText = "Table : " + (g.guestTable || g.table || 'Non assignée');
-        document.getElementById('display-client-name').innerText = event.name || "Nom Client";
-        document.getElementById('display-event-type').innerText = event.eventType || "Invitation Officielle";
-        document.getElementById('parag').innerText = event.datemariage || "Date à venir";
-
-        if (event.photo) {
-          document.getElementById('hero-banner-bg').style.backgroundImage = `linear-gradient(180deg, rgba(15, 9, 19, 0.2) 0%, #0F0913 100%), url('${event.photo}')`;
-          document.getElementById('photo-vip-1').src = event.photo;
-        }
-
-        // Configuration des textes dynamiques
-        currentText1 = event.quote || "Un moment d'exception à célébrer ensemble.";
-        currentText2 = event.description || "Vous êtes chaleureusement convié(e) à partager notre joie lors de cet événement.";
-
+        const welcomeEl = document.getElementById('welcome-title');
+        const tableEl = document.getElementById('table');
+        const invitEl = document.getElementById('invit');
+        
+        if(welcomeEl) welcomeEl.innerText = "Fête de " + (g.couple ? g.couple.name : "Pascaline Munga");
+        if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non assignée');
+        if(invitEl) invitEl.innerText = g.name;
+        
         window.currentGuest = g;
         window.guestId = g.id;
-
-        // Démarrer l'animation de texte
-        ecrireTexte();
-        setTimeout(() => {
-          const textEl = document.getElementById("effet-texte");
-          if (textEl) textEl.style.opacity = "1";
-          ecrireTexteAnnime();
-        }, 2500);
       })
-      .catch(error => console.error("Erreur récupération invité :", error));
+      .catch(error => {
+        console.error("Erreur récupération invité :", error);
+      });
   }
 
   if (gId) {
     document.getElementById('login-view').classList.add('hidden');
     document.getElementById('guest-view').classList.remove('hidden');
+    
+    const audio = document.getElementById('maMusique');
+    const playMusic = () => {
+      audio.play().then(() => {
+        document.removeEventListener('click', playMusic);
+      }).catch(e => console.log("En attente d'interaction..."));
+    };
+    document.addEventListener('click', playMusic);
     verifierInvite();
   } else {
     fetch('/api/couples')
@@ -634,13 +693,14 @@
   }
 
   function checkAdmin() {
+    const CodeErreur = document.getElementById('erreurCode');
     if (document.getElementById('pass').value === "02006") {
       document.getElementById('login-view').classList.add('hidden');
       document.getElementById('admin-view').classList.remove('hidden');
       loadCouples();
     } else {
-      document.getElementById('erreurCode').style.display = "block";
-      setTimeout(() => { document.getElementById('erreurCode').style.display = "none"; }, 3000);
+      CodeErreur.style.display = "block";
+      setTimeout(() => { CodeErreur.style.display = "none"; }, 3000);
     }
   }
 
@@ -648,11 +708,15 @@
     document.getElementById('section-home').classList.add('hidden');
     document.getElementById('Organiser').classList.add('hidden');
     document.getElementById('manage-couple').classList.add('hidden');
+    document.getElementById('VoirPhoto').classList.add('hidden');
     
     const target = document.getElementById(id);
     if (target) {
       target.classList.remove('hidden');
       target.style.display = 'block';
+      if (id === 'message') {
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+      }
     }
   }
 
@@ -660,38 +724,32 @@
     fetch('/api/couples')
       .then(response => response.json())
       .then(data => { db = Array.isArray(data) ? data : []; renderCouples(); })
-      .catch(() => { db = []; renderCouples(); });
+      .catch(error => { db = []; renderCouples(); });
   }
 
   function addCouple() {
     const name = document.getElementById('coupleName').value;
-    const eventType = document.getElementById('eventType').value;
-    const theme = document.getElementById('themeSelect').value;
     const datemariage = document.getElementById('datemariage').value;
-    const quote = document.getElementById('quoteText').value;
-    const description = document.getElementById('descText').value;
     const fileInput = document.getElementById('photo');
-
-    if (!name || !datemariage) {
-      alert("Veuillez remplir au moins le nom et la date.");
+    if (!name || !datemariage || fileInput.files.length === 0) {
+      alert("Veuillez remplir tous les champs");
       return;
     }
-
-    const saveEvent = (photoBase64) => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
       fetch('/api/couples', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, eventType, theme, datemariage, quote, description, photo: photoBase64 })
+        body: JSON.stringify({ name: name, datemariage: datemariage, photo: e.target.result })
       })
-      .then(() => { alert("Événement client créé avec succès !"); loadCouples(); showSection('section-home'); });
+      .then(() => { alert("Événement créé !"); loadCouples(); showSection('section-home'); });
     };
+    reader.readAsDataURL(fileInput.files[0]);
+  }
 
-    if (fileInput.files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = e => saveEvent(e.target.result);
-      reader.readAsDataURL(fileInput.files[0]);
-    } else {
-      saveEvent("");
+  function delCouple(id) {
+    if(confirm("Supprimer cet événement ?")) {
+      fetch(`/api/couples/${id}`, { method: 'DELETE' }).then(() => loadCouples());
     }
   }
 
@@ -701,10 +759,10 @@
     if (!db.length) { listContainer.innerHTML = "<p>Aucun événement enregistré.</p>"; return; }
     listContainer.innerHTML = db.map(c => `
       <div class="card">
-        <img src="${c.photo || 'img/logo.png'}" style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
+        <img src="${c.photo || ''}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
         <h3 style="color:white; cursor:pointer" onclick="openCouple(${c.id})">${c.name || ''}</h3>
-        <small style="color:var(--primary-color);">${c.eventType || 'Événement'}</small>
         <p style="color:#aaa;">${c.datemariage || ''}</p>
+        <button style="background:#c0392b; color:#fff; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="delCouple(${c.id})">Supprimer</button>
       </div>
     `).join('');
   }
@@ -753,21 +811,57 @@
     });
   }
 
+  function delGuest(id) {
+    if(confirm("Supprimer cet invité ?")) {
+      fetch(`/api/guests/${id}`, { method: 'DELETE' }).then(() => loadGuests(activeCoupleId));
+    }
+  }
+
   function renderGuests() {
-    const search = (document.getElementById('searchGuest')?.value || "").toLowerCase();
-    const filteredGuests = currentGuests.filter(g => g.name && g.name.toLowerCase().includes(search));
+    // 1. Calculs des statistiques basés sur toute la liste currentGuests
+    const total = currentGuests.length;
+    const presents = currentGuests.filter(g => g.status === "Présent").length;
+    const absents = currentGuests.filter(g => g.status === "Absent").length;
+
+    // Mise à jour des éléments du dashboard (Statistiques)
+    const totalEl = document.getElementById('count-total');
+    const presentEl = document.getElementById('count-present');
+    const absentEl = document.getElementById('count-absent');
+
+    if (totalEl) totalEl.innerText = total;
+    if (presentEl) presentEl.innerText = presents;
+    if (absentEl) absentEl.innerText = absents;
+
+    // 2. Gestion de la recherche et filtrage
+    const searchInput = document.getElementById('searchGuest');
+    const search = searchInput ? searchInput.value.toLowerCase() : "";
+    const filteredGuests = currentGuests.filter(g => 
+        g.name && g.name.toLowerCase().includes(search)
+    );
+
+    // 3. Rendu de la liste des invités
     const container = document.getElementById('guests-list');
     if (!container) return;
 
+    if (currentGuests.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
+        return;
+    }
+
     container.innerHTML = filteredGuests.map(g => `
-      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px;">
+      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
         <strong style="color: white;">${g.name}</strong><br>
-        <small style="color: white;">Table: ${g.guestTable || 'Non assignée'}</small><br>
-        <button style="background-color:green; color:white; font-size:10px; margin-top: 10px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Copier Lien Invitation</button>
+        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
+        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br><br>
+        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0;">
+        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
+        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
+        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
+        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
       </div>
     `).join('');
-  }
-
+}
   function copyLink(id) {
     const url = window.location.origin + window.location.pathname + "?guestId=" + id;
     navigator.clipboard.writeText(url).then(() => alert("Lien d'invitation copié !"));
@@ -775,22 +869,38 @@
 
   function setPresence(present) {  
     if(!window.currentGuest) return;  
+    const status = present ? "Présent" : "Absent";  
+    
     fetch(`/api/guests/${window.currentGuest.id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: present ? "Présent" : "Absent" })
+      body: JSON.stringify({ status: status })
     })  
-    .then(() => {  
-      if (present) {  
-        document.getElementById('confirm-step').classList.add('hidden');  
-        document.getElementById('drink-step').classList.remove('hidden');  
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
-      } else {  
-        showSection('messageNegatif');  
-      }  
+    .then(response => {  
+        if (response.ok) {
+            if (present) {  
+                document.getElementById('confirm-step').classList.add('hidden');  
+                document.getElementById('drink-step').classList.remove('hidden');  
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+            } else {  
+                showSection('messageNegatif');  
+            }  
+        }
     });  
   }
-
+ function ApercuePhoto(id) {
+    activeCoupleId = id;
+    const c = db.find(x => x.id === id);
+    const container = document.getElementById('ApercPhoto');
+    const titleEl = document.getElementById('Aperc');
+    if (c) {
+      if(titleEl) titleEl.innerText = "Couple " + c.name;
+      if(container) {
+        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; height: 100%; margin-left: auto;">`;
+        showSection('VoirPhoto');
+      }
+    }
+  }
   function saveDrinks() {
     const idToUse = window.guestId || gId;
     if (!idToUse) return;
@@ -807,7 +917,12 @@
       body: JSON.stringify({ drinkChoice: drinks || "Aucun" })
     })
     .then(() => {
+      document.getElementById('alertchoix').style.display = "block";
+      setTimeout(() => { document.getElementById('alertchoix').style.display = "none"; }, 3000);
+
       document.getElementById('drink-step').classList.add('hidden');
+      document.getElementById('download-section').classList.remove('hidden');
+      
       genererInvitation(window.currentGuest);
       showSection('message');
     });
@@ -816,46 +931,78 @@
   function genererInvitation(guest) {
     const container = document.getElementById("qrcode");
     container.innerHTML = ""; 
+    
     if (typeof QRCode !== "undefined") {
-      new QRCode(container, { text: window.location.origin + "/?guestId=" + guest.id, width: 150, height: 150 });
+        new QRCode(container, {
+            text: window.location.origin + "/?guestId=" + guest.id,
+            width: 150,
+            height: 150,
+            correctLevel: QRCode.CorrectLevel.H
+        });
     }
+
     document.getElementById("nomInvite").innerText = guest.name || "Invité VIP";
-    document.getElementById("nomMaries").innerText = guest.couple ? guest.couple.name : "Événement";
-    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Entrée libre");
+    document.getElementById("nomMaries").innerText = "Collation de Pascaline Munga";
+    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Assignation à l'entrée");
     document.getElementById("blocInvitation").classList.remove("hidden");
   }
 
   function telechargerQR() {
     const element = document.getElementById("blocInvitation");
     if (!element) return;
-    html2canvas(element, { backgroundColor: "#0F0913", scale: 2 }).then(canvas => {
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL("image/png");
-      link.download = 'Invitation_VIP.png';
-      link.click();
+
+    html2canvas(element, { backgroundColor: "#0F0913", scale: 2 })
+    .then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL("image/png");
+        link.download = 'Invitation_Collation_Pascaline_Munga.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
   }
 
-  /* EFFETS DACTYLOGRAPHIQUES DYNAMIKES */
+  /* NOUVEAUX TEXTES PERSONNALISÉS POUR LA COLLATION */
   let index1 = 0;
+  const text1 = "Un parcours d'excellence célébré, un diplôme brillamment décroché.";
   function ecrireTexte() {
     const element1 = document.getElementById("effet-ecriture");
-    if (element1 && index1 < currentText1.length) {
-      element1.innerHTML += currentText1.charAt(index1);
+    if (element1 && index1 < text1.length) {
+      element1.innerHTML += text1.charAt(index1);
       index1++;
       setTimeout(ecrireTexte, 40);
     }
   }
 
   let index2 = 0;
+  const textebas = "La familles MUNGA a l'immense honneur et la joie de vous convier à la célébration de la collation des grades de leur fille Pascaline Munga.";
   function ecrireTexteAnnime() {
     const textanimation = document.getElementById("effet-texte");
-    if (textanimation && index2 < currentText2.length) {
-      textanimation.innerHTML += currentText2.charAt(index2);
+    if (textanimation && index2 < textebas.length) {
+      textanimation.innerHTML += textebas.charAt(index2);
       index2++;
       setTimeout(ecrireTexteAnnime, 30);
     }
   }
+
+  window.onload = function () {
+    ecrireTexte();
+    setTimeout(function() {
+        const textEl = document.getElementById("effet-texte");
+        if (textEl) textEl.style.opacity = "1";
+        ecrireTexteAnnime();
+    }, 2500); 
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+
+  document.querySelectorAll('.affiche').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
