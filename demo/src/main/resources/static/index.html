@@ -27,6 +27,11 @@
       box-sizing: border-box;
     }
 
+    /* CLASSE CACHÉE */
+    .hidden {
+      display: none !important;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -36,10 +41,7 @@
       overflow-x: hidden;
       width: 100%;
     }
-/* --- CLASSE CACHÉE --- */
-    .hidden {
-      display: none !important;
-    }
+
     /* --- STYLES ADMIN DE BASE --- */
     .header { background: var(--card-bg); color: var(--text-dark); position: sticky; top: 0; z-index: 1000; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .headerTout { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -210,8 +212,8 @@
       color: var(--text-dark);
       margin-bottom: 5px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
     }
 
     .wall-feed {
@@ -494,7 +496,7 @@
     <input type="password" id="pass" placeholder="Code Administrateur">
     <br>
     <button onclick="checkAdmin()">Connexion</button>
-    <p id="erreurCode" style="color: #d84737; display: none; margin-top: 10px; font-size: 0.9rem;">Code incorrect, essaie encore !</p>
+    <p id="erreurCode" style="color: #e74c3c; display: none; margin-top: 10px; font-size: 0.9rem;">Code incorrect, essaie encore !</p>
   </div>
 
 
@@ -502,7 +504,7 @@
   <div id="guest-view" class="hidden">
     
     <audio id="maMusique" loop>
-      <source src="img/she goes by. (KayArchon Remix).mp3" type="audio/mp3">
+      <source src="img/wedding.mp3" type="audio/mp3">
     </audio>
 
     <div class="hero-banner">
@@ -525,13 +527,14 @@
       </div>
     </div>
 
-    <!-- MUR DE COMMENTAIRES STYLE MESSAGERIE / INSTAGRAM -->
+    <!-- MUR DE COMMENTAIRES MANUEL -->
     <div class="community-wall-section">
       <div class="wall-card">
         <div class="wall-title">
-          <i class="fas fa-comments" style="color: var(--primary-green);"></i> Fil de Discussions Live
+          <span><i class="fas fa-comments" style="color: var(--primary-green);"></i> Fil de Discussions</span>
+          <button onclick="loadGlobalMessages()" style="background: transparent; border: 1px solid var(--border-color); border-radius: 8px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; color: var(--text-dark); display: flex; align-items: center; gap: 4px;" title="Actualiser les messages"><i class="fas fa-sync-alt"></i> Actualiser</button>
         </div>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 10px;">Laisse ton commentaire pour chauffer l'ambiance avec les autres potes !</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; margin-bottom: 10px;">Laisse ton commentaire et clique sur actualiser pour voir les nouveaux messages !</p>
         
         <div id="wallFeedContainer" class="wall-feed">
           <div class="wall-message-item">
@@ -568,10 +571,10 @@
         <h4>Lieu de rencontre</h4>
         <p>UPL près du stade de basket</p>
         <p><b style="color: var(--text-dark);">13h00 Précises</b></p> <br>
-        <p>Entrée principale du Zoo de Lubumbashi<br>              <p><b style="color: var(--text-dark);">13h30 Précises</b></p>
- <small style="color: var(--primary-green); font-weight:600;">Viens à l'heure, on t'attend !</small></p>
-
-       </div>
+        <p>Entrée principale du Zoo de Lubumbashi<br>
+        <p><b style="color: var(--text-dark);">13h30 Précises</b></p>
+        <small style="color: var(--primary-green); font-weight:600;">Viens à l'heure, on t'attend !</small></p>
+      </div>
 
       <div class="info-card affiche">
         <i class="fas fa-guitar"></i>
@@ -695,12 +698,15 @@
       <button onclick="showSection('section-home')" class="btn-outline" style="padding: 6px 12px; font-size: 12px; margin: 0 auto 15px auto; width: auto; display: block;"><i class="fas fa-arrow-left"></i> Retour</button>
       <h2 id="couple-title" style="color: var(--text-dark); font-size: 1.2rem; margin-top: 10px; word-break: break-word;"></h2>
       
-      <!-- MODÉRATION DES COMMENTAIRES DANS L'ESPACE ADMIN -->
+      <!-- MODÉRATION DES COMMENTAIRES MANUELLE DANS L'ESPACE ADMIN -->
       <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;">
-        <h3 style="font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text-dark); margin-bottom: 5px;">
-          <i class="fas fa-comments" style="color: var(--primary-green);"></i> Modération des Commentaires Live
-        </h3>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Visualise les commentaires en direct et supprime les messages inappropriés :</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+          <h3 style="font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text-dark); margin: 0;">
+            <i class="fas fa-comments" style="color: var(--primary-green);"></i> Modération des Commentaires
+          </h3>
+          <button onclick="loadGlobalMessages()" style="background: transparent; border: 1px solid var(--border-color); border-radius: 8px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; color: var(--text-dark); display: flex; align-items: center; gap: 4px;" title="Actualiser les messages"><i class="fas fa-sync-alt"></i> Actualiser</button>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Clique sur actualiser pour voir les messages et supprimer les inappropriés :</p>
         
         <div id="adminWallFeedContainer" class="wall-feed" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
           <!-- Les messages s'afficheront ici -->
@@ -822,8 +828,6 @@
     fetch('/api/messages')
       .then(response => response.json())
       .then(messages => {
-        const isAdmin = document.getElementById('admin-view') && !document.getElementById('admin-view').classList.contains('hidden');
-        
         // Cible l'affichage invité si présent
         const feed = document.getElementById('wallFeedContainer');
         if(feed) {
@@ -870,14 +874,6 @@
         .then(() => loadGlobalMessages());
     }
   }
-
-  // Actualisation automatique toutes les 3,5 secondes
-  setInterval(() => {
-    if((document.getElementById('guest-view') && !document.getElementById('guest-view').classList.contains('hidden')) || 
-       (document.getElementById('admin-view') && !document.getElementById('admin-view').classList.contains('hidden'))) {
-      loadGlobalMessages();
-    }
-  }, 3500);
 
   function checkAdmin() {
     const CodeErreur = document.getElementById('erreurCode');
@@ -961,7 +957,7 @@
       document.getElementById('couple-title').innerText = "Événement : " + c.name;
       showSection('manage-couple');
       loadGuests(activeCoupleId);
-      loadGlobalMessages(); // Charge les messages dans le panneau admin
+      loadGlobalMessages();
     }
   }
 
