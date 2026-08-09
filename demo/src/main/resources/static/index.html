@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pique-Nique Chill - Zoo de Lubumbashi</title>
-  <!-- Correction du CDN QRCode -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Correction de FontAwesome sans attributs integrity bloquants -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -25,6 +23,10 @@
       --border-color: #e2e8f0;
     }
 
+    * {
+      box-sizing: border-box; /* Empêche les paddings de faire déborder les éléments */
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -32,30 +34,31 @@
       background-color: var(--bg-light);
       color: var(--text-dark);
       overflow-x: hidden;
+      width: 100%;
     }
 
     /* --- STYLES ADMIN DE BASE --- */
     .header { background: var(--card-bg); color: var(--text-dark); position: sticky; top: 0; z-index: 1000; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .headerTout { display: flex; justify-content: space-between; align-items: center; }
+    .headerTout { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .headerTout img { width: 50px; border-radius: 50%; }
-    .nav { display: flex; gap: 20px; list-style: none; font-size: 15px; margin: 0; padding: 0; font-weight: 600; }
-    .nav li { padding: 10px 15px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+    .nav { display: flex; gap: 10px; list-style: none; font-size: 14px; margin: 0; padding: 0; font-weight: 600; flex-wrap: wrap; }
+    .nav li { padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
     .nav li:hover { background-color: var(--light-green); color: var(--primary-green); }
-    .top-page { background-color: var(--bg-light); text-align: center; padding: 30px; }
-    .grid { display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+    .top-page { background-color: var(--bg-light); text-align: center; padding: 20px; }
+    .grid { display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; width: 100%; }
     
-    .card { background-color: var(--card-bg); padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-radius: 16px; width: 240px; border: 1px solid var(--border-color); text-align: center; }
+    .card { background-color: var(--card-bg); padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-radius: 16px; width: 100%; max-width: 280px; border: 1px solid var(--border-color); text-align: center; margin: 0 auto; }
     
-    #login-view { background-color: var(--card-bg); padding: 50px; border-radius: 25px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.08); z-index: 1000; width: 90%; max-width: 400px; }
-    #login-view input { border: 1px solid var(--border-color); color: var(--text-dark); background: #f8fafc; padding: 14px; margin-bottom: 20px; text-align: center; border-radius: 12px; width: 80%; font-size: 1rem; }
+    #login-view { background-color: var(--card-bg); padding: 30px 20px; border-radius: 25px; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.08); z-index: 1000; width: 90%; max-width: 380px; }
+    #login-view input { border: 1px solid var(--border-color); color: var(--text-dark); background: #f8fafc; padding: 14px; margin-bottom: 20px; text-align: center; border-radius: 12px; width: 100%; font-size: 1rem; }
     #login-view input:focus { outline: none; border-color: var(--primary-green); }
-    #login-view button { cursor: pointer; border: none; background: var(--primary-green); color: #fff; padding: 14px 30px; font-weight: bold; border-radius: 12px; font-size: 1.05rem; transition: 0.3s; }
+    #login-view button { cursor: pointer; border: none; background: var(--primary-green); color: #fff; padding: 14px 30px; font-weight: bold; border-radius: 12px; font-size: 1.05rem; transition: 0.3s; width: 100%; }
     #login-view button:hover { background: #1b5e20; }
     
-    #manage-couple, #Organiser { padding: 30px; text-align: center; background-color: var(--card-bg); border-radius: 25px; margin: 20px auto; border: 1px solid var(--border-color); max-width: 800px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    #manage-couple, #Organiser { padding: 20px; text-align: center; background-color: var(--card-bg); border-radius: 25px; margin: 15px auto; border: 1px solid var(--border-color); max-width: 800px; width: 95%; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
     .hidden { display: none !important; }
     
-    input { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-dark); padding: 15px; width: 80%; max-width: 350px; font-family: 'Outfit', sans-serif; }
+    input { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-dark); padding: 12px 15px; width: 100%; max-width: 350px; font-family: 'Outfit', sans-serif; }
     input::placeholder{ color: #94a3b8; }
     input:focus { outline: none; border-color: var(--primary-green); }
 
@@ -67,24 +70,28 @@
       min-height: 100vh;
       padding-bottom: 80px;
       position: relative;
+      width: 100%;
+      overflow-x: hidden;
     }
 
     .hero-banner {
       position: relative;
       width: 100%;
-      min-height: 450px;
+      min-height: 380px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px 15px;
       background: linear-gradient(180deg, rgba(44,62,80,0.3) 0%, rgba(44,62,80,0.6) 100%), url('https://images.unsplash.com/photo-1555243896-c709bfa0b564?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
     }
 
     .hero-content {
       position: relative;
       z-index: 3;
+      width: 100%;
+      max-width: 600px;
       animation: heroicEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -94,41 +101,42 @@
     }
 
     .grad-cap-icon {
-      font-size: 3.5rem;
+      font-size: 3rem;
       color: #fff;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
 
     .event-badge {
       display: inline-block;
-      padding: 8px 20px;
+      padding: 6px 16px;
       background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(5px);
       border: 1px solid rgba(255,255,255,0.4);
       border-radius: 50px;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
       color: #fff;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       font-weight: 700;
     }
 
     .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: 3.5rem;
+      font-size: 10px;
       font-weight: 800;
-      color: #fff;
+      color: #f5f5f5;
       margin: 0;
       text-transform: uppercase;
       letter-spacing: 1px;
       text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      word-break: break-word;
     }
 
     .hero-subtitle {
       font-family: 'Permanent Marker', cursive;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: var(--accent-orange);
       margin: 5px 0 0 0;
       transform: rotate(-2deg);
@@ -138,15 +146,15 @@
     .guest-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 35px 20px;
-      margin: -50px 20px 35px 20px;
+      border-radius: 20px;
+      padding: 25px 15px;
+      margin: -40px 15px 30px 15px;
       position: relative;
       z-index: 4;
       text-align: center;
       box-shadow: 0 15px 30px rgba(0,0,0,0.08);
       animation: fadeInUp 1s ease 0.2s backwards;
-      max-width: 700px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -158,66 +166,69 @@
 
     .guest-name {
       font-family: 'Syne', sans-serif;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       color: var(--primary-green);
       margin-bottom: 5px;
+      word-break: break-word;
     }
 
     .guest-table-badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: var(--light-green);
       color: var(--primary-green);
       font-weight: 700;
-      font-size: 0.95rem;
-      padding: 8px 22px;
+      font-size: 0.9rem;
+      padding: 6px 16px;
       border-radius: 30px;
-      margin-top: 12px;
+      margin-top: 10px;
+      max-width: 100%;
+      text-align: center;
     }
 
-    /* --- STYLE FEED / FIL DE COMMENTAIRES FAÇON INSTAGRAM --- */
+    /* --- STYLE FEED / FIL DE COMMENTAIRES --- */
     .community-wall-section {
       max-width: 600px;
-      margin: 0 auto 40px auto;
-      padding: 0 20px;
+      margin: 0 auto 30px auto;
+      padding: 0 15px;
     }
 
     .wall-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 25px;
+      border-radius: 20px;
+      padding: 20px 15px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
     .wall-title {
       font-family: 'Syne', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-dark);
       margin-bottom: 5px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .wall-feed {
-      max-height: 320px;
+      max-height: 280px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-top: 15px;
+      margin-bottom: 15px;
       padding-right: 5px;
     }
 
     .wall-message-item {
       background: #f8fafc;
       border: 1px solid var(--border-color);
-      padding: 14px 18px;
-      border-radius: 16px;
-      font-size: 0.95rem;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 0.9rem;
       color: var(--text-dark);
       box-shadow: 0 2px 5px rgba(0,0,0,0.02);
       animation: fadeInMessage 0.3s ease-out;
@@ -230,32 +241,33 @@
 
     .wall-message-author {
       font-family: 'Syne', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--primary-green);
       margin-bottom: 4px;
       font-weight: 700;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
     }
 
     .wall-input-group {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       background: #f8fafc;
       border: 1px solid var(--border-color);
-      padding: 8px 12px;
+      padding: 6px 10px;
       border-radius: 50px;
       align-items: center;
     }
 
     .wall-input-group input {
       flex: 1;
-      width: auto;
+      width: 100%;
       background: transparent;
       border: none;
-      padding: 8px 12px;
-      font-size: 0.95rem;
+      padding: 6px 8px;
+      font-size: 0.9rem;
     }
 
     .wall-input-group input:focus {
@@ -268,8 +280,8 @@
       background: var(--primary-green);
       color: #fff;
       border: none;
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -282,34 +294,43 @@
     .btn-wall:hover { background: #1b5e20; transform: scale(1.05); }
 
     .quote-box {
-      max-width: 650px;
-      margin: 0 auto 35px auto;
-      padding: 0 20px;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      padding: 0 15px;
       text-align: center;
     }
 
     #effet-ecriture {
       font-family: 'Permanent Marker', cursive;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: var(--primary-green);
-      min-height: 50px;
-      line-height: 1.5;
+      min-height: 40px;
+      line-height: 1.4;
     }
 
     .details-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto 35px auto;
-      padding: 0 20px;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      padding: 0 15px;
+    }
+
+    @media (min-width: 550px) {
+      .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-title {
+        font-size: 3.2rem;
+      }
     }
 
     .info-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 20px;
-      padding: 30px;
+      padding: 25px 20px;
       text-align: center;
       transition: all 0.3s ease;
       box-shadow: 0 8px 20px rgba(0,0,0,0.04);
@@ -322,22 +343,22 @@
     }
 
     .info-card i {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: var(--accent-orange);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .info-card h4 {
       font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin: 5px 0 10px 0;
       color: var(--text-dark);
     }
 
     .info-card p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.5;
       margin: 0;
     }
 
@@ -345,17 +366,21 @@
       background: #fff3e0;
       border: 1px solid #ffe0b2;
       border-radius: 20px;
-      padding: 25px;
+      padding: 20px;
       text-align: center;
-      max-width: 420px;
-      margin: 0 auto 35px auto;
+      max-width: 90%;
+      margin: 0 auto 30px auto;
       box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     }
 
     .action-section {
       text-align: center;
-      padding: 20px;
-      margin-bottom: 35px;
+      padding: 10px 15px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
 
     .btn-gold {
@@ -364,13 +389,14 @@
       font-family: 'Syne', sans-serif;
       font-weight: 700;
       border: none;
-      padding: 16px 32px;
+      padding: 14px 24px;
       border-radius: 30px;
-      font-size: 1.05rem;
+      font-size: 1rem;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
       transition: all 0.3s ease;
-      margin: 10px;
+      width: 100%;
+      max-width: 320px;
     }
 
     .btn-gold:hover {
@@ -382,13 +408,14 @@
       background: transparent;
       color: var(--text-dark);
       border: 2px solid var(--border-color);
-      padding: 15px 30px;
+      padding: 13px 24px;
       border-radius: 30px;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin: 10px;
+      width: 100%;
+      max-width: 320px;
     }
 
     .btn-outline:hover {
@@ -397,21 +424,22 @@
     }
 
     #drink-step, #blocInvitation {
-      max-width: 520px;
+      width: 92%;
+      max-width: 480px;
       margin: 20px auto;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 35px 25px;
+      border-radius: 20px;
+      padding: 25px 15px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.06);
       text-align: center;
     }
 
     select {
-      width: 85%;
-      max-width: 340px;
-      padding: 14px;
-      margin: 10px auto 20px auto;
+      width: 100%;
+      max-width: 320px;
+      padding: 12px;
+      margin: 8px auto 15px auto;
       background: #f8fafc;
       color: var(--text-dark);
       border: 1px solid var(--border-color);
@@ -425,26 +453,42 @@
     
     .whatsapp-btn {
       display: inline-block; 
-      margin-top: 15px; 
-      font-size: 1rem; 
+      margin-top: 12px; 
+      font-size: 0.95rem; 
       color: #fff; 
       background: #25D366; 
-      padding: 14px 28px; 
+      padding: 12px 24px; 
       border-radius: 30px; 
       text-decoration: none; 
       font-weight: 700; 
       box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
       transition: 0.3s;
+      word-break: break-word;
     }
     .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-3px); }
+
+    #VoirPhoto {
+      position: fixed; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%,-50%); 
+      width: 90%; 
+      max-width: 320px; 
+      background-color: var(--card-bg); 
+      padding: 20px; 
+      border-radius: 20px; 
+      border: 1px solid var(--border-color); 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      z-index: 1100;
+    }
   </style>
 </head>
 <body>
 
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
-    <i class="fas fa-leaf" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 15px;"></i>
-    <h2 style="margin:0 0 15px 0; font-family: 'Syne', sans-serif; color: var(--text-dark);">Portail Organisateur</h2>
+    <i class="fas fa-leaf" style="font-size: 2.5rem; color: var(--primary-green); margin-bottom: 12px;"></i>
+    <h2 style="margin:0 0 15px 0; font-family: 'Syne', sans-serif; color: var(--text-dark); font-size: 1.4rem;">Portail Organisateur</h2>
     <input type="password" id="pass" placeholder="Code Administrateur">
     <br>
     <button onclick="checkAdmin()">Connexion</button>
@@ -463,14 +507,14 @@
       <div class="hero-content">
         <i class="fas fa-paw grad-cap-icon"></i>
         <br>
-        <span class="event-badge">The Ultimate Hangout</span>
+        <span class="event-badge">Smile design</span>
         <h1 class="hero-title">Pique-Nique Zoo</h1>
-        <div class="hero-subtitle">Lubumbashi Edition 🍃</div>
+        <div class="hero-subtitle">Groupe ambiance point com</div>
       </div>
     </div>
 
     <div class="guest-card">
-      <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin: 0 0 5px 0; font-weight: 700;">Invité d'Honneur</p>
+      <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin: 0 0 5px 0; font-weight: 700;">Invité :</p>
       <div class="guest-name" id="invit">Nom de l'invité</div>
       <div id="welcome-title" style="display:none;"></div>
       <div class="guest-table-badge">
@@ -485,15 +529,15 @@
         <div class="wall-title">
           <i class="fas fa-comments" style="color: var(--primary-green);"></i> Fil de Discussions Live
         </div>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 10px;">Laisse ton commentaire pour chauffer l'ambiance avec les autres potes !</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0; margin-bottom: 10px;">Laisse ton commentaire pour chauffer l'ambiance avec les autres potes !</p>
         
         <div id="wallFeedContainer" class="wall-feed">
           <div class="wall-message-item">
             <div class="wall-message-author">
-              <span><i class="fas fa-user-circle"></i> Organisateur</span>
-              <span style="font-weight:400; font-size:0.75rem; color:#888;">Maintenant</span>
+              <span><i class="fas fa-user-circle"></i> Créateur M. Smile design</span>
+              <span style="font-weight:400; font-size:0.7rem; color:#888;">Maintenant</span>
             </div>
-            <div>Bienvenue sur le fil du Pique-Nique ! Lâchez vos meilleures vibes ☀️</div>
+            <div>Bienvenue sur le fil du Pique-Nique ! Lâchez vos meilleures vibes et exprimez-vous pour fêter la fin de l'anne academique 2025-2026</div>
           </div>
         </div>
 
@@ -506,104 +550,108 @@
 
     <div class="quote-box">
       <p id="effet-ecriture"></p>
-      <p id="effet-texte" style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-top: 15px; opacity: 0; transition: opacity 1.5s ease;"></p>
+      <p id="effet-texte" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-top: 12px; opacity: 0; transition: opacity 1.5s ease;"></p>
     </div>
 
-    <div style="text-align: center; margin-bottom: 35px;">
-      <div style="display: inline-block; background: #fff; border: 1px solid var(--border-color); padding: 12px 30px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-        <i class="far fa-calendar-alt" style="color: var(--primary-green); margin-right: 8px;"></i>
-        <strong style="color: var(--text-dark); font-size: 1.05rem;" id="parag">Dimanche Prochain</strong>
+    <div style="text-align: center; margin-bottom: 30px; padding: 0 15px;">
+      <div style="display: inline-block; background: #fff; border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 100%;">
+        <i class="far fa-calendar-alt" style="color: var(--primary-green); margin-right: 6px;"></i>
+        <strong style="color: var(--text-dark); font-size: 0.95rem;" id="parag">Après la déliberation et les recours</strong>
       </div>
     </div>
 
     <div class="details-grid">
       <div class="info-card affiche">
         <i class="fas fa-map-marked-alt"></i>
-        <h4>Le Spot</h4>
-        <p><b style="color: var(--text-dark);">13h00 Précises</b></p>
-        <p>Entrée principale du Zoo de Lubumbashi<br><small style="color: var(--primary-green); font-weight:600;">Viens à l'heure, on t'attend !</small></p>
-      </div>
+        <h4>Lieu de rencontre</h4>
+        <p>UPL près du stade de basket</p>
+        <p><b style="color: var(--text-dark);">13h00 Précises</b></p> <br>
+        <p>Entrée principale du Zoo de Lubumbashi<br>              <p><b style="color: var(--text-dark);">13h30 Précises</b></p>
+ <small style="color: var(--primary-green); font-weight:600;">Viens à l'heure, on t'attend !</small></p>
+
+       </div>
 
       <div class="info-card affiche">
         <i class="fas fa-guitar"></i>
         <h4>Ambiance & Chill</h4>
         <p><b style="color: var(--text-dark);">Good Vibes Only</b></p>
-        <p>Musique, rires, détente sur l'herbe et bonne bouffe entre vrais potes.</p>
+        <p>Musique, rires,visite du zoo, détente sur l'herbe et bonne bouffe entre vrais potes.</p>
       </div>
     </div>
 
     <div class="dress-code-card affiche">
-      <h4 style="font-family: 'Syne', sans-serif; color: #d84315; margin: 0 0 10px 0;"><i class="fas fa-tshirt"></i> Dress Code</h4>
-      <p style="margin: 0; font-weight: 600; color: #5d4037; font-size: 1rem;">Streetwear / Décontracté 👟<br><span style="font-size: 0.9rem; font-weight: 400;">Confortable pour profiter de la nature et s'asseoir dans l'herbe !</span></p>
+      <h4 style="font-family: 'Syne', sans-serif; color: #d84315; margin: 0 0 8px 0; font-size: 1.1rem;"><i class="fas fa-tshirt"></i> Dress Code</h4>
+      <p style="margin: 0; font-weight: 600; color: #5d4037; font-size: 0.95rem;">Relaxe / drip <br><span style="font-size: 0.85rem; font-weight: 400;">Confortable pour profiter de la nature et s'asseoir dans l'herbe !</span></p>
     </div>
 
     <div id="confirm-step" class="action-section">
-      <p class="affiche" style="font-size: 1.15rem; margin-bottom: 20px; color: var(--text-dark); font-weight: 600;">Seras-tu de la partie ?</p>
+      <p class="affiche" style="font-size: 1.05rem; margin-bottom: 10px; color: var(--text-dark); font-weight: 600; text-align: center;">Seras-tu de la partie ?</p>
       <button class="btn-gold affiche" onclick="setPresence(true)"><i class="fas fa-check"></i> Je confirme ma présence !</button>
       <button class="btn-outline affiche" onclick="setPresence(false)"><i class="fas fa-times"></i> Je ne pourrai pas</button>
     </div>
 
     <div id="drink-step" class="hidden">
-      <h3 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin-top: 0;"><i class="fas fa-cocktail" style="color: var(--accent-orange);"></i> Tes Préférences</h3>
-      <p style="font-size: 0.9rem; color: var(--text-muted);">Configure ce qu'on prévoit pour toi dans la glacière :</p>
+      <h3 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin-top: 0; font-size: 1.2rem;"><i class="fas fa-cocktail" style="color: var(--accent-orange);"></i> Tes Préférences</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Configure ce qu'on prévoit pour toi dans la glacière :</p>
       
-      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Sans alcool :</label>
+      <label style="font-size: 0.85rem; font-weight: 600; color: var(--primary-green); display: block; text-align: left; max-width: 320px; margin: 0 auto;">Sans alcool :</label>
       <select id="SansAlcool">
         <option>Aucun</option>
         <option>Eau Minérale</option>
         <option>Coca-Cola</option>
         <option>Fanta Orange</option>
         <option>Sprite</option>
-        <option>Energy Drink (XXL)</option>
+        <option>jus</option>
       </select>
 
-      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Alcool / Liqueur :</label>
+      <label style="font-size: 0.85rem; font-weight: 600; color: var(--primary-green); display: block; text-align: left; max-width: 320px; margin: 0 auto;">Alcool / Liqueur :</label>
       <select id="whisky">
         <option>Aucun</option>
-        <option>Whisky / Spirits</option>
+        <option>apporte le toi même </option>
       </select>
       
-      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Boissons & Bières :</label>
+      <label style="font-size: 0.85rem; font-weight: 600; color: var(--primary-green); display: block; text-align: left; max-width: 320px; margin: 0 auto;">Boissons & Bières :</label>
       <select id="biere">
         <option>Aucun</option>
-        <option>Bière Locale / Blonde</option>
-        <option>Jus Cérès / Cocktail</option>
+        <!-- <option>Bière Locale / Blonde</option>
+        <option>Jus Cérès / Cocktail</option> -->
       </select>
       
-      <button class="btn-gold" style="margin-top: 10px; width: 85%;" onclick="saveDrinks()">Valider mes choix</button>
+      <button class="btn-gold" style="margin-top: 10px; width: 100%;" onclick="saveDrinks()">Valider mes choix</button>
     </div>
 
-    <div id="alertchoix" style="display: none; background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; text-align: center; border-radius: 12px; max-width: 400px; margin: 20px auto; padding: 15px;">
-      <i class="fas fa-check-circle" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
-      <p style="margin: 0; font-weight: 600;">Préférences enregistrées avec succès !</p>
+    <div id="alertchoix" style="display: none; background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; text-align: center; border-radius: 12px; width: 90%; max-width: 380px; margin: 20px auto; padding: 12px;">
+      <i class="fas fa-check-circle" style="font-size: 1.3rem; margin-bottom: 5px;"></i>
+      <p style="margin: 0; font-weight: 600; font-size: 0.9rem;">Préférences enregistrées avec succès !</p>
     </div>
 
     <div id="blocInvitation" class="hidden">
-      <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--accent-orange);"></i>
-      <h2 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin: 10px 0 5px 0;">Pass VIP Officiel</h2>
-      <h3 id="nomMaries" style="color: var(--primary-green); font-family: 'Syne', sans-serif; font-size: 1.3rem; margin: 0 0 15px 0;">Pique-Nique au Zoo</h3>
+      <i class="fas fa-ticket-alt" style="font-size: 2.2rem; color: var(--accent-orange);"></i>
+      <h2 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin: 8px 0 4px 0; font-size: 1.3rem;">Pass VIP Officiel</h2>
+      <h3 id="nomMaries" style="color: var(--primary-green); font-family: 'Syne', sans-serif; font-size: 1.1rem; margin: 0 0 12px 0;">Pique-Nique au Zoo</h3>
       
-      <div id="qrcode" style="display: flex; justify-content: center; padding: 14px; background: #fff; border-radius: 16px; width: 150px; margin: 0 auto 15px auto; border: 1px solid var(--border-color);"></div>
+      <div id="qrcode" style="display: flex; justify-content: center; padding: 10px; background: #fff; border-radius: 14px; width: 130px; margin: 0 auto 12px auto; border: 1px solid var(--border-color);"></div>
       
-      <p id="nomInvite" style="font-weight: 800; font-size: 1.3rem; color: var(--text-dark); margin: 5px 0;"></p>
-      <p id="nomTable" style="color: var(--text-muted); font-weight: 600; margin: 0;"></p>
+      <p id="nomInvite" style="font-weight: 800; font-size: 1.1rem; color: var(--text-dark); margin: 5px 0; word-break: break-word;"></p>
+      <p id="nomTable" style="color: var(--text-muted); font-weight: 600; margin: 0; font-size: 0.9rem;"></p>
       
-      <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;"><i class="fas fa-shield-alt"></i> À présenter à l'entrée du site.</p>
+      <p style="margin-top: 12px; font-size: 0.75rem; color: #94a3b8;"><i class="fas fa-shield-alt"></i> À présenter à l'entrée du site.</p>
+      <p>Crée par smile design</p>
     </div>
 
-    <div id="download-section" class="hidden" style="text-align: center; margin-top: 20px;">
+    <div id="download-section" class="hidden" style="text-align: center; margin-top: 20px; padding: 0 15px;">
       <button class="btn-gold" onclick="telechargerQR()"><i class="fas fa-download"></i> Télécharger mon Pass</button>
     </div>
 
-    <section id="messageNegatif" class="hidden" style="text-align: center; background: #fff1f2; border: 1px solid #fecdd3; max-width: 500px; margin: 30px auto; border-radius: 20px; padding: 25px;">
-      <h3 style="color: #e11d48; margin-top:0;"><i class="fas fa-heart-broken"></i> Dommage que tu rates ça !</h3>
-      <p style="color: #4c1d95; font-size: 0.95rem; margin-bottom:0;">On pensera fort à toi. À très vite pour une prochaine session.</p>
+    <section id="messageNegatif" class="hidden" style="text-align: center; background: #fff1f2; border: 1px solid #fecdd3; width: 90%; max-width: 450px; margin: 25px auto; border-radius: 18px; padding: 20px;">
+      <h3 style="color: #e11d48; margin-top:0; font-size: 1.1rem;"><i class="fas fa-heart-broken"></i> Dommage que tu rates ça !</h3>
+      <p style="color: #4c1d95; font-size: 0.9rem; margin-bottom:0;">On pensera fort à toi. À très vite pour une prochaine session.</p>
     </section>
 
-    <section id="message" class="hidden" style="text-align: center; max-width: 500px; margin: 30px auto; padding: 20px;">
-      <p style="color: var(--primary-green); font-size: 1.1rem; font-weight: 700;"><i class="fas fa-sun"></i> C'est validé ! Prépare ta bonne humeur.</p>
+    <section id="message" class="hidden" style="text-align: center; width: 90%; max-width: 450px; margin: 25px auto; padding: 15px;">
+      <p style="color: var(--primary-green); font-size: 1rem; font-weight: 700;"><i class="fas fa-sun"></i> C'est validé ! Prépare ta bonne humeur.</p>
       <a href="https://chat.whatsapp.com/JVyfNZwTlp29lVhMLamx9Q?s=cl&p=a&ilr=1" target="_blank" class="whatsapp-btn">
-        <i class="fab fa-whatsapp" style="font-size: 1.2rem; margin-right: 5px;"></i> Rejoindre le groupe WhatsApp
+        <i class="fab fa-whatsapp" style="font-size: 1.1rem; margin-right: 5px;"></i> Rejoindre le groupe WhatsApp
       </a>
     </section>
 
@@ -614,7 +662,7 @@
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
-        <div style="font-weight: 800; color: var(--primary-green); font-size:1.2rem;"><i class="fas fa-leaf"></i> Admin</div>
+        <div style="font-weight: 800; color: var(--primary-green); font-size:1.1rem;"><i class="fas fa-leaf"></i> Admin</div>
         <nav class="nav">
           <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
           <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> Nouvel Événement</li>
@@ -623,51 +671,51 @@
     </header>
 
     <section id="section-home" class="top-page">
-      <h1 style="color: var(--text-dark);"><i class="fas fa-chart-pie" style="color: var(--primary-green);"></i> Tableau de bord</h1>
-      <h2 style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); padding-bottom: 10px; font-weight: 600; font-size: 1.2rem;">Gestion des Événements</h2>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: #fff; margin-top: 10px;">
-      <div id="couples-list" class="grid" style="margin-top: 25px;"></div>
+      <h1 style="color: var(--text-dark); font-size: 1.5rem;"><i class="fas fa-chart-pie" style="color: var(--primary-green);"></i> Tableau de bord</h1>
+      <h2 style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); padding-bottom: 8px; font-weight: 600; font-size: 1.1rem;">Gestion des Événements</h2>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: #fff; margin-top: 10px; width: 90%; max-width: 320px;">
+      <div id="couples-list" class="grid" style="margin-top: 20px;"></div>
     </section>
 
-    <section class="hidden" id="VoirPhoto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: var(--card-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-      <button onclick="showSection('section-home')" class="btn-outline" style="padding:8px 15px; font-size:12px; margin:0;"><i class="fas fa-arrow-left"></i> Retour</button>
-      <div id="ApercPhoto" class="grid" style="margin-top: 15px;"></div>
-      <div id="Aperc" style="color: var(--text-dark); text-align: center; font-weight: bold; margin-top: 10px;"></div>
+    <section class="hidden" id="VoirPhoto">
+      <button onclick="showSection('section-home')" class="btn-outline" style="padding:6px 12px; font-size:11px; margin:0 auto 10px auto; width: auto;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <div id="ApercPhoto" class="grid" style="margin-top: 10px;"></div>
+      <div id="Aperc" style="color: var(--text-dark); text-align: center; font-weight: bold; margin-top: 10px; font-size: 0.95rem;"></div>
     </section>
 
     <section class="hidden" id="Organiser">
-      <h2 style="color: var(--text-dark);">Enregistrer un Événement</h2>
+      <h2 style="color: var(--text-dark); font-size: 1.3rem;">Enregistrer un Événement</h2>
       <input type="text" id="coupleName" placeholder="Ex: Pique-Nique Zoo"> <br> <br>
       <input type="date" id="datemariage" style="color: var(--text-muted);"> <br><br>
-      <input type="file" id="photo" style="background: transparent; border: none;"><br> <br>
-      <button onclick="addCouple()" class="btn-gold">+ Créer Événement</button>
+      <input type="file" id="photo" style="background: transparent; border: none; width: 100%;"><br> <br>
+      <button onclick="addCouple()" class="btn-gold" style="width: 100%;">+ Créer Événement</button>
     </section>
 
     <section id="manage-couple" class="hidden">
-      <button onclick="showSection('section-home')" class="btn-outline" style="float: left; padding: 8px 15px; margin:0;"><i class="fas fa-arrow-left"></i> Retour</button>
-      <h2 id="couple-title" style="color: var(--text-dark); clear: both; padding-top: 20px;"></h2>
+      <button onclick="showSection('section-home')" class="btn-outline" style="padding: 6px 12px; font-size: 12px; margin: 0 auto 15px auto; width: auto; display: block;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <h2 id="couple-title" style="color: var(--text-dark); font-size: 1.2rem; margin-top: 10px; word-break: break-word;"></h2>
       
-      <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid var(--border-color);">
-        <h3 style="margin-top:0; color: var(--text-dark);">Enregistrer un invité</h3>
+      <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--border-color);">
+        <h3 style="margin-top:0; color: var(--text-dark); font-size: 1.1rem;">Enregistrer un invité</h3>
         <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
         <input type="email" id="newGuestEmail" placeholder="Email / Contact"> <br> <br>
         <input type="text" id="TableGuestName" placeholder="Groupe / Zone"> <br> <br>
-        <button type="button" onclick="addGuest()" class="btn-gold" style="margin:0;">Ajouter l'invité</button> 
+        <button type="button" onclick="addGuest()" class="btn-gold" style="margin:0; width: 100%;">Ajouter l'invité</button> 
       </div>
 
-      <div id="dashboard-stats" style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
-        <div style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
-          <span id="count-total" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Total</small>
+      <div id="dashboard-stats" style="display: flex; justify-content: center; gap: 10px; margin: 15px 0; flex-wrap: wrap;">
+        <div style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 10px; border-radius: 10px; flex: 1; min-width: 90px;">
+          <span id="count-total" style="font-size: 1.3rem; font-weight: bold;">0</span><br><small>Total</small>
         </div>
-        <div style="background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
-          <span id="count-present" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Présents</small>
+        <div style="background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; padding: 10px; border-radius: 10px; flex: 1; min-width: 90px;">
+          <span id="count-present" style="font-size: 1.3rem; font-weight: bold;">0</span><br><small>Présents</small>
         </div>
-        <div style="background: #fff1f2; border: 1px solid #fecdd3; color: #e11d48; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
-          <span id="count-absent" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Absents</small>
+        <div style="background: #fff1f2; border: 1px solid #fecdd3; color: #e11d48; padding: 10px; border-radius: 10px; flex: 1; min-width: 90px;">
+          <span id="count-absent" style="font-size: 1.3rem; font-weight: bold;">0</span><br><small>Absents</small>
         </div>
       </div>
 
-      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: #fff; margin-bottom: 20px;">
+      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: #fff; margin-bottom: 15px; width: 90%;">
       <div id="guests-list" class="grid"></div>
     </section>
   </div>
@@ -763,7 +811,7 @@
       <div class="wall-message-item">
         <div class="wall-message-author">
           <span><i class="fas fa-user-circle"></i> ${m.author}</span>
-          <span style="font-weight:400; color:var(--text-muted); font-size:0.75rem;">${m.time}</span>
+          <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time}</span>
         </div>
         <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
       </div>
@@ -844,9 +892,9 @@
     listContainer.innerHTML = db.map(c => `
       <div class="card">
         <img src="${c.photo || ''}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; cursor:pointer; margin-bottom:10px; border:2px solid var(--border-color);" onclick="ApercuePhoto(${c.id})">
-        <h3 style="color:var(--text-dark); cursor:pointer; margin: 5px 0;" onclick="openCouple(${c.id})">${c.name || ''}</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom: 15px;">${c.datemariage || ''}</p>
-        <button style="background:#e11d48; color:#fff; border:none; padding:8px 15px; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="delCouple(${c.id})">Supprimer</button>
+        <h3 style="color:var(--text-dark); cursor:pointer; margin: 5px 0; font-size: 1.1rem;" onclick="openCouple(${c.id})">${c.name || ''}</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom: 15px;">${c.datemariage || ''}</p>
+        <button style="background:#e11d48; color:#fff; border:none; padding:8px 15px; border-radius:8px; font-weight:bold; cursor:pointer; width:100%;" onclick="delCouple(${c.id})">Supprimer</button>
       </div>
     `).join('');
   }
@@ -924,22 +972,22 @@
     if (!container) return;
 
     if (currentGuests.length === 0) {
-        container.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:20px; width: 100%;">Aucun invité trouvé.</div>`;
+        container.innerHTML = `<div style="text-align:center; color: var(--text-muted); margin-top:20px; width: 100%;">Aucun invité trouvé.</div>`;
         return;
     }
 
     container.innerHTML = filteredGuests.map(g => `
-      <div class="card" style="padding: 20px; text-align:left;">
-        <strong style="color: var(--text-dark); font-size:1.1rem;">${g.name}</strong><br>
-        <small style="color: var(--text-muted);">${g.email || 'Email non défini'}</small><br>
-        <small style="color: var(--text-dark); font-weight:600; display:inline-block; margin-top:5px;">Status: ${g.status || 'En attente'}</small><br><br>
-        <span style="background-color: var(--light-green); color:var(--primary-green); padding: 4px 10px; border-radius: 6px; font-size:0.85rem; font-weight:bold;">
+      <div class="card" style="padding: 15px; text-align:left;">
+        <strong style="color: var(--text-dark); font-size:1rem; word-break: break-word;">${g.name}</strong><br>
+        <small style="color: var(--text-muted); word-break: break-all;">${g.email || 'Email non défini'}</small><br>
+        <small style="color: var(--text-dark); font-weight:600; display:inline-block; margin-top:4px;">Status: ${g.status || 'En attente'}</small><br><br>
+        <span style="background-color: var(--light-green); color:var(--primary-green); padding: 4px 8px; border-radius: 6px; font-size:0.8rem; font-weight:bold; display:inline-block;">
         Zone: ${g.guestTable || g.guest_table || g.table || 'Libre'}</span><br><br>
-        <div class="drink-info" style="color: var(--accent-orange); font-size:0.85rem; font-weight:600;">🥤 ${g.drinkChoice || 'Aucun'} </div>
+        <div class="drink-info" style="color: var(--accent-orange); font-size:0.8rem; font-weight:600; word-break: break-word;">🥤 ${g.drinkChoice || 'Aucun'} </div>
         
-        <div style="margin-top: 15px; display:flex; gap:8px;">
-          <button style="background-color:var(--text-dark); color:#fff; font-weight:bold; font-size:12px; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; flex:1;" onclick="copyLink('${g.id}')">Lien</button>
-          <button style="background-color:#e11d48; color:white; font-weight:bold; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:12px;" onclick="delGuest('${g.id}')"><i class="fas fa-trash"></i></button>
+        <div style="margin-top: 12px; display:flex; gap:6px;">
+          <button style="background-color:var(--text-dark); color:#fff; font-weight:bold; font-size:11px; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; flex:1;" onclick="copyLink('${g.id}')">Lien</button>
+          <button style="background-color:#e11d48; color:white; font-weight:bold; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:11px;" onclick="delGuest('${g.id}')"><i class="fas fa-trash"></i></button>
         </div>
       </div>
     `).join('');
@@ -980,7 +1028,7 @@
     if (c) {
       if(titleEl) titleEl.innerText = c.name;
       if(container) {
-        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; border-radius:15px;">`;
+        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; border-radius:12px; max-height: 200px; object-fit: cover;">`;
         showSection('VoirPhoto');
       }
     }
@@ -1020,8 +1068,8 @@
     if (typeof QRCode !== "undefined") {
         new QRCode(container, {
             text: window.location.origin + "/?guestId=" + guest.id,
-            width: 130,
-            height: 130,
+            width: 120,
+            height: 120,
             colorDark : "#2c3e50",
             colorLight : "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
@@ -1049,9 +1097,8 @@
     });
   }
 
-  /* TEXTES ANIMÉS */
   let index1 = 0;
-  const text1 = "Déconnecte des écrans, connecte-toi à la nature. Un moment d'anthologie s'annonce ! 🍃";
+  const text1 = "Salut à tous . Pour cette fin d'année qui n'a pas été facile pour nous tous, nous organisons ce break time entre potes pour vider nos esprits et fêter notre reussite pour notre prochain bac";
   function ecrireTexte() {
     const element1 = document.getElementById("effet-ecriture");
     if (element1 && index1 < text1.length) {
