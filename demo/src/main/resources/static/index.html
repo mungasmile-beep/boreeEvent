@@ -24,7 +24,7 @@
     }
 
     * {
-      box-sizing: border-box; /* Empêche les paddings de faire déborder les éléments */
+      box-sizing: border-box;
     }
 
     body {
@@ -56,7 +56,6 @@
     #login-view button:hover { background: #1b5e20; }
     
     #manage-couple, #Organiser { padding: 20px; text-align: center; background-color: var(--card-bg); border-radius: 25px; margin: 15px auto; border: 1px solid var(--border-color); max-width: 800px; width: 95%; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .hidden { display: none !important; }
     
     input { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-dark); padding: 12px 15px; width: 100%; max-width: 350px; font-family: 'Outfit', sans-serif; }
     input::placeholder{ color: #94a3b8; }
@@ -124,9 +123,9 @@
 
     .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: 10px;
+      font-size: 1.5rem;
       font-weight: 800;
-      color: #f5f5f5;
+      color: #fff;
       margin: 0;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -613,8 +612,6 @@
       <label style="font-size: 0.85rem; font-weight: 600; color: var(--primary-green); display: block; text-align: left; max-width: 320px; margin: 0 auto;">Boissons & Bières :</label>
       <select id="biere">
         <option>Aucun</option>
-        <!-- <option>Bière Locale / Blonde</option>
-        <option>Jus Cérès / Cocktail</option> -->
       </select>
       
       <button class="btn-gold" style="margin-top: 10px; width: 100%;" onclick="saveDrinks()">Valider mes choix</button>
@@ -786,38 +783,55 @@
     if(!text) return;
     const author = window.currentGuest ? window.currentGuest.name : "Un pote mystère";
 
-    const payload = { author: author, text: text, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) };
-    
-    let messages = JSON.parse(localStorage.getItem('zoo_picnic_global_wall') || '[]');
-    messages.unshift(payload);
-    if(messages.length > 25) messages.pop();
-    localStorage.setItem('zoo_picnic_global_wall', JSON.stringify(messages));
+    const payload = { 
+      author: author, 
+      text: text, 
+      time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+    };
 
-    input.value = '';
-    loadGlobalMessages();
-    
-    confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 }, colors: ['#4CAF50', '#8BC34A', '#FF9800'] });
+    // Envoi du message au serveur pour synchronisation globale
+    fetch('/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(() => {
+      input.value = '';
+      loadGlobalMessages();
+      confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 }, colors: ['#4CAF50', '#8BC34A', '#FF9800'] });
+    })
+    .catch(err => console.error("Erreur d'envoi du message :", err));
   }
 
   function loadGlobalMessages() {
     const feed = document.getElementById('wallFeedContainer');
     if(!feed) return;
-    let messages = JSON.parse(localStorage.getItem('zoo_picnic_global_wall') || '[]');
-    if(messages.length === 0) {
-      feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Soyez le premier à poster un message sur le fil ! 🍃</div></div>`;
-      return;
-    }
-    feed.innerHTML = messages.map(m => `
-      <div class="wall-message-item">
-        <div class="wall-message-author">
-          <span><i class="fas fa-user-circle"></i> ${m.author}</span>
-          <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time}</span>
-        </div>
-        <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
-      </div>
-    `).join('');
+
+    // Récupération des messages depuis le serveur
+    fetch('/api/messages')
+      .then(response => response.json())
+      .then(messages => {
+        if(!Array.isArray(messages) || messages.length === 0) {
+          feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Soyez le premier à poster un message sur le fil ! 🍃</div></div>`;
+          return;
+        }
+        feed.innerHTML = messages.map(m => `
+          <div class="wall-message-item">
+            <div class="wall-message-author">
+              <span><i class="fas fa-user-circle"></i> ${m.author}</span>
+              <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time || ''}</span>
+            </div>
+            <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
+          </div>
+        `).join('');
+      })
+      .catch(err => {
+        console.error("Erreur de chargement des messages :", err);
+      });
   }
 
+  // Actualisation automatique toutes les 3,5 secondes pour voir les messages des autres en direct
   setInterval(() => {
     if(document.getElementById('guest-view') && !document.getElementById('guest-view').classList.contains('hidden')) {
       loadGlobalMessages();
