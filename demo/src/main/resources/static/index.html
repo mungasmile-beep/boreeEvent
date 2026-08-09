@@ -36,7 +36,10 @@
       overflow-x: hidden;
       width: 100%;
     }
-
+/* --- CLASSE CACHÉE --- */
+    .hidden {
+      display: none !important;
+    }
     /* --- STYLES ADMIN DE BASE --- */
     .header { background: var(--card-bg); color: var(--text-dark); position: sticky; top: 0; z-index: 1000; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .headerTout { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -105,9 +108,7 @@
       margin-bottom: 10px;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
-.hidden{
-  display: none !important;
-}
+
     .event-badge {
       display: inline-block;
       padding: 6px 16px;
@@ -576,7 +577,7 @@
         <i class="fas fa-guitar"></i>
         <h4>Ambiance & Chill</h4>
         <p><b style="color: var(--text-dark);">Good Vibes Only</b></p>
-        <p>Musique, rires,visite du zoo, détente sur l'herbe et bonne bouffe entre vrais potes.</p>
+        <p>Musique, rires, visite du zoo, détente sur l'herbe et bonne bouffe entre vrais potes.</p>
       </div>
     </div>
 
@@ -661,7 +662,7 @@
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
-        <div style="font-weight: 800; color: var(--primary-green); font-size:1.1rem;"><i class="fas fa-leaf"></i> Smi-Event</div>
+        <div style="font-weight: 800; color: var(--primary-green); font-size:1.1rem;"><i class="fas fa-leaf"></i> Admin</div>
         <nav class="nav">
           <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
           <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> Nouvel Événement</li>
@@ -694,6 +695,18 @@
       <button onclick="showSection('section-home')" class="btn-outline" style="padding: 6px 12px; font-size: 12px; margin: 0 auto 15px auto; width: auto; display: block;"><i class="fas fa-arrow-left"></i> Retour</button>
       <h2 id="couple-title" style="color: var(--text-dark); font-size: 1.2rem; margin-top: 10px; word-break: break-word;"></h2>
       
+      <!-- MODÉRATION DES COMMENTAIRES DANS L'ESPACE ADMIN -->
+      <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;">
+        <h3 style="font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--text-dark); margin-bottom: 5px;">
+          <i class="fas fa-comments" style="color: var(--primary-green);"></i> Modération des Commentaires Live
+        </h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Visualise les commentaires en direct et supprime les messages inappropriés :</p>
+        
+        <div id="adminWallFeedContainer" class="wall-feed" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+          <!-- Les messages s'afficheront ici -->
+        </div>
+      </div>
+
       <div style="background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--border-color);">
         <h3 style="margin-top:0; color: var(--text-dark); font-size: 1.1rem;">Enregistrer un invité</h3>
         <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
@@ -791,7 +804,6 @@
       time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
     };
 
-    // Envoi du message au serveur pour synchronisation globale
     fetch('/api/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -807,35 +819,62 @@
   }
 
   function loadGlobalMessages() {
-    const feed = document.getElementById('wallFeedContainer');
-    if(!feed) return;
-
-    // Récupération des messages depuis le serveur
     fetch('/api/messages')
       .then(response => response.json())
       .then(messages => {
-        if(!Array.isArray(messages) || messages.length === 0) {
-          feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">créateur M. smile</div><div>Soyez le premier à poster un message sur le fil ! </div></div>`;
-          return;
+        const isAdmin = document.getElementById('admin-view') && !document.getElementById('admin-view').classList.contains('hidden');
+        
+        // Cible l'affichage invité si présent
+        const feed = document.getElementById('wallFeedContainer');
+        if(feed) {
+          if(!Array.isArray(messages) || messages.length === 0) {
+            feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Soyez le premier à poster un message sur le fil ! 🍃</div></div>`;
+          } else {
+            feed.innerHTML = messages.map(m => `
+              <div class="wall-message-item">
+                <div class="wall-message-author">
+                  <span><i class="fas fa-user-circle"></i> ${m.author}</span>
+                  <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time || ''}</span>
+                </div>
+                <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
+              </div>
+            `).join('');
+          }
         }
-        feed.innerHTML = messages.map(m => `
-          <div class="wall-message-item">
-            <div class="wall-message-author">
-              <span><i class="fas fa-user-circle"></i> ${m.author}</span>
-              <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time || ''}</span>
-            </div>
-            <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
-          </div>
-        `).join('');
+
+        // Cible l'affichage admin avec bouton de suppression si présent
+        const adminFeed = document.getElementById('adminWallFeedContainer');
+        if(adminFeed) {
+          if(!Array.isArray(messages) || messages.length === 0) {
+            adminFeed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Aucun message pour le moment.</div></div>`;
+          } else {
+            adminFeed.innerHTML = messages.map((m, index) => `
+              <div class="wall-message-item" style="position: relative;">
+                <div class="wall-message-author">
+                  <span><i class="fas fa-user-circle"></i> ${m.author}</span>
+                  <span style="font-weight:400; color:var(--text-muted); font-size:0.7rem;">${m.time || ''}</span>
+                </div>
+                <div style="margin-top: 4px; word-break: break-word; padding-right: 25px;">${m.text}</div>
+                <button onclick="deleteGlobalMessage(${index})" style="position: absolute; top: 10px; right: 10px; background: #e11d48; color: white; border: none; border-radius: 4px; width: 22px; height: 22px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Supprimer ce message"><i class="fas fa-trash"></i></button>
+              </div>
+            `).join('');
+          }
+        }
       })
-      .catch(err => {
-        console.error("Erreur de chargement des messages :", err);
-      });
+      .catch(err => console.error("Erreur de chargement des messages :", err));
   }
 
-  // Actualisation automatique toutes les 3,5 secondes pour voir les messages des autres en direct
+  function deleteGlobalMessage(index) {
+    if(confirm("Voulez-vous vraiment supprimer ce commentaire malpoli ?")) {
+      fetch(`/api/messages/${index}`, { method: 'DELETE' })
+        .then(() => loadGlobalMessages());
+    }
+  }
+
+  // Actualisation automatique toutes les 3,5 secondes
   setInterval(() => {
-    if(document.getElementById('guest-view') && !document.getElementById('guest-view').classList.contains('hidden')) {
+    if((document.getElementById('guest-view') && !document.getElementById('guest-view').classList.contains('hidden')) || 
+       (document.getElementById('admin-view') && !document.getElementById('admin-view').classList.contains('hidden'))) {
       loadGlobalMessages();
     }
   }, 3500);
@@ -919,9 +958,10 @@
     activeCoupleId = parseInt(id);
     const c = db.find(x => parseInt(x.id) === activeCoupleId);
     if(c) {
-      document.getElementById('couple-title').innerText = "Invités : " + c.name;
+      document.getElementById('couple-title').innerText = "Événement : " + c.name;
       showSection('manage-couple');
       loadGuests(activeCoupleId);
+      loadGlobalMessages(); // Charge les messages dans le panneau admin
     }
   }
 
@@ -999,7 +1039,7 @@
         <small style="color: var(--text-dark); font-weight:600; display:inline-block; margin-top:4px;">Status: ${g.status || 'En attente'}</small><br><br>
         <span style="background-color: var(--light-green); color:var(--primary-green); padding: 4px 8px; border-radius: 6px; font-size:0.8rem; font-weight:bold; display:inline-block;">
         Zone: ${g.guestTable || g.guest_table || g.table || 'Libre'}</span><br><br>
-        <div class="drink-info" style="color: var(--accent-orange); font-size:0.8rem; font-weight:600; word-break: break-word;">Boissons: ${g.drinkChoice || 'Aucun'} </div>
+        <div class="drink-info" style="color: var(--accent-orange); font-size:0.8rem; font-weight:600; word-break: break-word;">🥤 ${g.drinkChoice || 'Aucun'} </div>
         
         <div style="margin-top: 12px; display:flex; gap:6px;">
           <button style="background-color:var(--text-dark); color:#fff; font-weight:bold; font-size:11px; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; flex:1;" onclick="copyLink('${g.id}')">Lien</button>

@@ -16,7 +16,13 @@ public class MessageController {
     public List<MessageDto> getAllMessages() {
         return messagesList;
     }
-
+// DELETE : Supprimer un message par son index
+    @DeleteMapping("/{index}")
+    public void deleteMessage(@PathVariable int index) {
+        if (index >= 0 && index < messagesList.size()) {
+            messagesList.remove(index);
+        }
+    }
     // POST : Ajouter un message
     @PostMapping
     public MessageDto postMessage(@RequestBody MessageDto newMessage) {
