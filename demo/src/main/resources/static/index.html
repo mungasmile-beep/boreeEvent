@@ -661,7 +661,7 @@
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
-        <div style="font-weight: 800; color: var(--primary-green); font-size:1.1rem;"><i class="fas fa-leaf"></i> Admin</div>
+        <div style="font-weight: 800; color: var(--primary-green); font-size:1.1rem;"><i class="fas fa-leaf"></i> Smi-Event</div>
         <nav class="nav">
           <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
           <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> Nouvel Événement</li>
@@ -815,7 +815,7 @@
       .then(response => response.json())
       .then(messages => {
         if(!Array.isArray(messages) || messages.length === 0) {
-          feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Soyez le premier à poster un message sur le fil ! 🍃</div></div>`;
+          feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">créateur M. smile</div><div>Soyez le premier à poster un message sur le fil ! </div></div>`;
           return;
         }
         feed.innerHTML = messages.map(m => `
@@ -999,7 +999,7 @@
         <small style="color: var(--text-dark); font-weight:600; display:inline-block; margin-top:4px;">Status: ${g.status || 'En attente'}</small><br><br>
         <span style="background-color: var(--light-green); color:var(--primary-green); padding: 4px 8px; border-radius: 6px; font-size:0.8rem; font-weight:bold; display:inline-block;">
         Zone: ${g.guestTable || g.guest_table || g.table || 'Libre'}</span><br><br>
-        <div class="drink-info" style="color: var(--accent-orange); font-size:0.8rem; font-weight:600; word-break: break-word;">🥤 ${g.drinkChoice || 'Aucun'} </div>
+        <div class="drink-info" style="color: var(--accent-orange); font-size:0.8rem; font-weight:600; word-break: break-word;">Boissons: ${g.drinkChoice || 'Aucun'} </div>
         
         <div style="margin-top: 12px; display:flex; gap:6px;">
           <button style="background-color:var(--text-dark); color:#fff; font-weight:bold; font-size:11px; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; flex:1;" onclick="copyLink('${g.id}')">Lien</button>
