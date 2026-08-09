@@ -3,371 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fête de Collation - Pascaline Munga</title>
+  <title>Pique-Nique Chill - Zoo de Lubumbashi</title>
   <script src="/qrcode.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tBm0hk8658MCxWAEA1BIZOC6xxalw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Permanent+Marker&family=Syne:wght@700;800&display=swap');
 
     :root {
-      --gold-primary: #D4AF37;
-      --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
-      --bg-dark: #0F0913;
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(212, 175, 55, 0.25);
-      --text-light: #F8F9FA;
-      --accent-rose: #E8B4B8;
+      --primary-green: #2e7d32;
+      --light-green: #a5d6a7;
+      --accent-orange: #f4a261;
+      --bg-light: #f9f9f6;
+      --card-bg: #ffffff;
+      --text-dark: #2c3e50;
+      --text-muted: #6c7a89;
+      --border-color: #e2e8f0;
     }
 
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
       overflow-x: hidden;
     }
 
-    /* --- STYLES ADMIN DE BASE (CONSERVÉS) --- */
-    .header { background: #040029; color: white; position: sticky; top: 0; z-index: 1000; padding: 10px; box-shadow: 0 0 10px rgba(49, 50, 114, 0.5); }
+    /* --- STYLES ADMIN DE BASE --- */
+    .header { background: var(--card-bg); color: var(--text-dark); position: sticky; top: 0; z-index: 1000; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .headerTout { display: flex; justify-content: space-between; align-items: center; }
-    .headerTout img { width: 50px; }
-    .nav { display: flex; gap: 20px; list-style: none; font-size: 12px; margin: 0; padding: 0; }
-    .nav li { padding: 10px; border-radius: 10px; cursor: pointer; }
-    .nav li:hover { background-color: white; color: #040029; }
-    .top-page { background-color: #1a162b; text-align: center; padding: 20px; }
-    .grid { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .card { background-color: #040029; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 10px; width: 220px; }
-    #login-view { color: #d8b236; background-color: #151731; padding: 50px; border-radius: 23px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--gold-primary); }
-    #login-view input { border: none; color: #e2f6ff; background: transparent; border-bottom: 2px solid #888; padding: 8px; margin-bottom: 15px; text-align: center; }
-    #login-view button { cursor: pointer; border: none; background: var(--gold-gradient); color: #000; padding: 10px 20px; font-weight: bold; border-radius: 8px; }
-    #manage-couple, #Organiser { padding: 20px; text-align: center; background-color: #040029; border-radius: 23px; margin-top: 20px; }
-    .hidden { display: none !important; }
- input{
- background-color: rgb(0, 7, 66);
- border:none;
- border-radius:10px;
- color:white;
- padding: 20px;
- }
- input::placeholder{
-  color: white;
- }
+    .headerTout img { width: 50px; border-radius: 50%; }
+    .nav { display: flex; gap: 20px; list-style: none; font-size: 15px; margin: 0; padding: 0; font-weight: 600; }
+    .nav li { padding: 10px 15px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+    .nav li:hover { background-color: var(--light-green); color: var(--primary-green); }
+    .top-page { background-color: var(--bg-light); text-align: center; padding: 30px; }
+    .grid { display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+    
+    .card { background-color: var(--card-bg); padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-radius: 16px; width: 240px; border: 1px solid var(--border-color); text-align: center; }
+    
+    #login-view { background-color: var(--card-bg); padding: 50px; border-radius: 25px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.08); z-index: 1000; width: 90%; max-width: 400px; }
+    #login-view input { border: 1px solid var(--border-color); color: var(--text-dark); background: #f8fafc; padding: 14px; margin-bottom: 20px; text-align: center; border-radius: 12px; width: 80%; font-size: 1rem; }
+    #login-view input:focus { outline: none; border-color: var(--primary-green); }
+    #login-view button { cursor: pointer; border: none; background: var(--primary-green); color: #fff; padding: 14px 30px; font-weight: bold; border-radius: 12px; font-size: 1.05rem; transition: 0.3s; }
+    #login-view button:hover { background: #1b5e20; }
+    
+    #manage-couple, #Organiser { padding: 30px; text-align: center; background-color: var(--card-bg); border-radius: 25px; margin: 20px auto; border: 1px solid var(--border-color); max-width: 800px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    /* .hidden { display: none !important; } */
+    
+    input { background-color: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-dark); padding: 15px; width: 80%; max-width: 350px; font-family: 'Outfit', sans-serif; }
+    input::placeholder{ color: #94a3b8; }
+    input:focus { outline: none; border-color: var(--primary-green); }
+
     /* =========================================================
-       Nouveau Design : INVITATION COLLATION PASCALINE MUNGA
+       DESIGN INVITÉ : NATURE, ZOO & CHILL
     ========================================================= */
     #guest-view {
-      background: radial-gradient(circle at top, #1F102A 0%, #09040C 100%);
+      background: var(--bg-light);
       min-height: 100vh;
-      padding-bottom: 50px;
+      padding-bottom: 80px;
       position: relative;
     }
 
-    /* Animation Cadre Héro */
     .hero-banner {
       position: relative;
       width: 100%;
-      height: auto;
-      min-height: 420px;
+      min-height: 450px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 40px 20px 20px 20px;
-      background: linear-gradient(180deg, rgba(15, 9, 19, 0.2) 0%, #0F0913 100%), url('img/PASCALINE.png') center/cover no-repeat;
-      overflow: hidden;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 9, 19, 0.65);
-      backdrop-filter: blur(2px);
-      z-index: 1;
+      padding: 40px 20px;
+      background: linear-gradient(180deg, rgba(44,62,80,0.3) 0%, rgba(44,62,80,0.6) 100%), url('https://images.unsplash.com/photo-1555243896-c709bfa0b564?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
     }
 
     .hero-content {
       position: relative;
-      z-index: 2;
-      animation: fadeInDown 1.2s ease-out;
+      z-index: 3;
+      animation: heroicEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes heroicEntrance {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .grad-cap-icon {
-      font-size: 3rem;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-      animation: pulseGlow 2s infinite ease-in-out;
+      font-size: 3.5rem;
+      color: #fff;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
 
     .event-badge {
       display: inline-block;
-      padding: 6px 18px;
-      border: 1px solid var(--gold-primary);
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.4);
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #FCF6BA;
-      background: rgba(212, 175, 55, 0.1);
+      color: #fff;
       margin-bottom: 15px;
+      font-weight: 700;
     }
 
     .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      background: var(--gold-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 10px 0;
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
 
     .hero-subtitle {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
-      color: #FFF;
-      margin: 5px 0 20px 0;
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.8rem;
+      color: var(--accent-orange);
+      margin: 5px 0 0 0;
+      transform: rotate(-2deg);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
-    /* Carte Invité Glassmorphism */
     .guest-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 25px 20px;
-      margin: -40px 20px 30px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 35px 20px;
+      margin: -50px 20px 35px 20px;
       position: relative;
-      z-index: 3;
+      z-index: 4;
       text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-      animation: fadeInUp 1s ease-out 0.3s backwards;
-    }
-
-    .guest-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: #FFF;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .guest-table-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gold-gradient);
-      color: #000;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 6px 16px;
-      border-radius: 20px;
-      margin-top: 10px;
-    }
-
-    /* Animation Texte Dactylographié & Citations */
-    .quote-box {
-      max-width: 650px;
-      margin: 0 auto 30px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    #effet-ecriture {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.15rem;
-      color: var(--accent-rose);
-      min-height: 50px;
-      line-height: 1.6;
-    }
-
-    /* Galerie de Photos VIP */
-    .photo-gallery {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 10px 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      animation: fadeInUp 1s ease 0.2s backwards;
       max-width: 700px;
-      margin: 0 auto 30px auto;
-    }
-
-    .photo-frame {
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-      border: 2px solid var(--gold-primary);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      width: 50%;
-      height: 220px;
-    }
-
-    .photo-frame:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Section Programme & Déroulement */
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-      padding: 0 20px;
-    }
-
-    .info-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .info-card:hover {
-      border-color: var(--gold-primary);
-      background: rgba(212, 175, 55, 0.05);
-    }
-
-    .info-card i {
-      font-size: 2rem;
-      color: var(--gold-primary);
-      margin-bottom: 12px;
-    }
-
-    .info-card h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      margin: 5px 0 10px 0;
-      color: #FFF;
-    }
-
-    .info-card p {
-      font-size: 0.9rem;
-      color: #CCC;
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    /* Dress Code section */
-    .dress-code-card {
-      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(15,9,19,0.8) 100%);
-      border: 1px solid var(--gold-primary);
-      border-radius: 20px;
-      padding: 25px;
-      text-align: center;
-      max-width: 400px;
-      margin: 0 auto 30px auto;
-    }
-
-    .circles-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 15px 0;
-    }
-
-    .circle-swatch {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      border: 2px solid #FFF;
-    }
-    .swatch-red { background: #C0392B; }
-    .swatch-white { background: #FFFFFF; }
-
-    /* Boutons de confirmation */
-    .action-section {
-      text-align: center;
-      padding: 20px;
-      margin-bottom: 30px;
-    }
-
-    .btn-gold {
-      background: var(--gold-gradient);
-      color: #000;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 30px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-      transition: all 0.3s ease;
-      margin: 8px;
-    }
-
-    .btn-gold:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: #FFF;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      padding: 14px 28px;
-      border-radius: 30px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 8px;
-    }
-
-    .btn-outline:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: #FFF;
-    }
-
-    /* Choix Boissons & Pass VIP */
-    #drink-step, #blocInvitation {
-      max-width: 500px;
-      margin: 20px auto;
-      background: rgba(20, 12, 28, 0.95);
-      border: 1px solid var(--gold-primary);
-      border-radius: 20px;
-      padding: 30px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-      text-align: center;
-    }
-
-    select {
-      width: 85%;
-      max-width: 320px;
-      padding: 12px;
-      margin: 10px auto;
-      background: #1A1125;
-      color: #FFF;
-      border: 1px solid var(--gold-primary);
-      border-radius: 10px;
-      display: block;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    /* KEYFRAMES & ANIMATIONS */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @keyframes fadeInUp {
@@ -375,212 +154,469 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes pulseGlow {
-      0%, 100% { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)); transform: scale(1.05); }
+    .guest-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      color: var(--primary-green);
+      margin-bottom: 5px;
     }
 
-    /* Fleurs Animées */
-    .container-images .fleur, .container-images #fleur2 {
-      position: absolute;
-      top: 0;
-      width: 50px !important;
-      z-index: 2;
-      opacity: 0.7;
-      pointer-events: none;
-      animation: chuteFleur 8s linear infinite;
+    .guest-table-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--light-green);
+      color: var(--primary-green);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 8px 22px;
+      border-radius: 30px;
+      margin-top: 12px;
     }
-    .container-images .fleur { left: 10%; animation-delay: 0s; }
-    .container-images #fleur2 { right: 10%; animation-delay: 4s; }
 
-    @keyframes chuteFleur {
-      0% { top: -10%; transform: rotate(0deg) scale(0.8); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { top: 100%; transform: rotate(360deg) scale(1.2); opacity: 0; }
+    /* --- STYLE FEED / FIL DE COMMENTAIRES FAÇON INSTAGRAM --- */
+    .community-wall-section {
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      padding: 0 20px;
     }
+
+    .wall-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .wall-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Conteneur du fil de messages (style flux vertical) */
+    .wall-feed {
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-right: 5px;
+    }
+
+    .wall-message-item {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      animation: fadeInMessage 0.3s ease-out;
+    }
+
+    @keyframes fadeInMessage {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wall-message-author {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      color: var(--primary-green);
+      margin-bottom: 4px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Barre de saisie style messagerie en bas du bloc */
+    .wall-input-group {
+      display: flex;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 50px;
+      align-items: center;
+    }
+
+    .wall-input-group input {
+      flex: 1;
+      width: auto;
+      background: transparent;
+      border: none;
+      padding: 8px 12px;
+      font-size: 0.95rem;
+    }
+
+    .wall-input-group input:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .btn-wall {
+      background: var(--primary-green);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .btn-wall:hover { background: #1b5e20; transform: scale(1.05); }
+
+    .quote-box {
+      max-width: 650px;
+      margin: 0 auto 35px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    #effet-ecriture {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.5rem;
+      color: var(--primary-green);
+      min-height: 50px;
+      line-height: 1.5;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto 35px auto;
+      padding: 0 20px;
+    }
+
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      border-color: var(--primary-green);
+    }
+
+    .info-card i {
+      font-size: 2.5rem;
+      color: var(--accent-orange);
+      margin-bottom: 15px;
+    }
+
+    .info-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      margin: 5px 0 10px 0;
+      color: var(--text-dark);
+    }
+
+    .info-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .dress-code-card {
+      background: #fff3e0;
+      border: 1px solid #ffe0b2;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      max-width: 420px;
+      margin: 0 auto 35px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    }
+
+    .action-section {
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 35px;
+    }
+
+    .btn-gold {
+      background: var(--primary-green);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      background: #1b5e20;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dark);
+      border: 2px solid var(--border-color);
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    #drink-step, #blocInvitation {
+      max-width: 520px;
+      margin: 20px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 35px 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    select {
+      width: 85%;
+      max-width: 340px;
+      padding: 14px;
+      margin: 10px auto 20px auto;
+      background: #f8fafc;
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    select:focus { border-color: var(--primary-green); outline: none; }
+    
+    .whatsapp-btn {
+      display: inline-block; 
+      margin-top: 15px; 
+      font-size: 1rem; 
+      color: #fff; 
+      background: #25D366; 
+      padding: 14px 28px; 
+      border-radius: 30px; 
+      text-decoration: none; 
+      font-weight: 700; 
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      transition: 0.3s;
+    }
+    .whatsapp-btn:hover { background: #1ebe5d; transform: translateY(-3px); }
   </style>
 </head>
 <body>
 
   <!-- VUE LOGIN ADMIN -->
   <div id="login-view">
-    <img src="img/logo.png" alt="Logo" style="width: 70px; margin-bottom: 15px;">
-    <h2>Espace Administration</h2>
+    <i class="fas fa-leaf" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 15px;"></i>
+    <h2 style="margin:0 0 15px 0; font-family: 'Syne', sans-serif; color: var(--text-dark);">Portail Organisateur</h2>
     <input type="password" id="pass" placeholder="Code Administrateur">
     <br>
-    <button onclick="checkAdmin()">Se Connecter</button>
-    <p id="erreurCode" style="color: #E74C3C; display: none; margin-top: 10px; font-size: 0.85rem;">Code invalide, réessayez.</p>
+    <button onclick="checkAdmin()">Connexion</button>
+    <p id="erreurCode" style="color: #e74c3c; display: none; margin-top: 10px; font-size: 0.9rem;">Code incorrect, essaie encore !</p>
   </div>
 
 
-  <!-- VUE INVITÉ (NOUVEAU DESIGN COLLATION PASCALINE MUNGA) -->
+  <!-- VUE INVITÉ -->
   <div id="guest-view" class="hidden">
     
     <audio id="maMusique" loop>
       <source src="img/wedding.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Éléments décoratifs en chute -->
-    <div class="container-images">
-      <img src="img/fleur.png" alt="décor" class="fleur">
-      <img src="img/fleur.png" alt="décor" id="fleur2">
-    </div>
-
-    <!-- Banner Principal / Entête Héro -->
     <div class="hero-banner">
-      <div class="hero-overlay"></div>
       <div class="hero-content">
-        <i class="fas fa-graduation-cap grad-cap-icon"></i>
+        <i class="fas fa-paw grad-cap-icon"></i>
         <br>
-        <span class="event-badge">Invitation Officielle</span>
-        <h1 class="hero-title">Collation des Grades</h1>
-        <div class="hero-subtitle">Pascaline Munga</div>
+        <span class="event-badge">The Ultimate Hangout</span>
+        <h1 class="hero-title">Pique-Nique Zoo</h1>
+        <div class="hero-subtitle">Lubumbashi Edition 🍃</div>
       </div>
     </div>
 
-    <!-- Carte d'Accueil Personnalisée de l'Invité -->
     <div class="guest-card">
-      <p style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-primary); margin: 0 0 5px 0;">Honoré(e) Invité(e)</p>
+      <p style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin: 0 0 5px 0; font-weight: 700;">Invité d'Honneur</p>
       <div class="guest-name" id="invit">Nom de l'invité</div>
       <div id="welcome-title" style="display:none;"></div>
       <div class="guest-table-badge">
-        <i class="fas fa-glass-cheers"></i>
-        <span id="table">Table : En attente</span>
+        <i class="fas fa-map-marker-alt"></i>
+        <span id="table">Zone : En attente</span>
       </div>
     </div>
 
-    <!-- Zone de texte poétique dactylographié -->
+    <!-- MUR DE COMMENTAIRES STYLE MESSAGERIE / INSTAGRAM -->
+    <div class="community-wall-section">
+      <div class="wall-card">
+        <div class="wall-title">
+          <i class="fas fa-comments" style="color: var(--primary-green);"></i> Fil de Discussions Live
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 10px;">Laisse ton commentaire pour chauffer l'ambiance avec les autres potes !</p>
+        
+        <!-- Zone d'affichage des commentaires (style flux de messages) -->
+        <div id="wallFeedContainer" class="wall-feed">
+          <div class="wall-message-item">
+            <div class="wall-message-author">
+              <span><i class="fas fa-user-circle"></i> Organisateur</span>
+              <span style="font-weight:400; font-size:0.75rem; color:#888;">Maintenant</span>
+            </div>
+            <div>Bienvenue sur le fil du Pique-Nique ! Lâchez vos meilleures vibes ☀️</div>
+          </div>
+        </div>
+
+        <!-- Barre de saisie en bas (façon chat / Instagram) -->
+        <div class="wall-input-group">
+          <input type="text" id="customPhraseInput" placeholder="Écris un commentaire..." onkeypress="handleKeyPress(event)">
+          <button class="btn-wall" onclick="publishGlobalMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
     <div class="quote-box">
       <p id="effet-ecriture"></p>
-      <p id="effet-texte" style="font-size: 0.95rem; color: #BBB; line-height: 1.6; margin-top: 15px; opacity: 0; transition: opacity 1.5s ease;"></p>
+      <p id="effet-texte" style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-top: 15px; opacity: 0; transition: opacity 1.5s ease;"></p>
     </div>
 
-    <!-- Galerie Photos VIP -->
-    <div class="photo-gallery">
-      <div class="photo-frame">
-        <img src="img/IMG2.png" alt="Pascaline Munga">
-      </div>
-      <div class="photo-frame">
-        <img src="img/pasc.png" alt="Célébration Pascaline Munga">
-      </div>
-    </div>
-
-    <!-- Date Marquante -->
     <div style="text-align: center; margin-bottom: 35px;">
-      <div style="display: inline-block; background: rgba(212,175,55,0.15); border: 1px solid var(--gold-primary); padding: 12px 30px; border-radius: 50px;">
-        <i class="far fa-calendar-alt" style="color: var(--gold-primary); margin-right: 8px;"></i>
-        <strong style="color: #FFF; font-size: 1.05rem;" id="parag">Jeudi 06 Aôut 2026</strong>
+      <div style="display: inline-block; background: #fff; border: 1px solid var(--border-color); padding: 12px 30px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+        <i class="far fa-calendar-alt" style="color: var(--primary-green); margin-right: 8px;"></i>
+        <strong style="color: var(--text-dark); font-size: 1.05rem;" id="parag">Dimanche Prochain</strong>
       </div>
     </div>
 
-    <!-- Programme et Adresses -->
     <div class="details-grid">
       <div class="info-card affiche">
-        <i class="fas fa-university"></i>
-        <h4>Cérémonie Officielle</h4>
-        <p><b>08h00</b></p>
-        <p>Building de l'unilu</p>
+        <i class="fas fa-map-marked-alt"></i>
+        <h4>Le Spot</h4>
+        <p><b style="color: var(--text-dark);">13h00 Précises</b></p>
+        <p>Entrée principale du Zoo de Lubumbashi<br><small style="color: var(--primary-green); font-weight:600;">Viens à l'heure, on t'attend !</small></p>
       </div>
 
       <div class="info-card affiche">
-        <i class="fas fa-utensils"></i>
-        <h4>Réception & Festivités</h4>
-        <p><b>16h30</b></p>
-        <p>Avenue De conservateur, N°03<br><small style="color: var(--gold-primary);">Réf: Arrêt Craa usine, église pain de vie</small></p>
+        <i class="fas fa-guitar"></i>
+        <h4>Ambiance & Chill</h4>
+        <p><b style="color: var(--text-dark);">Good Vibes Only</b></p>
+        <p>Musique, rires, détente sur l'herbe et bonne bouffe entre vrais potes.</p>
       </div>
     </div>
 
-    <!-- Code Vestimentaire -->
     <div class="dress-code-card affiche">
-      <h4 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin: 0 0 10px 0;">Code Vestimentaire</h4>
-      <div class="circles-container">
-        <!-- <div class="circle-swatch swatch-red" title="Rouge"></div>
-        <div class="circle-swatch swatch-white" title="Blanc"></div> -->
-      </div>
-      <p style="margin: 0; font-weight: 600; color: #FFF; font-size: 0.95rem;">Habillez vous proprement</p>
+      <h4 style="font-family: 'Syne', sans-serif; color: #d84315; margin: 0 0 10px 0;"><i class="fas fa-tshirt"></i> Dress Code</h4>
+      <p style="margin: 0; font-weight: 600; color: #5d4037; font-size: 1rem;">Streetwear / Décontracté 👟<br><span style="font-size: 0.9rem; font-weight: 400;">Confortable pour profiter de la nature et s'asseoir dans l'herbe !</span></p>
     </div>
 
-    <!-- Actions Confirmation -->
     <div id="confirm-step" class="action-section">
-      <p class="affiche" style="font-size: 1.1rem; margin-bottom: 20px; color: #FFF;">Serez-vous des nôtres pour célébrer cette réussite ?</p>
-      <button class="btn-gold affiche" onclick="setPresence(true)"><i class="fas fa-check-circle"></i> Je confirme ma présence</button>
-      <button class="btn-outline affiche" onclick="setPresence(false)"><i class="fas fa-times-circle"></i> Indisponible</button>
+      <p class="affiche" style="font-size: 1.15rem; margin-bottom: 20px; color: var(--text-dark); font-weight: 600;">Seras-tu de la partie ?</p>
+      <button class="btn-gold affiche" onclick="setPresence(true)"><i class="fas fa-check"></i> Je confirme ma présence !</button>
+      <button class="btn-outline affiche" onclick="setPresence(false)"><i class="fas fa-times"></i> Je ne pourrai pas</button>
     </div>
 
-    <!-- Sélection Boissons -->
     <div id="drink-step" class="hidden">
-      <h3 style="font-family: 'Cinzel', serif; color: var(--gold-primary); margin-top: 0;"><i class="fas fa-cocktail"></i> Vos Préférences</h3>
-      <p style="font-size: 0.85rem; color: #CCC;">Aidez-nous à mieux vous servir lors du buffet :</p>
+      <h3 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin-top: 0;"><i class="fas fa-cocktail" style="color: var(--accent-orange);"></i> Tes Préférences</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">Configure ce qu'on prévoit pour toi dans la glacière :</p>
       
-      <label style="font-size: 0.85rem; color: var(--gold-primary);">Boisson sans alcool :</label>
+      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Sans alcool :</label>
       <select id="SansAlcool">
         <option>Aucun</option>
         <option>Eau Minérale</option>
         <option>Coca-Cola</option>
-        <option>Fanta</option>
+        <option>Fanta Orange</option>
         <option>Sprite</option>
         <option>Energy Drink (XXL)</option>
       </select>
 
-      <label style="font-size: 0.85rem; color: var(--gold-primary);">Sélection Spéciale :</label>
+      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Alcool / Liqueur :</label>
       <select id="whisky">
         <option>Aucun</option>
+        <option>Whisky / Spirits</option>
       </select>
       
-      <label style="font-size: 0.85rem; color: var(--gold-primary);">Jus & Rafraîchissements :</label>
+      <label style="font-size: 0.9rem; font-weight: 600; color: var(--primary-green);">Boissons & Bières :</label>
       <select id="biere">
         <option>Aucun</option>
-        <option>Jus Cérès</option>
+        <option>Bière Locale / Blonde</option>
+        <option>Jus Cérès / Cocktail</option>
       </select>
       
-      <button class="btn-gold" style="margin-top: 15px; width: 85%;" onclick="saveDrinks()">Valider mes choix</button>
+      <button class="btn-gold" style="margin-top: 10px; width: 85%;" onclick="saveDrinks()">Valider mes choix</button>
     </div>
 
-    <!-- Alert Choix Enregistré -->
-    <div id="alertchoix" style="display: none; background: rgba(46, 204, 113, 0.2); border: 1px solid #2ECC71; color: #2ECC71; text-align: center; border-radius: 15px; max-width: 400px; margin: 20px auto; padding: 15px;">
+    <div id="alertchoix" style="display: none; background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; text-align: center; border-radius: 12px; max-width: 400px; margin: 20px auto; padding: 15px;">
       <i class="fas fa-check-circle" style="font-size: 1.5rem; margin-bottom: 5px;"></i>
-      <p style="margin: 0; font-weight: 600;">Choix confirmé avec succès !</p>
+      <p style="margin: 0; font-weight: 600;">Préférences enregistrées avec succès !</p>
     </div>
 
-    <!-- Pass Invitation Téléchargeable -->
     <div id="blocInvitation" class="hidden">
-      <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--gold-primary);"></i>
-      <h2 style="font-family: 'Cinzel', serif; color: #FFF; margin: 10px 0 5px 0;">Pass d'Accès Officiel</h2>
-      <h3 id="nomMaries" style="color: var(--gold-primary); font-family: 'Great Vibes', cursive; font-size: 2rem; margin: 0 0 15px 0;">Collation de Pascaline Munga</h3>
+      <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--accent-orange);"></i>
+      <h2 style="font-family: 'Syne', sans-serif; color: var(--text-dark); margin: 10px 0 5px 0;">Pass VIP Officiel</h2>
+      <h3 id="nomMaries" style="color: var(--primary-green); font-family: 'Syne', sans-serif; font-size: 1.3rem; margin: 0 0 15px 0;">Pique-Nique au Zoo</h3>
       
-      <div id="qrcode" style="display: flex; justify-content: center; padding: 10px; background: #FFF; border-radius: 12px; width: 170px; margin: 0 auto 15px auto;"></div>
+      <div id="qrcode" style="display: flex; justify-content: center; padding: 14px; background: #fff; border-radius: 16px; width: 150px; margin: 0 auto 15px auto; border: 1px solid var(--border-color);"></div>
       
-      <p id="nomInvite" style="font-weight: bold; font-size: 1.1rem; color: #FFF; margin: 5px 0;"></p>
-      <p id="nomTable" style="color: var(--gold-primary); font-weight: 600; margin: 0;"></p>
+      <p id="nomInvite" style="font-weight: 800; font-size: 1.3rem; color: var(--text-dark); margin: 5px 0;"></p>
+      <p id="nomTable" style="color: var(--text-muted); font-weight: 600; margin: 0;"></p>
       
-      <p style="margin-top: 15px; font-size: 0.75rem; color: #AAA;"><i class="fas fa-info-circle"></i> Présentez ce QR Code à l'entrée le jour de l'événement.</p>
+      <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;"><i class="fas fa-shield-alt"></i> À présenter à l'entrée du site.</p>
     </div>
 
     <div id="download-section" class="hidden" style="text-align: center; margin-top: 20px;">
-      <button class="btn-gold" onclick="telechargerQR()"><i class="fas fa-download"></i> Télécharger mon Invitation VIP</button>
+      <button class="btn-gold" onclick="telechargerQR()"><i class="fas fa-download"></i> Télécharger mon Pass</button>
     </div>
 
-    <!-- Messages de Fin -->
-    <section id="messageNegatif" class="hidden" style="text-align: center; background: rgba(192, 57, 43, 0.2); border: 1px solid #C0392B; max-width: 500px; margin: 30px auto; border-radius: 20px; padding: 25px;">
-      <h3 style="color: #FFF;"><i class="fas fa-heart-broken"></i> Merci de nous avoir informés</h3>
-      <p style="color: #CCC; font-size: 0.9rem;">Pascaline Munga vous remercie pour votre délicate attention.</p>
+    <section id="messageNegatif" class="hidden" style="text-align: center; background: #fff1f2; border: 1px solid #fecdd3; max-width: 500px; margin: 30px auto; border-radius: 20px; padding: 25px;">
+      <h3 style="color: #e11d48; margin-top:0;"><i class="fas fa-heart-broken"></i> Dommage que tu rates ça !</h3>
+      <p style="color: #4c1d95; font-size: 0.95rem; margin-bottom:0;">On pensera fort à toi. À très vite pour une prochaine session.</p>
     </section>
 
     <section id="message" class="hidden" style="text-align: center; max-width: 500px; margin: 30px auto; padding: 20px;">
-      <p style="color: var(--gold-primary); font-size: 0.9rem;"><i class="fas fa-star"></i> Merci de célébrer ce moment d'excellence avec nous !</p>
-      <a href="https://wa.me/243996942013?text=Bonjour,%20je%20souhaiterais%20obtenir%20des%20informations." target="_blank" style="font-size: 0.85rem; color: #FFF; text-decoration: none; opacity: 0.8;">
-        <i class="fab fa-whatsapp"></i> Contact Assistance WhatsApp
+      <p style="color: var(--primary-green); font-size: 1.1rem; font-weight: 700;"><i class="fas fa-sun"></i> C'est validé ! Prépare ta bonne humeur.</p>
+      <a href="https://chat.whatsapp.com/JVyfNZwTlp29lVhMLamx9Q?s=cl&p=a&ilr=1" target="_blank" class="whatsapp-btn">
+        <i class="fab fa-whatsapp" style="font-size: 1.2rem; margin-right: 5px;"></i> Rejoindre le groupe WhatsApp
       </a>
     </section>
 
   </div>
 
 
-  <!-- VUE ESPACE PANNEAU ADMIN (CONSERVÉE ENTIÈREMENT) -->
+  <!-- VUE ESPACE PANNEAU ADMIN -->
   <div id="admin-view" class="hidden">
     <header class="header">
       <div class="headerTout">
-        <img src="img/logo.png" alt="Logo">
+        <div style="font-weight: 800; color: var(--primary-green); font-size:1.2rem;"><i class="fas fa-leaf"></i> Admin</div>
         <nav class="nav">
           <li onclick="showSection('section-home')"><i class="fas fa-home"></i> Accueil</li>
           <li onclick="showSection('Organiser')"><i class="fas fa-plus"></i> Nouvel Événement</li>
@@ -589,58 +625,57 @@
     </header>
 
     <section id="section-home" class="top-page">
-      <h1 style="color: #d4af37;"><i class="fas fa-chart-pie"></i> Tableau de bord</h1>
-      <h2 style="border-bottom: 2px solid #d4af37; color: white; padding-bottom: 10px;">Gestion des Événements</h2>
-      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: rgba(255,255,255,0.1); border: 1px solid var(--gold-primary); color: white; padding: 10px; border-radius: 8px; width: 80%; max-width: 300px;">
-      <div id="couples-list" class="grid" style="margin-top: 20px;"></div>
+      <h1 style="color: var(--text-dark);"><i class="fas fa-chart-pie" style="color: var(--primary-green);"></i> Tableau de bord</h1>
+      <h2 style="border-bottom: 2px solid var(--border-color); color: var(--text-muted); padding-bottom: 10px; font-weight: 600; font-size: 1.2rem;">Gestion des Événements</h2>
+      <input id="RechCouple" onkeyup="rechercheCouple()" placeholder="Rechercher..." style="background: #fff; margin-top: 10px;">
+      <div id="couples-list" class="grid" style="margin-top: 25px;"></div>
     </section>
 
-    <section class="hidden" id="VoirPhoto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: #ffffff; padding: 20px; border-radius: 23px;">
-      <button onclick="showSection('section-home')" style="background: #333; color: #fff;"><i class="fas fa-arrow-left"></i> Retour</button>
+    <section class="hidden" id="VoirPhoto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; background-color: var(--card-bg); padding: 20px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+      <button onclick="showSection('section-home')" class="btn-outline" style="padding:8px 15px; font-size:12px; margin:0;"><i class="fas fa-arrow-left"></i> Retour</button>
       <div id="ApercPhoto" class="grid" style="margin-top: 15px;"></div>
-      <div id="Aperc" style="color: #000; text-align: center; font-weight: bold; margin-top: 10px;"></div>
+      <div id="Aperc" style="color: var(--text-dark); text-align: center; font-weight: bold; margin-top: 10px;"></div>
     </section>
 
     <section class="hidden" id="Organiser">
-      <h1 style="color: #FFF;">Enregistrer un Événement</h1>
-      <input type="text" id="coupleName" placeholder="Ex: Pascaline Munga"> <br> <br>
-      <input type="date" id="datemariage" style="color: gray;"> <br><br>
-      <input type="file" id="photo"><br> <br>
-      <br>
+      <h2 style="color: var(--text-dark);">Enregistrer un Événement</h2>
+      <input type="text" id="coupleName" placeholder="Ex: Pique-Nique Zoo"> <br> <br>
+      <input type="date" id="datemariage" style="color: var(--text-muted);"> <br><br>
+      <input type="file" id="photo" style="background: transparent; border: none;"><br> <br>
       <button onclick="addCouple()" class="btn-gold">+ Créer Événement</button>
     </section>
 
     <section id="manage-couple" class="hidden">
-      <button onclick="showSection('section-home')" class="btn-outline" style="float: left;"><i class="fas fa-arrow-left"></i> Retour</button>
-      <h2 id="couple-title" style="color: white; clear: both; padding-top: 10px;"></h2>
+      <button onclick="showSection('section-home')" class="btn-outline" style="float: left; padding: 8px 15px; margin:0;"><i class="fas fa-arrow-left"></i> Retour</button>
+      <h2 id="couple-title" style="color: var(--text-dark); clear: both; padding-top: 20px;"></h2>
       
-      <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-        <h3>Enregistrer un invité</h3>
+      <div style="background: #f8fafc; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px solid var(--border-color);">
+        <h3 style="margin-top:0; color: var(--text-dark);">Enregistrer un invité</h3>
         <input type="text" id="newGuestName" placeholder="Nom de l'invité"> <br> <br>
         <input type="email" id="newGuestEmail" placeholder="Email / Contact"> <br> <br>
-        <input type="text" id="TableGuestName" placeholder="Table assignée"> <br> <br>
-        <button type="button" onclick="addGuest()" class="btn-gold">Ajouter l'invité</button> 
+        <input type="text" id="TableGuestName" placeholder="Groupe / Zone"> <br> <br>
+        <button type="button" onclick="addGuest()" class="btn-gold" style="margin:0;">Ajouter l'invité</button> 
       </div>
 
       <div id="dashboard-stats" style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
-        <div style="background: #2980b9; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
-          <span id="count-total" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Total</small>
+        <div style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
+          <span id="count-total" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Total</small>
         </div>
-        <div style="background: #27ae60; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
-          <span id="count-present" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Présents</small>
+        <div style="background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
+          <span id="count-present" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Présents</small>
         </div>
-        <div style="background: #c0392b; padding: 15px; border-radius: 10px; flex: 1; max-width: 120px;">
-          <span id="count-absent" style="font-size: 1.5rem; font-weight: bold;">0</span><br><small>Absents</small>
+        <div style="background: #fff1f2; border: 1px solid #fecdd3; color: #e11d48; padding: 15px; border-radius: 12px; flex: 1; max-width: 120px;">
+          <span id="count-absent" style="font-size: 1.6rem; font-weight: bold;">0</span><br><small>Absents</small>
         </div>
       </div>
 
-      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: transparent; border-bottom: 2px solid var(--gold-primary); color: white;">
-      <div id="guests-list" class="grid" style="margin-top: 20px;"></div>
+      <input type="text" id="searchGuest" placeholder="Rechercher un invité..." onkeyup="renderGuests()" style="background: #fff; margin-bottom: 20px;">
+      <div id="guests-list" class="grid"></div>
     </section>
   </div>
 
 
-  <!-- SCRIPTS APPLICATION ET ANIMATIONS -->
+  <!-- SCRIPTS -->
   <script>
   let db = []; 
   let activeCoupleId = null;
@@ -661,12 +696,13 @@
         const tableEl = document.getElementById('table');
         const invitEl = document.getElementById('invit');
         
-        if(welcomeEl) welcomeEl.innerText = "Fête de " + (g.couple ? g.couple.name : "Pascaline Munga");
-        if(tableEl) tableEl.innerText = "Table : " + (g.guestTable || g.table || 'Non assignée');
+        if(welcomeEl) welcomeEl.innerText = "Événement : " + (g.couple ? g.couple.name : "Pique-Nique Zoo");
+        if(tableEl) tableEl.innerText = "Zone : " + (g.guestTable || g.table || 'Libre');
         if(invitEl) invitEl.innerText = g.name;
         
         window.currentGuest = g;
         window.guestId = g.id;
+        loadGlobalMessages();
       })
       .catch(error => {
         console.error("Erreur récupération invité :", error);
@@ -692,6 +728,57 @@
       .catch(err => console.error(err));
   }
 
+  // Fonction pour envoyer avec la touche Entrée
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      publishGlobalMessage();
+    }
+  }
+
+  function publishGlobalMessage() {
+    const input = document.getElementById('customPhraseInput');
+    const text = input.value.trim();
+    if(!text) return;
+    const author = window.currentGuest ? window.currentGuest.name : "Un pote mystère";
+
+    const payload = { author: author, text: text, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) };
+    
+    let messages = JSON.parse(localStorage.getItem('zoo_picnic_global_wall') || '[]');
+    messages.unshift(payload); // Ajoute le nouveau message tout en haut (ou push pour le bas)
+    if(messages.length > 25) messages.pop();
+    localStorage.setItem('zoo_picnic_global_wall', JSON.stringify(messages));
+
+    input.value = '';
+    loadGlobalMessages();
+    
+    confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 }, colors: ['#4CAF50', '#8BC34A', '#FF9800'] });
+  }
+
+  function loadGlobalMessages() {
+    const feed = document.getElementById('wallFeedContainer');
+    if(!feed) return;
+    let messages = JSON.parse(localStorage.getItem('zoo_picnic_global_wall') || '[]');
+    if(messages.length === 0) {
+      feed.innerHTML = `<div class="wall-message-item"><div class="wall-message-author">Système</div><div>Soyez le premier à poster un message sur le fil ! 🍃</div></div>`;
+      return;
+    }
+    feed.innerHTML = messages.map(m => `
+      <div class="wall-message-item">
+        <div class="wall-message-author">
+          <span><i class="fas fa-user-circle"></i> ${m.author}</span>
+          <span style="font-weight:400; color:var(--text-muted); font-size:0.75rem;">${m.time}</span>
+        </div>
+        <div style="margin-top: 4px; word-break: break-word;">${m.text}</div>
+      </div>
+    `).join('');
+  }
+
+  setInterval(() => {
+    if(document.getElementById('guest-view') && !document.getElementById('guest-view').classList.contains('hidden')) {
+      loadGlobalMessages();
+    }
+  }, 3500);
+
   function checkAdmin() {
     const CodeErreur = document.getElementById('erreurCode');
     if (document.getElementById('pass').value === "02006") {
@@ -715,7 +802,7 @@
       target.classList.remove('hidden');
       target.style.display = 'block';
       if (id === 'message') {
-        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#4CAF50', '#8BC34A', '#FF9800', '#FFEB3B'] });
       }
     }
   }
@@ -756,13 +843,13 @@
   function renderCouples() {
     const listContainer = document.getElementById('couples-list');
     if (!listContainer) return;
-    if (!db.length) { listContainer.innerHTML = "<p>Aucun événement enregistré.</p>"; return; }
+    if (!db.length) { listContainer.innerHTML = "<p style='color: var(--text-muted);'>Aucun événement enregistré.</p>"; return; }
     listContainer.innerHTML = db.map(c => `
       <div class="card">
-        <img src="${c.photo || ''}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; cursor:pointer;" onclick="ApercuePhoto(${c.id})">
-        <h3 style="color:white; cursor:pointer" onclick="openCouple(${c.id})">${c.name || ''}</h3>
-        <p style="color:#aaa;">${c.datemariage || ''}</p>
-        <button style="background:#c0392b; color:#fff; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="delCouple(${c.id})">Supprimer</button>
+        <img src="${c.photo || ''}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; cursor:pointer; margin-bottom:10px; border:2px solid var(--border-color);" onclick="ApercuePhoto(${c.id})">
+        <h3 style="color:var(--text-dark); cursor:pointer; margin: 5px 0;" onclick="openCouple(${c.id})">${c.name || ''}</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom: 15px;">${c.datemariage || ''}</p>
+        <button style="background:#e11d48; color:#fff; border:none; padding:8px 15px; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="delCouple(${c.id})">Supprimer</button>
       </div>
     `).join('');
   }
@@ -771,7 +858,7 @@
     activeCoupleId = parseInt(id);
     const c = db.find(x => parseInt(x.id) === activeCoupleId);
     if(c) {
-      document.getElementById('couple-title').innerText = "Invités de " + c.name;
+      document.getElementById('couple-title').innerText = "Invités : " + c.name;
       showSection('manage-couple');
       loadGuests(activeCoupleId);
     }
@@ -818,12 +905,10 @@
   }
 
   function renderGuests() {
-    // 1. Calculs des statistiques basés sur toute la liste currentGuests
     const total = currentGuests.length;
     const presents = currentGuests.filter(g => g.status === "Présent").length;
     const absents = currentGuests.filter(g => g.status === "Absent").length;
 
-    // Mise à jour des éléments du dashboard (Statistiques)
     const totalEl = document.getElementById('count-total');
     const presentEl = document.getElementById('count-present');
     const absentEl = document.getElementById('count-absent');
@@ -832,39 +917,40 @@
     if (presentEl) presentEl.innerText = presents;
     if (absentEl) absentEl.innerText = absents;
 
-    // 2. Gestion de la recherche et filtrage
     const searchInput = document.getElementById('searchGuest');
     const search = searchInput ? searchInput.value.toLowerCase() : "";
     const filteredGuests = currentGuests.filter(g => 
         g.name && g.name.toLowerCase().includes(search)
     );
 
-    // 3. Rendu de la liste des invités
     const container = document.getElementById('guests-list');
     if (!container) return;
 
     if (currentGuests.length === 0) {
-        container.innerHTML = `<div style="text-align:center; color:gray; margin-top:20px;">Aucun invité trouvé pour ce couple.</div>`;
+        container.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:20px; width: 100%;">Aucun invité trouvé.</div>`;
         return;
     }
 
     container.innerHTML = filteredGuests.map(g => `
-      <div class="card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px; background: #040029;">
-        <strong style="color: white;">${g.name}</strong><br>
-        <small style="color: white;">${g.email || 'Email non défini'}</small><br>
-        <small style="color: white;">Status: ${g.status || 'En attente'}</small><br><br>
-        <small style="background-color: orange; padding: 5px 10px; border-radius: 10px 10px 0 0;">
-        Table: ${g.guestTable || g.guest_table || g.table || 'Non assignée'}</small><br><br>
-        <div class="drink-info" style="color: white;"> Choix boissons: ${g.drinkChoice || 'Aucun'} </div>
-        <button style="background-color:green; color:white; font-size:10px; margin-top: 20px; border:none; padding:5px; border-radius:5px;" onclick="copyLink('${g.id}')">Lien</button>
-        <button style="font-size:10px; margin-top: 20px; background-color:red; color:white; border:none; padding:5px; border-radius:5px;" class="del-btn" onclick="delGuest('${g.id}')">Suppr</button><br><br>
-        <button id="couleur-${g.id}" style="font-size:10px; margin-top: 20px; background-color:gray; color:white;" onclick="Arriveguest(this)">Arrivé</button>
+      <div class="card" style="padding: 20px; text-align:left;">
+        <strong style="color: var(--text-dark); font-size:1.1rem;">${g.name}</strong><br>
+        <small style="color: var(--text-muted);">${g.email || 'Email non défini'}</small><br>
+        <small style="color: var(--text-dark); font-weight:600; display:inline-block; margin-top:5px;">Status: ${g.status || 'En attente'}</small><br><br>
+        <span style="background-color: var(--light-green); color:var(--primary-green); padding: 4px 10px; border-radius: 6px; font-size:0.85rem; font-weight:bold;">
+        Zone: ${g.guestTable || g.guest_table || g.table || 'Libre'}</span><br><br>
+        <div class="drink-info" style="color: var(--accent-orange); font-size:0.85rem; font-weight:600;">🥤 ${g.drinkChoice || 'Aucun'} </div>
+        
+        <div style="margin-top: 15px; display:flex; gap:8px;">
+          <button style="background-color:var(--text-dark); color:#fff; font-weight:bold; font-size:12px; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; flex:1;" onclick="copyLink('${g.id}')">Lien</button>
+          <button style="background-color:#e11d48; color:white; font-weight:bold; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:12px;" onclick="delGuest('${g.id}')"><i class="fas fa-trash"></i></button>
+        </div>
       </div>
     `).join('');
-}
+  }
+
   function copyLink(id) {
     const url = window.location.origin + window.location.pathname + "?guestId=" + id;
-    navigator.clipboard.writeText(url).then(() => alert("Lien d'invitation copié !"));
+    navigator.clipboard.writeText(url).then(() => alert("Lien d'invitation copié avec succès !"));
   }
 
   function setPresence(present) {  
@@ -881,26 +967,28 @@
             if (present) {  
                 document.getElementById('confirm-step').classList.add('hidden');  
                 document.getElementById('drink-step').classList.remove('hidden');  
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 } });
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.7 }, colors: ['#4CAF50', '#8BC34A'] });
             } else {  
                 showSection('messageNegatif');  
             }  
         }
     });  
   }
- function ApercuePhoto(id) {
+
+  function ApercuePhoto(id) {
     activeCoupleId = id;
     const c = db.find(x => x.id === id);
     const container = document.getElementById('ApercPhoto');
     const titleEl = document.getElementById('Aperc');
     if (c) {
-      if(titleEl) titleEl.innerText = "Couple " + c.name;
+      if(titleEl) titleEl.innerText = c.name;
       if(container) {
-        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; height: 100%; margin-left: auto;">`;
+        container.innerHTML = `<img src="${c.photo || ''}" style="width:100%; border-radius:15px;">`;
         showSection('VoirPhoto');
       }
     }
   }
+
   function saveDrinks() {
     const idToUse = window.guestId || gId;
     if (!idToUse) return;
@@ -908,8 +996,8 @@
     const drinks = [
       document.getElementById('SansAlcool').value,
       document.getElementById('whisky').value,
-      document.getElementById('biere').value
-    ].filter(d => d !== "Aucun").join(', ');
+      document.getElementById('biere'].value
+    ].filter(d => d !== "Aucun").join(' + ');
 
     fetch(`/api/guests/${idToUse}/drinks`, {
       method: 'PATCH',
@@ -935,15 +1023,17 @@
     if (typeof QRCode !== "undefined") {
         new QRCode(container, {
             text: window.location.origin + "/?guestId=" + guest.id,
-            width: 150,
-            height: 150,
+            width: 130,
+            height: 130,
+            colorDark : "#2c3e50",
+            colorLight : "#ffffff",
             correctLevel: QRCode.CorrectLevel.H
         });
     }
 
     document.getElementById("nomInvite").innerText = guest.name || "Invité VIP";
-    document.getElementById("nomMaries").innerText = "Collation de Pascaline Munga";
-    document.getElementById("nomTable").innerText = "Table : " + (guest.guestTable || "Assignation à l'entrée");
+    document.getElementById("nomMaries").innerText = "Pique-Nique au Zoo";
+    document.getElementById("nomTable").innerText = "Zone : " + (guest.guestTable || "Libre");
     document.getElementById("blocInvitation").classList.remove("hidden");
   }
 
@@ -951,37 +1041,37 @@
     const element = document.getElementById("blocInvitation");
     if (!element) return;
 
-    html2canvas(element, { backgroundColor: "#0F0913", scale: 2 })
+    html2canvas(element, { backgroundColor: "#ffffff", scale: 2 })
     .then(canvas => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL("image/png");
-        link.download = 'Invitation_Collation_Pascaline_Munga.png';
+        link.download = 'Pass_PiqueNique_Zoo.png';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     });
   }
 
-  /* NOUVEAUX TEXTES PERSONNALISÉS POUR LA COLLATION */
+  /* TEXTES ANIMÉS */
   let index1 = 0;
-  const text1 = "Un parcours d'excellence célébré, un diplôme brillamment décroché.";
+  const text1 = "Déconnecte des écrans, connecte-toi à la nature. Un moment d'anthologie s'annonce ! 🍃";
   function ecrireTexte() {
     const element1 = document.getElementById("effet-ecriture");
     if (element1 && index1 < text1.length) {
       element1.innerHTML += text1.charAt(index1);
       index1++;
-      setTimeout(ecrireTexte, 40);
+      setTimeout(ecrireTexte, 35);
     }
   }
 
   let index2 = 0;
-  const textebas = "La familles MUNGA a l'immense honneur et la joie de vous convier à la célébration de la collation des grades de leur fille Pascaline Munga.";
+  const textebas = "L'équipe organisatrice t'invite officiellement à passer une journée mémorable entre potes au Zoo de Lubumbashi. Ramène ta bonne humeur !";
   function ecrireTexteAnnime() {
     const textanimation = document.getElementById("effet-texte");
     if (textanimation && index2 < textebas.length) {
       textanimation.innerHTML += textebas.charAt(index2);
       index2++;
-      setTimeout(ecrireTexteAnnime, 30);
+      setTimeout(ecrireTexteAnnime, 25);
     }
   }
 
@@ -991,18 +1081,8 @@
         const textEl = document.getElementById("effet-texte");
         if (textEl) textEl.style.opacity = "1";
         ecrireTexteAnnime();
-    }, 2500); 
+    }, 2200); 
   };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  });
-
-  document.querySelectorAll('.affiche').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
